@@ -24,10 +24,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
                 var pcs = p.PlayerCombatState!;
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
-                    var shiv = CombatState.CreateCard<Shiv>(p);
-                    if (IsUpgraded) CardCmd.Upgrade(shiv);
+                    var bite = CombatState.CreateCard<Snakebite>(p);
+                    if (IsUpgraded) CardCmd.Upgrade(bite);
 
-                    await MpHelpers.AddToHand(choiceContext, shiv);
+                    await MpHelpers.AddToHand(choiceContext, bite);
                 }
             }
         }

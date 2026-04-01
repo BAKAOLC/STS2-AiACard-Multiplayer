@@ -17,7 +17,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
-            if (cardPlay.Card is not Shiv) return;
+            if (cardPlay.Card is not Snakebite) return;
 
             ArgumentNullException.ThrowIfNull(CombatState);
             foreach (var p in CombatState.Players)

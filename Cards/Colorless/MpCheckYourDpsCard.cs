@@ -9,7 +9,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>查你DPS：本阶段目标若未打出攻击则受罚，你获得下回合资源。</summary>
     public sealed class MpCheckYourDpsCard()
-        : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
+        : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyPlayer)
     {
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
@@ -18,11 +18,6 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             var t = MpHelpers.RequireTargetPlayer(cardPlay);
             var tier = IsUpgraded ? 1m : 0m;
             await PowerCmd.Apply<MpCheckDpsPower>(t.Creature, tier, Owner.Creature, this);
-        }
-
-        protected override void OnUpgrade()
-        {
-            EnergyCost.UpgradeBy(-1);
         }
     }
 }

@@ -26,8 +26,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             {
                 if (p.Creature.IsDead) continue;
 
-                var shiv = CombatState.CreateCard<Shiv>(p);
-                await MpHelpers.AddToHand(choiceContext, shiv);
+                var bite = CombatState.CreateCard<Snakebite>(p);
+                await MpHelpers.AddToHand(choiceContext, bite);
             }
 
             await PowerCmd.Apply<MpSerpentBrothersPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature,

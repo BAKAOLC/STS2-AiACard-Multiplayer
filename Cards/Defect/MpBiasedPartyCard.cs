@@ -2,7 +2,9 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Cards;
 using STS2_AiACard_Multiplayer.Powers;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Defect
@@ -22,7 +24,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             var orbsPerEnergy = DynamicVars.CalculationBase.BaseValue;
             foreach (var p in CombatState.Players.Where(p => p != Owner && !p.Creature.IsDead))
+            {
+                var biased = CombatState.CreateCard<BiasedCognition>(p);
+                await MpHelpers.AddToHand(choiceContext, biased);
+
                 await PowerCmd.Apply<MpPerEnergySelfChannelPower>(p.Creature, orbsPerEnergy, Owner.Creature, this);
+            }
         }
 
         protected override void OnUpgrade()
