@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,17 +18,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             ArgumentNullException.ThrowIfNull(CombatState);
             var counts = CombatState.Players.ToDictionary(p => p, p => MpHelpers.SnapshotHand(p).Count);
             foreach (var p in CombatState.Players)
-            {
-                foreach (var c in MpHelpers.SnapshotHand(p))
-                {
-                    await CardCmd.Exhaust(choiceContext, c);
-                }
-            }
+            foreach (var c in MpHelpers.SnapshotHand(p))
+                await CardCmd.Exhaust(choiceContext, c);
 
-            foreach (var kv in counts)
-            {
-                await CardPileCmd.Draw(choiceContext, kv.Value, kv.Key);
-            }
+            foreach (var kv in counts) await CardPileCmd.Draw(choiceContext, kv.Value, kv.Key);
         }
 
         protected override void OnUpgrade()

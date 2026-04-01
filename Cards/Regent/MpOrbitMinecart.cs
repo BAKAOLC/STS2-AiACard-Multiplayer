@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -28,22 +25,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             ArgumentNullException.ThrowIfNull(CombatState);
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
             foreach (var p in CombatState.Players.Where(p => p != Owner && !p.Creature.IsDead))
-            {
                 await PlayerCmd.LoseEnergy(1, p);
-            }
 
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 var orbit = CombatState.CreateCard<Orbit>(p);
-                if (IsUpgraded)
-                {
-                    CardCmd.Upgrade(orbit);
-                }
+                if (IsUpgraded) CardCmd.Upgrade(orbit);
 
                 await MpHelpers.AddToHand(choiceContext, orbit);
             }

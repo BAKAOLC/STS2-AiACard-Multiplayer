@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Cards;
-using STS2_AiACard_Multiplayer;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -22,19 +19,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
             ArgumentNullException.ThrowIfNull(CombatState);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 var pcs = p.PlayerCombatState!;
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
                     var shiv = CombatState.CreateCard<Shiv>(p);
-                    if (IsUpgraded)
-                    {
-                        CardCmd.Upgrade(shiv);
-                    }
+                    if (IsUpgraded) CardCmd.Upgrade(shiv);
 
                     await MpHelpers.AddToHand(choiceContext, shiv);
                 }

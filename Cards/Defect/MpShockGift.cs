@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -29,17 +27,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             var orb = OrbModel.GetRandomOrb(target.RunState.Rng.CombatOrbGeneration).ToMutable();
             await OrbCmd.Channel(ctx, orb, target);
             var boot = CombatState.CreateCard<BootSequence>(target);
-            if (IsUpgraded)
-            {
-                CardCmd.Upgrade(boot);
-            }
+            if (IsUpgraded) CardCmd.Upgrade(boot);
 
             await MpHelpers.AddToHand(choiceContext, boot);
             var dazedCount = DynamicVars.Cards.IntValue;
             for (var i = 0; i < dazedCount; i++)
             {
                 var dazed = CombatState.CreateCard<Dazed>(target);
-                await CardPileCmd.Add(dazed, PileType.Deck, CardPilePosition.Random, null);
+                await CardPileCmd.Add(dazed, PileType.Deck, CardPilePosition.Random);
             }
         }
 

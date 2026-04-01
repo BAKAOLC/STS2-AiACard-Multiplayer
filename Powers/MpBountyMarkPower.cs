@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
@@ -20,24 +18,15 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
             bool wasRemovalPrevented, float deathAnimLength)
         {
-            if (creature != Owner || !creature.IsMonster)
-            {
-                return;
-            }
+            if (creature != Owner || !creature.IsMonster) return;
 
             var pool = Math.Min(creature.MaxHp, Amount);
-            if (pool <= 0)
-            {
-                return;
-            }
+            if (pool <= 0) return;
 
             var history = CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()
                 .LastOrDefault(e => e.Receiver == creature && e.Result.WasTargetKilled);
             var killer = history?.Dealer?.Player;
-            if (killer == null || killer.Creature.IsDead)
-            {
-                return;
-            }
+            if (killer == null || killer.Creature.IsDead) return;
 
             await PlayerCmd.GainGold(pool, killer);
         }

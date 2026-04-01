@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -23,10 +21,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 await ForgeCmd.Forge(DynamicVars.Forge.BaseValue, p, this);
                 await PowerCmd.Apply<MpBrothersBladePower>(p.Creature, 1, Owner.Creature, this);

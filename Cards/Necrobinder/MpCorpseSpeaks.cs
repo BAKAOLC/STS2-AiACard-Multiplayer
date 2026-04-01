@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -27,13 +25,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             var heal = DynamicVars.Heal.BaseValue;
             if (target.Creature.IsDead)
-            {
                 await CreatureCmd.SetCurrentHp(target.Creature, heal);
-            }
             else
-            {
                 await CreatureCmd.Heal(target.Creature, heal);
-            }
 
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);

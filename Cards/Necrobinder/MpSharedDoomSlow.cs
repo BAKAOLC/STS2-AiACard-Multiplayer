@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -27,16 +25,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             await PowerCmd.Apply<DoomPower>(Owner.Creature, DynamicVars.Doom.BaseValue, Owner.Creature, this);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 var wf = CombatState.CreateCard<WraithForm>(p);
-                if (IsUpgraded)
-                {
-                    CardCmd.Upgrade(wf);
-                }
+                if (IsUpgraded) CardCmd.Upgrade(wf);
 
                 MpHelpers.MakeEtherealEnergyOneThisTurn(wf);
                 await MpHelpers.AddToHand(choiceContext, wf);

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -21,10 +19,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             var slam = CombatState.CreateCard<BodySlam>(target);
-            if (IsUpgraded)
-            {
-                CardCmd.Upgrade(slam);
-            }
+            if (IsUpgraded) CardCmd.Upgrade(slam);
 
             await MpHelpers.AddToHand(choiceContext, slam);
         }

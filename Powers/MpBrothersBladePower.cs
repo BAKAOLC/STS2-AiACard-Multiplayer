@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -18,18 +16,13 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
-            if (cardPlay.Card is not SovereignBlade)
-            {
-                return;
-            }
+            if (cardPlay.Card is not SovereignBlade) return;
 
-            if (cardPlay.Card.Owner == Owner.Player)
-            {
-                return;
-            }
+            if (cardPlay.Card.Owner == Owner.Player) return;
 
             ArgumentNullException.ThrowIfNull(CombatState);
-            var ownerPlayer = Owner.Player ?? throw new InvalidOperationException("MpBrothersBladePower owner must be a player.");
+            var ownerPlayer = Owner.Player ??
+                              throw new InvalidOperationException("MpBrothersBladePower owner must be a player.");
             var blade = MpHelpers.CreateCard<SovereignBlade>(CombatState, ownerPlayer, false);
             await MpHelpers.AddToHand(context, blade);
         }

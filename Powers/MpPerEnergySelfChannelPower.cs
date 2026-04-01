@@ -1,8 +1,5 @@
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Orbs;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -21,16 +18,10 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterEnergySpent(CardModel card, int amount)
         {
-            if (Owner.Player == null || card.Owner != Owner.Player || amount <= 0)
-            {
-                return;
-            }
+            if (Owner.Player == null || card.Owner != Owner.Player || amount <= 0) return;
 
-            var orbsPerEnergy = (int)Amount;
-            if (orbsPerEnergy <= 0)
-            {
-                orbsPerEnergy = 1;
-            }
+            var orbsPerEnergy = Amount;
+            if (orbsPerEnergy <= 0) orbsPerEnergy = 1;
 
             var ctx = new ThrowingPlayerChoiceContext();
             var n = amount * orbsPerEnergy;
@@ -44,10 +35,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            if (side == CombatSide.Player)
-            {
-                await PowerCmd.Remove(this);
-            }
+            if (side == CombatSide.Player) await PowerCmd.Remove(this);
         }
     }
 }

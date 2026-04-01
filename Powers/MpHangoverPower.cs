@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Scaffolding.Content;
@@ -19,10 +18,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
-            if (player.Creature != Owner)
-            {
-                return;
-            }
+            if (player.Creature != Owner) return;
 
             await PlayerCmd.SetEnergy(0, player);
             await PowerCmd.Apply<NoDrawPower>(Owner, 1, Owner, null);

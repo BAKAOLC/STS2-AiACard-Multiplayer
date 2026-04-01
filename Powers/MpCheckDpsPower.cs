@@ -1,4 +1,3 @@
-using System;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,7 +37,8 @@ namespace STS2_AiACard_Multiplayer.Powers
                 return;
             }
 
-            var targetPlayer = Owner.Player ?? throw new InvalidOperationException("MpCheckDpsPower owner must be a player.");
+            var targetPlayer = Owner.Player ??
+                               throw new InvalidOperationException("MpCheckDpsPower owner must be a player.");
             await PlayerCmd.LoseEnergy(2, targetPlayer);
             await PowerCmd.Apply<MpDrawPenaltyOncePower>(Owner, 1, applierCreature, null);
 

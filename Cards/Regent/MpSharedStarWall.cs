@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -25,19 +23,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             var half = x / 2;
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
-                if (half > 0)
-                {
-                    await PlayerCmd.GainStars(half, p);
-                }
+                if (half > 0) await PlayerCmd.GainStars(half, p);
 
-                var wall = MpHelpers.CreateCard<ParticleWall>(CombatState, p, upgraded: true);
+                var wall = MpHelpers.CreateCard<ParticleWall>(CombatState, p, true);
                 await MpHelpers.AddToHand(choiceContext, wall);
-                var align = MpHelpers.CreateCard<Alignment>(CombatState, p, upgraded: true);
+                var align = MpHelpers.CreateCard<Alignment>(CombatState, p, true);
                 await MpHelpers.AddToHand(choiceContext, align);
             }
         }

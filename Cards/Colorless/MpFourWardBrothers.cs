@@ -1,16 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
-using STS2_AiACard_Multiplayer;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -29,17 +25,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             var perPlayer = new Dictionary<Player, int>();
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 var n = MpHelpers.SnapshotHand(p).Count;
                 perPlayer[p] = n;
-                foreach (var c in MpHelpers.SnapshotHand(p).ToList())
-                {
-                    await CardCmd.Exhaust(choiceContext, c);
-                }
+                foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Exhaust(choiceContext, c);
             }
 
             var pool = ModelDb.CardPool<ColorlessCardPool>();
@@ -55,10 +45,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 {
                     var pick = list.TakeRandom(1, rng).First();
                     var card = CombatState.CreateCard(pick, p);
-                    if (IsUpgraded)
-                    {
-                        CardCmd.Upgrade(card);
-                    }
+                    if (IsUpgraded) CardCmd.Upgrade(card);
 
                     await MpHelpers.AddToHand(choiceContext, card);
                 }

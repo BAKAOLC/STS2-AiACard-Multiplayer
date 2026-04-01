@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -25,17 +22,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             ArgumentNullException.ThrowIfNull(CombatState);
             var add = DynamicVars.Doom.BaseValue;
             foreach (var c in CombatState.Creatures.Where(x => x.IsAlive).ToList())
-            {
                 await PowerCmd.Apply<DoomPower>(c, add, Owner.Creature, this);
-            }
 
             var doomed = CombatState.Creatures
                 .Where(c => c.IsAlive && c.GetPower<DoomPower>() is { } d && d.Amount >= c.CurrentHp)
                 .ToList();
-            if (doomed.Count > 0)
-            {
-                await DoomPower.DoomKill(doomed);
-            }
+            if (doomed.Count > 0) await DoomPower.DoomKill(doomed);
         }
 
         protected override void OnUpgrade()

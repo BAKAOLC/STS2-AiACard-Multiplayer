@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -22,10 +19,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             foreach (var c in MpHelpers.SnapshotHand(target).ToList())
             {
                 var rep = CombatState.CreateCard<MinionStrike>(target);
-                if (IsUpgraded)
-                {
-                    CardCmd.Upgrade(rep);
-                }
+                if (IsUpgraded) CardCmd.Upgrade(rep);
 
                 await CardCmd.Transform(c, rep);
             }

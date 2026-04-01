@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -23,19 +20,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             foreach (var p in CombatState.Players.Where(x => x != Owner && !x.Creature.IsDead))
             {
                 var e = p.PlayerCombatState?.Energy ?? 0;
-                if (e <= 0)
-                {
-                    continue;
-                }
+                if (e <= 0) continue;
 
                 await PlayerCmd.LoseEnergy(e, p);
                 total += e;
             }
 
-            if (total > 0)
-            {
-                await PlayerCmd.GainEnergy(total, Owner);
-            }
+            if (total > 0) await PlayerCmd.GainEnergy(total, Owner);
 
             await PowerCmd.Apply<MpHangoverPower>(Owner.Creature, 1, Owner.Creature, this);
         }

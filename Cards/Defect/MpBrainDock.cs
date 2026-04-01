@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,10 +17,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 var ai = CombatState.CreateCard<CreativeAi>(p);
                 CardCmd.Upgrade(ai);

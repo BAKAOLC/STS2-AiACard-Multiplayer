@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,7 +9,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>血雾弥漫：你与目标各获得血肉戏法。</summary>
-    public sealed class MpBloodMistCard() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
+    public sealed class MpBloodMistCard()
+        : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<SleightOfFleshPower>(9m)];

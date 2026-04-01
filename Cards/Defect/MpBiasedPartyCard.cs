@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -25,9 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             var orbsPerEnergy = DynamicVars.CalculationBase.BaseValue;
             foreach (var p in CombatState.Players.Where(p => p != Owner && !p.Creature.IsDead))
-            {
                 await PowerCmd.Apply<MpPerEnergySelfChannelPower>(p.Creature, orbsPerEnergy, Owner.Creature, this);
-            }
         }
 
         protected override void OnUpgrade()

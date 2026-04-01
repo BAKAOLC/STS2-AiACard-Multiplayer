@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -25,17 +22,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             var n = 0;
             foreach (var p in CombatState.Players)
+            foreach (var c in p.PlayerCombatState!.AllCards.ToList())
             {
-                foreach (var c in p.PlayerCombatState!.AllCards.ToList())
-                {
-                    if (c.Type != CardType.Status)
-                    {
-                        continue;
-                    }
+                if (c.Type != CardType.Status) continue;
 
-                    await CardCmd.Exhaust(choiceContext, c);
-                    n++;
-                }
+                await CardCmd.Exhaust(choiceContext, c);
+                n++;
             }
 
             var rng = Owner.RunState.Rng.CombatCardGeneration;

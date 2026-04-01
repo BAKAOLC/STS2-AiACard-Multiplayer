@@ -8,7 +8,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>查你DPS：本阶段目标若未打出攻击则受罚，你获得下回合资源。</summary>
-    public sealed class MpCheckYourDpsCard() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
+    public sealed class MpCheckYourDpsCard()
+        : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
     {
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 

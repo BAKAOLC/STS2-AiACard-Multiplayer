@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -19,10 +18,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
         {
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             var hand = MpHelpers.SnapshotHand(target);
-            foreach (var c in hand)
-            {
-                await CardCmd.Exhaust(choiceContext, c);
-            }
+            foreach (var c in hand) await CardCmd.Exhaust(choiceContext, c);
 
             foreach (var _ in hand)
             {

@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
@@ -30,10 +28,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
+                if (p.Creature.IsDead) continue;
 
                 await AddForm<DemonForm>(choiceContext, p);
                 await AddForm<SerpentForm>(choiceContext, p);
@@ -48,10 +43,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             ArgumentNullException.ThrowIfNull(CombatState);
             var c = CombatState.CreateCard<T>(p);
             CardCmd.Upgrade(c);
-            if (!c.Keywords.Contains(CardKeyword.Ethereal))
-            {
-                CardCmd.ApplyKeyword(c, CardKeyword.Ethereal);
-            }
+            if (!c.Keywords.Contains(CardKeyword.Ethereal)) CardCmd.ApplyKeyword(c, CardKeyword.Ethereal);
 
             await MpHelpers.AddToHand(ctx, c);
         }

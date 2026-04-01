@@ -13,16 +13,16 @@ namespace STS2_AiACard_Multiplayer
         public const string Name = "AiACard-Multiplayer";
         public const string Version = "0.1.0";
 
-        public static class Paths
-        {
-            public const string Root = "res://STS2_AiACard_Multiplayer";
-            public const string PlaceholderPortrait = "res://icon.svg";
-        }
-
         public static readonly CardAssetProfile PlaceholderCardArt =
             new(Paths.PlaceholderPortrait, Paths.PlaceholderPortrait);
 
         public static readonly PowerAssetProfile PlaceholderPowerIcon =
             new(Paths.PlaceholderPortrait, Paths.PlaceholderPortrait);
+
+        public static class Paths
+        {
+            public const string Root = "res://STS2_AiACard_Multiplayer";
+            public const string PlaceholderPortrait = "res://icon.svg";
+        }
     }
 }

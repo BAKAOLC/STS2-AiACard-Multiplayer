@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -10,7 +6,6 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
-using STS2_AiACard_Multiplayer;
 
 namespace STS2_AiACard_Multiplayer.Utils
 {
@@ -25,10 +20,7 @@ namespace STS2_AiACard_Multiplayer.Utils
         public static CardModel CreateCard<T>(CombatState combatState, Player owner, bool upgraded) where T : CardModel
         {
             var card = combatState.CreateCard<T>(owner);
-            if (upgraded)
-            {
-                CardCmd.Upgrade(card);
-            }
+            if (upgraded) CardCmd.Upgrade(card);
 
             return card;
         }
@@ -52,16 +44,13 @@ namespace STS2_AiACard_Multiplayer.Utils
         public static async Task DrawUntilHandFull(PlayerChoiceContext ctx, Player player)
         {
             var pcs = player.PlayerCombatState!;
-            while (pcs.Hand.Cards.Count < Const.CombatHandMax)
-            {
-                await CardPileCmd.Draw(ctx, 1, player);
-            }
+            while (pcs.Hand.Cards.Count < Const.CombatHandMax) await CardPileCmd.Draw(ctx, 1, player);
         }
 
         public static void MakeEtherealEnergyOneThisTurn(CardModel card)
         {
             CardCmd.ApplyKeyword(card, CardKeyword.Ethereal);
-            card.EnergyCost.SetThisTurnOrUntilPlayed(1, reduceOnly: true);
+            card.EnergyCost.SetThisTurnOrUntilPlayed(1, true);
         }
     }
 }
