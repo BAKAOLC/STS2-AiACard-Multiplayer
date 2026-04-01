@@ -1,3 +1,5 @@
+using STS2RitsuLib.Scaffolding.Content;
+
 namespace STS2_AiACard_Multiplayer
 {
     public static class Const
@@ -14,7 +16,13 @@ namespace STS2_AiACard_Multiplayer
         public static class Paths
         {
             public const string Root = "res://STS2_AiACard_Multiplayer";
-            public const string PlaceholderPortrait = Root + "/cards/placeholder.png";
+            public const string PlaceholderPortrait = "res://icon.svg";
         }
+
+        public static readonly CardAssetProfile PlaceholderCardArt =
+            new(Paths.PlaceholderPortrait, Paths.PlaceholderPortrait);
+
+        public static readonly PowerAssetProfile PlaceholderPowerIcon =
+            new(Paths.PlaceholderPortrait, Paths.PlaceholderPortrait);
     }
 }
