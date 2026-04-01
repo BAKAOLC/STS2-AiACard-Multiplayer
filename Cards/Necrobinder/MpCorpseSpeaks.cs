@@ -31,7 +31,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);
-            var curse = CombatState.CreateCard<MpCorpseCurseToken>(target);
+            var curse = MpHelpers.CreateCard<MpCorpseCurseToken>(CombatState, target, false);
             await MpHelpers.AddToHand(choiceContext, curse);
         }
 

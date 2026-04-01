@@ -1,6 +1,6 @@
 {
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.title": "兄弟借剑",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.description": "每当另一名玩家打出[gold]君王之剑[/gold]时，将一张[gold]君王之剑[/gold]加入你的手牌。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.description": "每当另一名玩家打出[gold]君王之剑[/gold]时，从弃牌堆、抽牌堆或消耗堆中拿回你的[gold]君王之剑[/gold]置入[gold]手牌[/gold]（若这些区域没有则无事发生）。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.title": "群蛇兄弟",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.description": "任意玩家打出[gold]蛇咬[/gold]时，所有玩家获得[gold]格挡[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.smartDescription": "任意玩家打出[gold]蛇咬[/gold]时，所有玩家获得 [blue]{Amount}[/blue] 点[gold]格挡[/gold]。",

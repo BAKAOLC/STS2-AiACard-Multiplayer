@@ -18,9 +18,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             foreach (var c in MpHelpers.SnapshotHand(target).ToList())
             {
-                var rep = CombatState.CreateCard<MinionStrike>(target);
-                if (IsUpgraded) CardCmd.Upgrade(rep);
-
+                var rep = MpHelpers.CreateCard<MinionStrike>(CombatState, target, IsUpgraded);
                 await CardCmd.Transform(c, rep);
             }
         }

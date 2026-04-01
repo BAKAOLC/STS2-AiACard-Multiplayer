@@ -28,9 +28,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
 
                 if (half > 0) await PlayerCmd.GainStars(half, p);
 
-                var wall = MpHelpers.CreateCard<ParticleWall>(CombatState, p, true);
+                var wall = MpHelpers.CreateCard<ParticleWall>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, wall);
-                var align = MpHelpers.CreateCard<Alignment>(CombatState, p, true);
+                var align = MpHelpers.CreateCard<Alignment>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, align);
             }
         }

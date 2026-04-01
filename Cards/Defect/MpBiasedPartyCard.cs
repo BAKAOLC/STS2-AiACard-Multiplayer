@@ -25,7 +25,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             var orbsPerEnergy = DynamicVars["MpPerEnergySelfChannelPower"].BaseValue;
             foreach (var p in CombatState.Players.Where(p => p != Owner && !p.Creature.IsDead))
             {
-                var biased = CombatState.CreateCard<BiasedCognition>(p);
+                var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, false);
                 await MpHelpers.AddToHand(choiceContext, biased);
 
                 await PowerCmd.Apply<MpPerEnergySelfChannelPower>(p.Creature, orbsPerEnergy, Owner.Creature, this);

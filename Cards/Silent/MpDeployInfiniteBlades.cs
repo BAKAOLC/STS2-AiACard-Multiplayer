@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -7,9 +6,9 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
-    /// <summary>开把刀出来：为每名玩家打出无尽刀刃，并将幻影之刃置入手牌。</summary>
+    /// <summary>开把刀出来：每名玩家将无尽刀刃与幻影之刃置入手牌（升级后为升级版本）。</summary>
     public sealed class MpDeployInfiniteBlades()
-        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -22,13 +21,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
             {
                 if (p.Creature.IsDead) continue;
 
-                var ib = CombatState.CreateCard<InfiniteBlades>(p);
-                if (IsUpgraded) CardCmd.Upgrade(ib);
+                var ib = MpHelpers.CreateCard<InfiniteBlades>(CombatState, p, IsUpgraded);
+                await MpHelpers.AddToHand(choiceContext, ib);
 
-                await CardCmd.AutoPlay(choiceContext, ib, null);
-                var phantom = CombatState.CreateCard<PhantomBlades>(p);
-                if (IsUpgraded) CardCmd.Upgrade(phantom);
-
+                var phantom = MpHelpers.CreateCard<PhantomBlades>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, phantom);
             }
         }

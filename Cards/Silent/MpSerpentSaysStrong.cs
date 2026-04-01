@@ -1,4 +1,3 @@
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -9,7 +8,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>我说蛇咬很强：用蛇咬填满所有玩家手牌。</summary>
     public sealed class MpSerpentSaysStrong()
-        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -25,9 +24,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
                 var pcs = p.PlayerCombatState!;
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
-                    var bite = CombatState.CreateCard<Snakebite>(p);
-                    if (IsUpgraded) CardCmd.Upgrade(bite);
-
+                    var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, IsUpgraded);
                     await MpHelpers.AddToHand(choiceContext, bite);
                 }
             }

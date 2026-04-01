@@ -43,7 +43,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
                 if (template == null)
                     break;
 
-                var created = CombatState.CreateCard(template, Owner);
+                var created = MpHelpers.CreateCard(CombatState, Owner, template, false);
                 await MpHelpers.AddToHand(choiceContext, created);
             }
         }

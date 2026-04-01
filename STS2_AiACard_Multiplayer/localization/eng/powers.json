@@ -1,6 +1,6 @@
 {
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.title": "Brother's Blade",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.description": "Whenever another player plays a [gold]Sovereign Blade[/gold], add a [gold]Sovereign Blade[/gold] to your hand.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.description": "Whenever another player plays a [gold]Sovereign Blade[/gold], return your [gold]Sovereign Blade[/gold] from discard, draw, or exhaust to your [gold]Hand[/gold] (if none, do nothing).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.title": "Serpent Brotherhood",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.description": "Whenever any player plays a [gold]Snakebite[/gold], all players gain [gold]Block[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.smartDescription": "Whenever any player plays a [gold]Snakebite[/gold], all players gain [blue]{Amount}[/blue] [gold]Block[/gold].",

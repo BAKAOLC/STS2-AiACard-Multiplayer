@@ -26,14 +26,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             var ctx = new ThrowingPlayerChoiceContext();
             var orb = OrbModel.GetRandomOrb(target.RunState.Rng.CombatOrbGeneration).ToMutable();
             await OrbCmd.Channel(ctx, orb, target);
-            var boot = CombatState.CreateCard<BootSequence>(target);
-            if (IsUpgraded) CardCmd.Upgrade(boot);
-
+            var boot = MpHelpers.CreateCard<BootSequence>(CombatState, target, IsUpgraded);
             await MpHelpers.AddToHand(choiceContext, boot);
             var dazedCount = DynamicVars.Cards.IntValue;
             for (var i = 0; i < dazedCount; i++)
             {
-                var dazed = CombatState.CreateCard<Dazed>(target);
+                var dazed = MpHelpers.CreateCard<Dazed>(CombatState, target, false);
                 await CardPileCmd.Add(dazed, PileType.Deck, CardPilePosition.Random);
             }
         }

@@ -9,7 +9,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
-    /// <summary>一人叠灾厄太慢：获得灾厄；各玩家手牌加入带虚无的死神形态且本回合耗能降为 1。</summary>
+    /// <summary>一人叠灾厄太慢：获得灾厄；各玩家手牌加入带虚无的死神形态，本回合耗能降为 1。</summary>
     public sealed class MpSharedDoomSlow() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -27,9 +27,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             {
                 if (p.Creature.IsDead) continue;
 
-                var wf = CombatState.CreateCard<WraithForm>(p);
-                if (IsUpgraded) CardCmd.Upgrade(wf);
-
+                var wf = MpHelpers.CreateCard<ReaperForm>(CombatState, p, IsUpgraded);
                 MpHelpers.MakeEtherealEnergyOneThisTurn(wf);
                 await MpHelpers.AddToHand(choiceContext, wf);
             }

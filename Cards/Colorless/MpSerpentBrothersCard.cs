@@ -15,7 +15,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         : MpOnlyModCardTemplate(0, CardType.Power, CardRarity.Common, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new BlockVar(4m, ValueProp.Unpowered)];
+            [new BlockVar(3m, ValueProp.Unpowered)];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
@@ -27,7 +27,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             {
                 if (p.Creature.IsDead) continue;
 
-                var bite = CombatState.CreateCard<Snakebite>(p);
+                var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, false);
                 await MpHelpers.AddToHand(choiceContext, bite);
             }
 

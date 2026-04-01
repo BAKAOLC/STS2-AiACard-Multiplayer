@@ -23,9 +23,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
-            var acro = CombatState.CreateCard<Acrobatics>(target);
-            if (IsUpgraded) CardCmd.Upgrade(acro);
-
+            var acro = MpHelpers.CreateCard<Acrobatics>(CombatState, target, IsUpgraded);
             await MpHelpers.AddToHand(choiceContext, acro);
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
         }

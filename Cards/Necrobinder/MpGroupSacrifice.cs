@@ -33,7 +33,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Innate);
+            AddKeyword(CardKeyword.Retain);
         }
     }
 }

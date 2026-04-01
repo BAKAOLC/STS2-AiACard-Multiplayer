@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>四区兄弟：消耗手牌，生成等量升级无色牌，再以感染补满手牌。</summary>
+    /// <summary>四区兄弟：消耗手牌，生成等量无色牌（升级后为升级版），再以感染补满手牌。</summary>
     public sealed class MpFourWardBrothers()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
@@ -45,16 +45,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 for (var i = 0; i < kv.Value && list.Count > 0; i++)
                 {
                     var pick = list.TakeRandom(1, rng).First();
-                    var card = CombatState.CreateCard(pick, p);
-                    if (IsUpgraded) CardCmd.Upgrade(card);
-
+                    var card = MpHelpers.CreateCard(CombatState, p, pick, IsUpgraded);
                     await MpHelpers.AddToHand(choiceContext, card);
                 }
 
                 var pcs = p.PlayerCombatState!;
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
-                    var inf = CombatState.CreateCard<Infection>(p);
+                    var inf = MpHelpers.CreateCard<Infection>(CombatState, p, false);
                     await MpHelpers.AddToHand(choiceContext, inf);
                 }
             }

@@ -17,9 +17,20 @@ namespace STS2_AiACard_Multiplayer.Utils
             return c.Player ?? throw new InvalidOperationException("Target is not a player.");
         }
 
-        public static CardModel CreateCard<T>(CombatState combatState, Player owner, bool upgraded) where T : CardModel
+        /// <summary>按类型生成卡牌；<paramref name="upgraded" /> 为 true 时升级为 + 版。</summary>
+        public static T CreateCard<T>(CombatState combatState, Player owner, bool upgraded) where T : CardModel
         {
             var card = combatState.CreateCard<T>(owner);
+            if (upgraded) CardCmd.Upgrade(card);
+
+            return card;
+        }
+
+        /// <summary>按模板（如卡池随机到的 canonical）生成卡牌；<paramref name="upgraded" /> 为 true 时升级。</summary>
+        public static CardModel CreateCard(CombatState combatState, Player owner, CardModel canonical, bool upgraded)
+        {
+            ArgumentNullException.ThrowIfNull(canonical);
+            var card = combatState.CreateCard(canonical, owner);
             if (upgraded) CardCmd.Upgrade(card);
 
             return card;
