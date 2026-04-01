@@ -9,10 +9,14 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>赌怪：敌人获得力量与悬赏标记。</summary>
-    public sealed class MpGamblingCard() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpGamblingCard() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new GoldVar(50)];
+        [
+            new PowerVar<StrengthPower>(2),
+            new PowerVar<RitualPower>(2),
+            new PowerVar<MpBountyMarkPower>(50),
+        ];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -22,16 +26,20 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            var str = DynamicVars["StrengthPower"].BaseValue;
+            var rit = DynamicVars["RitualPower"].BaseValue;
+            var bounty = DynamicVars["MpBountyMarkPower"].BaseValue;
             foreach (var e in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<StrengthPower>(e, 2, Owner.Creature, this);
-                await PowerCmd.Apply<MpBountyMarkPower>(e, DynamicVars.Gold.BaseValue, Owner.Creature, this);
+                await PowerCmd.Apply<StrengthPower>(e, str, Owner.Creature, this);
+                await PowerCmd.Apply<RitualPower>(e, rit, Owner.Creature, this);
+                await PowerCmd.Apply<MpBountyMarkPower>(e, bounty, Owner.Creature, this);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Gold.UpgradeValueBy(25m);
+            DynamicVars["MpBountyMarkPower"].UpgradeValueBy(25m);
         }
     }
 }

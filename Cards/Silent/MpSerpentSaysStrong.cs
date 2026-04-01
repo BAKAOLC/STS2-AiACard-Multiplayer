@@ -8,7 +8,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>我说蛇咬很强：用蛇咬填满所有玩家手牌。</summary>
-    public sealed class MpSerpentSaysStrong() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public sealed class MpSerpentSaysStrong()
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>混沌形态：获得能量与保留，各玩家手牌加入多种带虚无的升级形态牌。</summary>
-    public sealed class MpChaosEchoParty() : ModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpChaosEchoParty() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new EnergyVar(3)];

@@ -9,7 +9,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
     /// <summary>放干他人血：目标失去生命、获得能量，你回复等量生命。</summary>
-    public sealed class MpDrainOthersDry() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AnyPlayer)
+    public sealed class MpDrainOthersDry()
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [

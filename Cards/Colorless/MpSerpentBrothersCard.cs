@@ -11,7 +11,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>群蛇兄弟：手牌加入蛇咬，且打出蛇咬时全体格挡。</summary>
-    public sealed class MpSerpentBrothersCard() : ModCardTemplate(0, CardType.Power, CardRarity.Common, TargetType.Self)
+    public sealed class MpSerpentBrothersCard()
+        : MpOnlyModCardTemplate(0, CardType.Power, CardRarity.Common, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new BlockVar(4m, ValueProp.Unpowered)];

@@ -6,7 +6,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>蠕动：按回合数为所有玩家提供能量与抽牌。</summary>
-    public sealed class MpWriggle() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public sealed class MpWriggle() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

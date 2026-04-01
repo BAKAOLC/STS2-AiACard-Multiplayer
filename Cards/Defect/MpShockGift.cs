@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
     /// <summary>有没有电摸一下：随机充能球、内核加速与眩晕。</summary>
-    public sealed class MpShockGift() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyPlayer)
+    public sealed class MpShockGift() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new CardsVar(2)];

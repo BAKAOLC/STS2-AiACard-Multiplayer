@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>尸体说话：复活或治疗队友，为其供能与抽牌，并在其手牌置入回合末爆发伤害。</summary>
-    public sealed class MpCorpseSpeaks() : ModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.AnyPlayer)
+    public sealed class MpCorpseSpeaks() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [

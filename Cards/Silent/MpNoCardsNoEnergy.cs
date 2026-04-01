@@ -10,7 +10,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>你没牌我没费：将杂技放入目标手牌，你获得能量。</summary>
     public sealed class MpNoCardsNoEnergy()
-        : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new EnergyVar(2)];

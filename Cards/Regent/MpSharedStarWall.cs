@@ -8,7 +8,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
     /// <summary>辉星同享：按 X 分配辉星，各玩家获得粒子障壁与星位序列。</summary>
-    public sealed class MpSharedStarWall() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public sealed class MpSharedStarWall()
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override bool HasStarCostX => true;
 

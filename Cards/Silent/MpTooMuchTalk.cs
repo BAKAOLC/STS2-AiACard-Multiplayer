@@ -10,7 +10,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>你话太多了：目标获得格挡且本回合无法抽牌；你将手牌抽至上限。</summary>
-    public sealed class MpTooMuchTalk() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyPlayer)
+    public sealed class MpTooMuchTalk()
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new BlockVar(10m, ValueProp.Move)];

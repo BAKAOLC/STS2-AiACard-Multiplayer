@@ -1,0 +1,1 @@
+global using STS2_AiACard_Multiplayer;

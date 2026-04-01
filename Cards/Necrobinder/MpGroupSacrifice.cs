@@ -8,7 +8,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>群体献祭：全体灾厄、能量与弃抽，本回合攻击伤害翻倍。</summary>
-    public sealed class MpGroupSacrifice() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpGroupSacrifice()
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

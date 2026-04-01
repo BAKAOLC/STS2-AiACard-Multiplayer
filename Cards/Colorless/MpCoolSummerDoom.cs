@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>死是凉爽的夏夜：叠加灾厄并消灭灾厄层数不低于当前生命的单位。</summary>
-    public sealed class MpCoolSummerDoom() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpCoolSummerDoom() : MpOnlyModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<DoomPower>(20m)];

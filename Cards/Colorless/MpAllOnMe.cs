@@ -1,14 +1,18 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using STS2_AiACard_Multiplayer.Powers;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>全靠我了：吸取队友能量，下回合力竭。</summary>
-    public sealed class MpAllOnMe() : ModCardTemplate(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpAllOnMe() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new PowerVar<MpHangoverPower>(1)];
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
@@ -28,7 +32,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
             if (total > 0) await PlayerCmd.GainEnergy(total, Owner);
 
-            await PowerCmd.Apply<MpHangoverPower>(Owner.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<MpHangoverPower>(Owner.Creature, DynamicVars["MpHangoverPower"].BaseValue,
+                Owner.Creature,
+                this);
         }
 
         protected override void OnUpgrade()

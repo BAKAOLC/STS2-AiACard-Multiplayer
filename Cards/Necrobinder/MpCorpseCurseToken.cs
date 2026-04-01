@@ -8,7 +8,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>尸语诅咒：回合结束时若在手中则受到 99 点伤害，随后将此牌消耗。</summary>
     public sealed class MpCorpseCurseToken()
-        : ModCardTemplate(-1, CardType.Status, CardRarity.Status, TargetType.None, false)
+        : MpOnlyModCardTemplate(-1, CardType.Status, CardRarity.Status, TargetType.None, false)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable];
 

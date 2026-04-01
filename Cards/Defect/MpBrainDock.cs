@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
     /// <summary>外接大脑：每名玩家获得创造性AI。</summary>
-    public sealed class MpBrainDock() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpBrainDock() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 

@@ -13,7 +13,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>四区兄弟：消耗手牌，生成等量升级无色牌，再以感染补满手牌。</summary>
-    public sealed class MpFourWardBrothers() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpFourWardBrothers()
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

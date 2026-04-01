@@ -9,7 +9,8 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
     /// <summary>星际矿车：你获得能量，其他玩家失去能量，环绕轨道加入各人手牌。</summary>
-    public sealed class MpOrbitMinecart() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpOrbitMinecart()
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [

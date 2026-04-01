@@ -9,7 +9,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>开把刀出来：为每名玩家打出无尽刀刃，并将幻影之刃置入手牌。</summary>
     public sealed class MpDeployInfiniteBlades()
-        : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

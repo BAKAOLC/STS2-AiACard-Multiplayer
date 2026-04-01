@@ -10,10 +10,10 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
     /// <summary>你们都有认知偏差：其他玩家获得按耗能自充能球的效果。</summary>
-    public sealed class MpBiasedPartyCard() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpBiasedPartyCard() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new CalculationBaseVar(1m)];
+            [new PowerVar<MpPerEnergySelfChannelPower>(1)];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            var orbsPerEnergy = DynamicVars.CalculationBase.BaseValue;
+            var orbsPerEnergy = DynamicVars["MpPerEnergySelfChannelPower"].BaseValue;
             foreach (var p in CombatState.Players.Where(p => p != Owner && !p.Creature.IsDead))
             {
                 var biased = CombatState.CreateCard<BiasedCognition>(p);
@@ -34,7 +34,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
 
         protected override void OnUpgrade()
         {
-            DynamicVars.CalculationBase.UpgradeValueBy(1m);
+            DynamicVars["MpPerEnergySelfChannelPower"].UpgradeValueBy(1m);
         }
     }
 }

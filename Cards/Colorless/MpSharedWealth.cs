@@ -8,10 +8,10 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>有福同享：战斗结束时每名玩家获得金币。</summary>
-    public sealed class MpSharedWealth() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpSharedWealth() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new GoldVar(15)];
+            [new PowerVar<MpSharedFortunePower>(15)];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -20,18 +20,18 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
+            var gold = DynamicVars["MpSharedFortunePower"].BaseValue;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead) continue;
 
-                await PowerCmd.Apply<MpSharedFortunePower>(p.Creature, DynamicVars.Gold.BaseValue, Owner.Creature,
-                    this);
+                await PowerCmd.Apply<MpSharedFortunePower>(p.Creature, gold, Owner.Creature, this);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Gold.UpgradeValueBy(2m);
+            DynamicVars["MpSharedFortunePower"].UpgradeValueBy(2m);
         }
     }
 }

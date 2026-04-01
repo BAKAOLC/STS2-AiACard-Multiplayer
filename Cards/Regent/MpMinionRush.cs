@@ -8,7 +8,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
     /// <summary>仆从出击：目标玩家手牌全部变为仆从打击。</summary>
-    public sealed class MpMinionRush() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyPlayer)
+    public sealed class MpMinionRush() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 

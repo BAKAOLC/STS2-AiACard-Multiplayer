@@ -7,7 +7,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
     /// <summary>大伙都区了：消耗所有玩家手牌，再各抽等量张牌。</summary>
-    public sealed class MpEveryoneRedraw() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpEveryoneRedraw() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

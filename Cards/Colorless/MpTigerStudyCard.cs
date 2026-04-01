@@ -8,10 +8,14 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>俺要学猛虎下山：全体受到的强化攻击伤害按层数倍乘（同拦截：敌方回合结束时清除）；施法者获得猛虎流转。</summary>
-    public sealed class MpTigerStudyCard() : ModCardTemplate(0, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpTigerStudyCard()
+        : MpOnlyModCardTemplate(0, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new CardsVar(1)];
+        [
+            new PowerVar<MpDoubleDamageTakenPower>(1),
+            new PowerVar<MpTigerStudyFlowPower>(1),
+        ];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
@@ -19,20 +23,21 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            var dmgMul = DynamicVars["MpDoubleDamageTakenPower"].BaseValue;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead) continue;
 
-                await PowerCmd.Apply<MpDoubleDamageTakenPower>(p.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<MpDoubleDamageTakenPower>(p.Creature, dmgMul, Owner.Creature, this);
             }
 
-            await PowerCmd.Apply<MpTigerStudyFlowPower>(Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature,
-                this);
+            await PowerCmd.Apply<MpTigerStudyFlowPower>(Owner.Creature,
+                DynamicVars["MpTigerStudyFlowPower"].BaseValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(1m);
+            DynamicVars["MpTigerStudyFlowPower"].UpgradeValueBy(1m);
         }
     }
 }
