@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -7,8 +8,8 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
-    /// <summary>传火：耗尽目标玩家手牌；你每耗尽一张获得 1 力量并抽 1 张牌。</summary>
-    public sealed class MpPassTheFlame() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyPlayer)
+    /// <summary>传火：消耗目标手牌；每消耗一张，你获得 1 力量并抽 1 张牌。</summary>
+    public sealed class MpPassTheFlame() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyPlayer)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

@@ -9,7 +9,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>是兄弟就来砍它：其他玩家打出君王之剑时，将君王之剑置入你手牌。</summary>
+    /// <summary>是兄弟就来砍它：其他玩家打出君王之剑时，能力持有者将一张君王之剑置入手牌。</summary>
     public sealed class MpBrothersBladePower : ModPowerTemplate
     {
         public override PowerType Type => PowerType.Buff;
@@ -18,9 +18,15 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
-            if (cardPlay.Card is not SovereignBlade) return;
+            if (cardPlay.Card is not SovereignBlade)
+            {
+                return;
+            }
 
-            if (cardPlay.Card.Owner == Owner.Player) return;
+            if (cardPlay.Card.Owner == Owner.Player)
+            {
+                return;
+            }
 
             ArgumentNullException.ThrowIfNull(CombatState);
             var ownerPlayer = Owner.Player ?? throw new InvalidOperationException("MpBrothersBladePower owner must be a player.");

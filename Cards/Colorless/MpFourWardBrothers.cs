@@ -1,29 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.Cards;
+using STS2_AiACard_Multiplayer;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>四区兄弟：对所有可攻击敌人施加中毒。</summary>
-    public sealed class MpFourWardBrothers() : ModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    /// <summary>四区兄弟：消耗手牌，生成等量升级无色牌，再以感染补满手牌。</summary>
+    public sealed class MpFourWardBrothers() : ModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            var stacks = IsUpgraded ? 6 : 4;
-            foreach (var e in CombatState.HittableEnemies)
+            var perPlayer = new Dictionary<Player, int>();
+            foreach (var p in CombatState.Players)
             {
-                await PowerCmd.Apply<PoisonPower>(e, stacks, Owner.Creature, this);
-            }
-        }
+                if (p.Creature.IsDead)
+                {
+                    continue;
+                }
 
-        protected override void OnUpgrade()
-        {
-            EnergyCost.UpgradeBy(-1);
+                var n = MpHelpers.SnapshotHand(p).Count;
+                perPlayer[p] = n;
+                foreach (var c in MpHelpers.SnapshotHand(p).ToList())
+                {
+                    await CardCmd.Exhaust(choiceContext, c);
+                }
+            }
+
+            var pool = ModelDb.CardPool<ColorlessCardPool>();
+            var canon = pool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
+                .Where(c => c is not Infection && c.Type != CardType.Status && c.Rarity != CardRarity.Basic);
+            canon = CardFactory.FilterForCombat(canon);
+            var list = canon.ToList();
+            var rng = Owner.RunState.Rng.CombatCardGeneration;
+            foreach (var kv in perPlayer)
+            {
+                var p = kv.Key;
+                for (var i = 0; i < kv.Value && list.Count > 0; i++)
+                {
+                    var pick = list.TakeRandom(1, rng).First();
+                    var card = CombatState.CreateCard(pick, p);
+                    if (IsUpgraded)
+                    {
+                        CardCmd.Upgrade(card);
+                    }
+
+                    await MpHelpers.AddToHand(choiceContext, card);
+                }
+
+                var pcs = p.PlayerCombatState!;
+                while (pcs.Hand.Cards.Count < Const.CombatHandMax)
+                {
+                    var inf = CombatState.CreateCard<Infection>(p);
+                    await MpHelpers.AddToHand(choiceContext, inf);
+                }
+            }
         }
     }
 }

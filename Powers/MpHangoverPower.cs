@@ -26,6 +26,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
             await PlayerCmd.SetEnergy(0, player);
             await PowerCmd.Apply<NoDrawPower>(Owner, 1, Owner, null);
+            await PowerCmd.Apply<MpSinglePlayTurnPower>(Owner, 1, Owner, null);
             await PowerCmd.Remove(this);
         }
     }

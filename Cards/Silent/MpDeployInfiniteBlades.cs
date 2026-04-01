@@ -1,14 +1,19 @@
+using System;
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Cards;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
-    /// <summary>开把刀出来：每名玩家自动打出一张无限刀刃（按各自身份）。</summary>
-    public sealed class MpDeployInfiniteBlades() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    /// <summary>开把刀出来：为每名玩家打出无尽刀刃，并将幻影之刃置入手牌。</summary>
+    public sealed class MpDeployInfiniteBlades() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -28,12 +33,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
                 }
 
                 await CardCmd.AutoPlay(choiceContext, ib, null);
-            }
-        }
+                var phantom = CombatState.CreateCard<PhantomBlades>(p);
+                if (IsUpgraded)
+                {
+                    CardCmd.Upgrade(phantom);
+                }
 
-        protected override void OnUpgrade()
-        {
-            EnergyCost.UpgradeBy(-1);
+                await MpHelpers.AddToHand(choiceContext, phantom);
+            }
         }
     }
 }

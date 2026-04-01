@@ -1,26 +1,47 @@
+using System;
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.ValueProps;
 using STS2_AiACard_Multiplayer.Powers;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>群蛇兄弟：任意玩家打出蛇咬时，全体获得格挡。</summary>
-    public sealed class MpSerpentBrothersCard() : ModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    /// <summary>群蛇兄弟：手牌加入蛇咬，且打出蛇咬时全体格挡。</summary>
+    public sealed class MpSerpentBrothersCard() : ModCardTemplate(0, CardType.Power, CardRarity.Common, TargetType.Self)
     {
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new BlockVar(4m, ValueProp.Unpowered)];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var block = IsUpgraded ? 7m : 5m;
-            await PowerCmd.Apply<MpSerpentBrothersPower>(Owner.Creature, block, Owner.Creature, this);
+            foreach (var p in CombatState.Players)
+            {
+                if (p.Creature.IsDead)
+                {
+                    continue;
+                }
+
+                var shiv = CombatState.CreateCard<Shiv>(p);
+                await MpHelpers.AddToHand(choiceContext, shiv);
+            }
+
+            await PowerCmd.Apply<MpSerpentBrothersPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature,
+                this);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars.Block.UpgradeValueBy(2m);
         }
     }
 }

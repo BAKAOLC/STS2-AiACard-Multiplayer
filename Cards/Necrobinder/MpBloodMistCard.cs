@@ -1,34 +1,35 @@
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using STS2_AiACard_Multiplayer.Powers;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Powers;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
-    /// <summary>血雾弥漫：所有玩家数回合内受到敌人攻击的伤害翻倍。</summary>
-    public sealed class MpBloodMistCard() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    /// <summary>血雾弥漫：你与目标各获得血肉戏法。</summary>
+    public sealed class MpBloodMistCard() : ModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyPlayer)
     {
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new PowerVar<SleightOfFleshPower>(9m)];
+
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(CombatState);
-            var turns = IsUpgraded ? 3m : 2m;
-            foreach (var p in CombatState.Players)
-            {
-                if (p.Creature.IsDead)
-                {
-                    continue;
-                }
-
-                await PowerCmd.Apply<MpDoubleDamageTakenPower>(p.Creature, turns, Owner.Creature, this);
-            }
+            var target = MpHelpers.RequireTargetPlayer(cardPlay);
+            var amt = DynamicVars["SleightOfFleshPower"].BaseValue;
+            await PowerCmd.Apply<SleightOfFleshPower>(Owner.Creature, amt, Owner.Creature, this);
+            await PowerCmd.Apply<SleightOfFleshPower>(target.Creature, amt, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars["SleightOfFleshPower"].UpgradeValueBy(4m);
         }
     }
 }

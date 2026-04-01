@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -7,32 +10,24 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
-    /// <summary>仆从出击：所有玩家手牌中的仆从打击变为已升级版本。</summary>
-    public sealed class MpMinionRush() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    /// <summary>仆从出击：目标玩家手牌全部变为仆从打击。</summary>
+    public sealed class MpMinionRush() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyPlayer)
     {
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            foreach (var p in CombatState.Players)
+            var target = MpHelpers.RequireTargetPlayer(cardPlay);
+            foreach (var c in MpHelpers.SnapshotHand(target).ToList())
             {
-                if (p.Creature.IsDead)
+                var rep = CombatState.CreateCard<MinionStrike>(target);
+                if (IsUpgraded)
                 {
-                    continue;
-                }
-
-                foreach (var c in MpHelpers.SnapshotHand(p))
-                {
-                    if (c is not MinionStrike)
-                    {
-                        continue;
-                    }
-
-                    var rep = CombatState.CreateCard<MinionStrike>(p);
                     CardCmd.Upgrade(rep);
-                    await CardCmd.Transform(c, rep);
                 }
+
+                await CardCmd.Transform(c, rep);
             }
         }
 

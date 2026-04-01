@@ -1,21 +1,25 @@
+using System;
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Cards;
+using STS2_AiACard_Multiplayer;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
-    /// <summary>我说蛇咬很强：每名存活玩家将若干张蛇咬加入手牌。</summary>
-    public sealed class MpSerpentSaysStrong() : ModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    /// <summary>我说蛇咬很强：用蛇咬填满所有玩家手牌。</summary>
+    public sealed class MpSerpentSaysStrong() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            var n = IsUpgraded ? 3 : 2;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead)
@@ -23,17 +27,18 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
                     continue;
                 }
 
-                for (var i = 0; i < n; i++)
+                var pcs = p.PlayerCombatState!;
+                while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
                     var shiv = CombatState.CreateCard<Shiv>(p);
+                    if (IsUpgraded)
+                    {
+                        CardCmd.Upgrade(shiv);
+                    }
+
                     await MpHelpers.AddToHand(choiceContext, shiv);
                 }
             }
-        }
-
-        protected override void OnUpgrade()
-        {
-            EnergyCost.UpgradeBy(-1);
         }
     }
 }

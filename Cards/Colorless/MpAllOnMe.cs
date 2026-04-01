@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -6,9 +9,11 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>全靠我了：吸取所有其他玩家的能量归己有，下回合受到沉重代价。</summary>
-    public sealed class MpAllOnMe() : ModCardTemplate(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    /// <summary>全靠我了：吸取队友能量，下回合力竭。</summary>
+    public sealed class MpAllOnMe() : ModCardTemplate(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

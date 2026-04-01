@@ -7,7 +7,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>尸体说话：回合结束时受到大量伤害（数值存于 Amount）。</summary>
+    /// <summary>尸体说话：回合结束时失去生命（数值存于 Amount）。</summary>
     public sealed class MpCorpseDebtPower : ModPowerTemplate
     {
         public override PowerType Type => PowerType.Debuff;

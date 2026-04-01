@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -11,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>血雾类：来自敌人的攻击伤害翻倍，持续若干玩家回合。</summary>
+    /// <summary>受到的强化攻击伤害按 2^Amount 倍增；持续时间同拦截：敌方回合结束时移除。</summary>
     public sealed class MpDoubleDamageTakenPower : ModPowerTemplate
     {
         public override PowerType Type => PowerType.Debuff;
@@ -33,19 +34,14 @@ namespace STS2_AiACard_Multiplayer.Powers
                 return 1m;
             }
 
-            if (dealer == null || !dealer.IsMonster)
-            {
-                return 1m;
-            }
-
-            return 2m;
+            return (decimal)Math.Pow(2.0, (double)Amount);
         }
 
         public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {
-            if (side == CombatSide.Player)
+            if (side == CombatSide.Enemy)
             {
-                await PowerCmd.TickDownDuration(this);
+                await PowerCmd.Remove(this);
             }
         }
     }

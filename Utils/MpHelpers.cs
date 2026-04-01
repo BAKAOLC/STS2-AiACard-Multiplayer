@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+using STS2_AiACard_Multiplayer;
 
 namespace STS2_AiACard_Multiplayer.Utils
 {
@@ -46,6 +47,21 @@ namespace STS2_AiACard_Multiplayer.Utils
         public static IReadOnlyList<CardModel> SnapshotHand(Player player)
         {
             return player.PlayerCombatState!.Hand.Cards.ToList();
+        }
+
+        public static async Task DrawUntilHandFull(PlayerChoiceContext ctx, Player player)
+        {
+            var pcs = player.PlayerCombatState!;
+            while (pcs.Hand.Cards.Count < Const.CombatHandMax)
+            {
+                await CardPileCmd.Draw(ctx, 1, player);
+            }
+        }
+
+        public static void MakeEtherealEnergyOneThisTurn(CardModel card)
+        {
+            CardCmd.ApplyKeyword(card, CardKeyword.Ethereal);
+            card.EnergyCost.SetThisTurnOrUntilPlayed(1, reduceOnly: true);
         }
     }
 }

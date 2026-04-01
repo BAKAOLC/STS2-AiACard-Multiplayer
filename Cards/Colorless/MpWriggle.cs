@@ -1,20 +1,23 @@
+using System;
+using System.Collections.Generic;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>蠕动：所有玩家获得格挡。</summary>
-    public sealed class MpWriggle() : ModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    /// <summary>蠕动：按回合数为所有玩家提供能量与抽牌。</summary>
+    public sealed class MpWriggle() : ModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            var blk = IsUpgraded ? 11m : 8m;
+            var n = CombatState.RoundNumber / 3;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead)
@@ -22,13 +25,17 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                     continue;
                 }
 
-                await CreatureCmd.GainBlock(p.Creature, blk, ValueProp.Move, cardPlay);
+                if (n > 0)
+                {
+                    await PlayerCmd.GainEnergy(n, p);
+                    await CardPileCmd.Draw(choiceContext, n, p);
+                }
             }
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

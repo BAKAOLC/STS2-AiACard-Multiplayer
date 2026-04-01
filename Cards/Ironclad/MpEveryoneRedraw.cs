@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -6,9 +8,11 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
-    /// <summary>大伙都区了：所有玩家耗尽当前手牌，再各抽等量张牌。</summary>
+    /// <summary>大伙都区了：消耗所有玩家手牌，再各抽等量张牌。</summary>
     public sealed class MpEveryoneRedraw() : ModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
