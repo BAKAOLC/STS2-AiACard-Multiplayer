@@ -1,7 +1,9 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard_Multiplayer.Powers;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -15,6 +17,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
             [new ForgeVar(5)];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+            HoverTipFactory.FromForge().Concat(ModelDb.Power<MpBrothersBladePower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

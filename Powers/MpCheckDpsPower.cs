@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -14,6 +15,13 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override PowerType Type => PowerType.Debuff;
 
         public override PowerStackType StackType => PowerStackType.Single;
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+        [
+            HoverTipFactory.FromPower<MpDrawPenaltyOncePower>(),
+            HoverTipFactory.FromPower<EnergyNextTurnPower>(),
+            HoverTipFactory.FromPower<DrawCardsNextTurnPower>(),
+        ];
 
         public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
         {

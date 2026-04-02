@@ -1,7 +1,9 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard_Multiplayer.Powers;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
@@ -16,6 +18,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             [new PowerVar<MpCheckDpsPower>(0)];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips => ModelDb.Power<MpCheckDpsPower>().HoverTips;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

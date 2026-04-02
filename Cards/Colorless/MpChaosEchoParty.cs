@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using STS2_AiACard_Multiplayer.Utils;
@@ -15,6 +16,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
+            new[] { HoverTipFactory.FromKeyword(CardKeyword.Ethereal) }
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<DemonForm>(true))
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<SerpentForm>(true))
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<ReaperForm>(true))
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<EchoForm>(true))
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<VoidForm>(true));
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
