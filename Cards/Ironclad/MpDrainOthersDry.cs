@@ -21,9 +21,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             new HealVar(4m),
             new EnergyVar(1),
             new CardsVar(1),
-            new DynamicVar("DrainRampHp", 3m),
-            new DynamicVar("DrainRampEnergy", 1m),
-            new DynamicVar("DrainRampCards", 1m),
+            new HpLossVar("DrainRampHp", 3m),
+            new EnergyVar("DrainRampEnergy", 1),
+            new CardsVar("DrainRampCards", 1),
         ];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
