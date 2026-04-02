@@ -16,11 +16,6 @@ namespace STS2_AiACard_Multiplayer.Powers
     /// </summary>
     public sealed class MpBountyMarkPower : ModPowerTemplate
     {
-        private sealed class Data
-        {
-            public int GoldCap;
-        }
-
         public override PowerType Type => PowerType.Debuff;
 
         public override PowerStackType StackType => PowerStackType.Counter;
@@ -32,9 +27,12 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new DynamicVar("BountyGoldCap", 0m)];
+            [new("BountyGoldCap", 0m)];
 
-        protected override object? InitInternalData() => new Data();
+        protected override object? InitInternalData()
+        {
+            return new Data();
+        }
 
         public override Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
         {
@@ -81,6 +79,11 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (killer == null || killer.Creature.IsDead) return;
 
             await PlayerCmd.GainGold(pool, killer);
+        }
+
+        private sealed class Data
+        {
+            public int GoldCap;
         }
     }
 }

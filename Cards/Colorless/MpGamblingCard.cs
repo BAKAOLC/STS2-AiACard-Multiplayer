@@ -15,7 +15,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         [
             new PowerVar<StrengthPower>(2),
             new PowerVar<RitualPower>(2),
-            new DynamicVar("BountyGoldCap", 50m),
+            new("BountyGoldCap", 50m),
         ];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
