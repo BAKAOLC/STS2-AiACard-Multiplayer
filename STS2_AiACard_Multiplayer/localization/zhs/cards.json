@@ -1,6 +1,6 @@
 {
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.title": "放干他人血",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "选择的玩家失去[blue]{Damage:diff()}[/blue]点生命，该玩家获得[blue]2[/blue]点[gold]能量[/gold]。你回复[blue]{Heal:diff()}[/blue]点生命。{IfUpgraded:show:\n该玩家额外抽 [blue]{DrainTargetDraw:diff()}[/blue] 张牌。|}",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "另一名玩家失去[blue]{Damage:diff()}[/blue]点生命，获得{Energy:energyIcons()}，抽[blue]{Cards:diff()}[/blue]张牌。\n自身回复[blue]{Heal:diff()}[/blue]点生命。\n这张卡在本场战斗中每打出一次额外失去[blue]{DrainRampHp}[/blue]点生命值，获得{DrainRampEnergy:energyIcons()}，抽[blue]{DrainRampCards}[/blue]张牌。\n将这张卡的复制品置入该玩家的[gold]手牌[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.title": "传火",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.description": "[gold]消耗[/gold]另一名玩家的全部[gold]手牌[/gold]。每[gold]消耗[/gold]一张，你获得[blue]1[/blue]层[gold]力量[/gold]并抽[blue]1[/blue]张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_YOUR_BODY_SLAM.title": "你来撞击",
