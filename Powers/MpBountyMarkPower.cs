@@ -4,23 +4,75 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>赌怪悬赏标记：该非玩家单位被消灭时，最后一击的玩家获得等同于其生命上限的金币（不超过 Amount）。</summary>
+    /// <summary>
+    ///     赏金标记：<see cref="IsInstanced" /> 为 true，每次施加为独立实例（与轨道、独白等一致）；消灭时按该实例的
+    ///     GoldCap 与当时的生命上限结算一次金币。
+    /// </summary>
     public sealed class MpBountyMarkPower : ModPowerTemplate
     {
+        private sealed class Data
+        {
+            public int GoldCap;
+        }
+
         public override PowerType Type => PowerType.Debuff;
 
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
+
+        public override bool IsInstanced => true;
+
+        public override int DisplayAmount => GetInternalData<Data>().GoldCap;
+
+        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new DynamicVar("BountyGoldCap", 0m)];
+
+        protected override object? InitInternalData() => new Data();
+
+        public override Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
+        {
+            var d = GetInternalData<Data>();
+            d.GoldCap = ReadCapFromCard(cardSource);
+            return Task.CompletedTask;
+        }
+
+        public override Task AfterApplied(Creature? applier, CardModel? cardSource)
+        {
+            SyncCapToDynamicVars();
+            return Task.CompletedTask;
+        }
+
+        private static int ReadCapFromCard(CardModel? cardSource)
+        {
+            if (cardSource == null) return 0;
+            if (!cardSource.DynamicVars.TryGetValue("BountyGoldCap", out var v)) return 0;
+
+            return (int)v.BaseValue;
+        }
+
+        private void SyncCapToDynamicVars()
+        {
+            var d = GetInternalData<Data>();
+            DynamicVars["BountyGoldCap"].BaseValue = d.GoldCap;
+            InvokeDisplayAmountChanged();
+        }
 
         public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
             bool wasRemovalPrevented, float deathAnimLength)
         {
             if (creature != Owner || !creature.IsMonster) return;
 
-            var pool = Math.Min(creature.MaxHp, Amount);
+            var d = GetInternalData<Data>();
+            if (d.GoldCap <= 0) return;
+
+            var pool = Math.Min(creature.MaxHp, d.GoldCap);
             if (pool <= 0) return;
 
             var history = CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()

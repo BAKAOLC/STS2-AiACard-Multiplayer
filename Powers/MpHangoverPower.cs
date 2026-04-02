@@ -7,7 +7,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>全靠我了后续：下回合开始时能量归零且本回合无法抽牌。</summary>
+    /// <summary>全靠我了后续：下回合开始时能量归零、不可抽牌，并获得原版 <see cref="RingingPower" />（昏眩）。</summary>
     public sealed class MpHangoverPower : ModPowerTemplate
     {
         public override PowerType Type => PowerType.Debuff;
@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
             await PlayerCmd.SetEnergy(0, player);
             await PowerCmd.Apply<NoDrawPower>(Owner, 1, Owner, null);
-            await PowerCmd.Apply<MpSinglePlayTurnPower>(Owner, 1, Owner, null);
+            await PowerCmd.Apply<RingingPower>(Owner, 1, Owner, null);
             await PowerCmd.Remove(this);
         }
     }

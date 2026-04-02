@@ -15,7 +15,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         [
             new PowerVar<StrengthPower>(2),
             new PowerVar<RitualPower>(2),
-            new PowerVar<MpBountyMarkPower>(50),
+            new DynamicVar("BountyGoldCap", 50m),
         ];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -28,18 +28,17 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             var str = DynamicVars["StrengthPower"].BaseValue;
             var rit = DynamicVars["RitualPower"].BaseValue;
-            var bounty = DynamicVars["MpBountyMarkPower"].BaseValue;
             foreach (var e in CombatState.HittableEnemies)
             {
                 await PowerCmd.Apply<StrengthPower>(e, str, Owner.Creature, this);
                 await PowerCmd.Apply<RitualPower>(e, rit, Owner.Creature, this);
-                await PowerCmd.Apply<MpBountyMarkPower>(e, bounty, Owner.Creature, this);
+                await PowerCmd.Apply<MpBountyMarkPower>(e, 1, Owner.Creature, this);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MpBountyMarkPower"].UpgradeValueBy(25m);
+            DynamicVars["BountyGoldCap"].UpgradeValueBy(25m);
         }
     }
 }
