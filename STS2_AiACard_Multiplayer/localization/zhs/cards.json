@@ -1,6 +1,6 @@
 {
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.title": "放干他人血",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "使另一名玩家失去{Damage:diff()}点生命。其获得[blue]2[/blue]点[gold]能量[/gold]。你回复{Heal:diff()}点生命。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "选择的玩家失去[blue]{Damage:diff()}[/blue]点生命，该玩家获得[blue]2[/blue]点[gold]能量[/gold]。你回复[blue]{Heal:diff()}[/blue]点生命。{IfUpgraded:show:\n该玩家额外抽 [blue]{DrainTargetDraw:diff()}[/blue] 张牌。|}",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.title": "传火",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.description": "[gold]消耗[/gold]另一名玩家的全部[gold]手牌[/gold]。每[gold]消耗[/gold]一张，你获得[blue]1[/blue]层[gold]力量[/gold]并抽[blue]1[/blue]张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_YOUR_BODY_SLAM.title": "你来撞击",
@@ -60,5 +60,5 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.title": "赌怪！",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.description": "每名可命中敌人获得{StrengthPower:diff()}点[gold]力量[/gold]、{RitualPower:diff()}点[gold]仪式[/gold]与[gold]赏金标记[/gold]（赏金金币上限{BountyGoldCap:diff()}）。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.title": "死是凉爽的夏夜",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "每名单位获得{DoomPower:diff()}层[gold]灾厄[/gold]。消灭每名[gold]灾厄[/gold]层数不低于其当前生命的单位。"
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "给予所有单位{DoomPower:diff()}层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的单位。"
 }

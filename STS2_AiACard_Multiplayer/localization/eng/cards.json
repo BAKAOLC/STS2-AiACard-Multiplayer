@@ -1,6 +1,6 @@
 {
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.title": "Drain Others Dry",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "Another player loses {Damage:diff()} HP. They gain [blue]2[/blue] [gold]Energy[/gold]. You heal {Heal:diff()} HP.",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "The chosen player loses [blue]{Damage:diff()}[/blue] HP. They gain [blue]2[/blue] [gold]Energy[/gold]. You heal [blue]{Heal:diff()}[/blue] HP.{IfUpgraded:show:\nThey also draw [blue]{DrainTargetDraw:diff()}[/blue] cards.|}",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.title": "Pass the Flame",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.description": "Another player exhausts their entire [gold]Hand[/gold]. For each card exhausted, gain [blue]1[/blue] [gold]Strength[/gold] and draw [blue]1[/blue] card.",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_YOUR_BODY_SLAM.title": "Your Body Slam",
@@ -60,5 +60,5 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.title": "Gambler!",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.description": "Each hittable enemy gains {StrengthPower:diff()} [gold]Strength[/gold], {RitualPower:diff()} [gold]Ritual[/gold], and [gold]Bounty Mark[/gold] (bounty gold cap {BountyGoldCap:diff()}).",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.title": "Cool Summer Night",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "Each creature gains {DoomPower:diff()} [gold]Doom[/gold]. Kill each creature whose [gold]Doom[/gold] is at least its current HP."
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "Apply {DoomPower:diff()} [gold]Doom[/gold] to ALL creatures.\nKill creatures with at least as much [gold]Doom[/gold] as HP."
 }
