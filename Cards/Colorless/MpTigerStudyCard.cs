@@ -9,7 +9,6 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>俺要学猛虎下山：全体获得承伤倍增（同拦截：敌方回合结束时清除）；施法者获得猛虎流转。</summary>
     public sealed class MpTigerStudyCard()
         : MpOnlyModCardTemplate(0, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
