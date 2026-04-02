@@ -2,7 +2,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard_Multiplayer.Powers;
 using STS2_AiACard_Multiplayer.Utils;
@@ -14,9 +13,6 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     public sealed class MpCheckYourDpsCard()
         : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
-        protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new PowerVar<MpCheckDpsPower>(0)];
-
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips => ModelDb.Power<MpCheckDpsPower>().HoverTips;
@@ -24,13 +20,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             var t = MpHelpers.RequireTargetPlayer(cardPlay);
-            await PowerCmd.Apply<MpCheckDpsPower>(t.Creature, DynamicVars["MpCheckDpsPower"].BaseValue, Owner.Creature,
-                this);
-        }
-
-        protected override void OnUpgrade()
-        {
-            DynamicVars["MpCheckDpsPower"].UpgradeValueBy(1m);
+            await PowerCmd.Apply<MpCheckDpsPower>(t.Creature, 1, Owner.Creature, this);
         }
     }
 }
