@@ -15,7 +15,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpPassTheFlame, Const.Paths.CardPortraits.MpPassTheFlame);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips => ModelDb.Power<StrengthPower>().HoverTips;
 

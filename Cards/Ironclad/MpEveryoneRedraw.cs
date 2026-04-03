@@ -11,7 +11,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpEveryoneRedraw, Const.Paths.CardPortraits.MpEveryoneRedraw);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

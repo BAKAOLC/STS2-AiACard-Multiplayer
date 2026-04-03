@@ -13,7 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpDeployInfiniteBlades, Const.Paths.CardPortraits.MpDeployInfiniteBlades);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<InfiniteBlades>(IsUpgraded)

@@ -11,7 +11,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
     /// <summary>仆从出击：目标玩家手牌全部变为仆从打击。</summary>
     public sealed class MpMinionRush() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpMinionRush, Const.Paths.CardPortraits.MpMinionRush);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<MinionStrike>(IsUpgraded);

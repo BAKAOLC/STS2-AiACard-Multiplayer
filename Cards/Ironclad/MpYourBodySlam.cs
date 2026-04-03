@@ -13,7 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpYourBodySlam, Const.Paths.CardPortraits.MpYourBodySlam);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<BodySlam>(IsUpgraded);

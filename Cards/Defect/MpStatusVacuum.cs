@@ -14,7 +14,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpStatusVacuum, Const.Paths.CardPortraits.MpStatusVacuum);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

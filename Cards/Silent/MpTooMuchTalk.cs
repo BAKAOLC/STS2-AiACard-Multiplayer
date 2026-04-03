@@ -19,7 +19,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpTooMuchTalk, Const.Paths.CardPortraits.MpTooMuchTalk);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<NoDrawPower>()];

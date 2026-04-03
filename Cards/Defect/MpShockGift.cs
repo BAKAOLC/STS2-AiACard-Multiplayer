@@ -18,7 +18,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpShockGift, Const.Paths.CardPortraits.MpShockGift);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<BootSequence>(IsUpgraded)

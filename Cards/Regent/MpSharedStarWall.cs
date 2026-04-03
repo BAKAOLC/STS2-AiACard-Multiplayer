@@ -16,7 +16,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpSharedStarWall, Const.Paths.CardPortraits.MpSharedStarWall);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<ParticleWall>(IsUpgraded)

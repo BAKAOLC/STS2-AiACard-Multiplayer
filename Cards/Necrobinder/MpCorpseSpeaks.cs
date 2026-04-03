@@ -18,7 +18,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             new CardsVar(3),
         ];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpCorpseSpeaks, Const.Paths.CardPortraits.MpCorpseSpeaks);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<MpCorpseCurseToken>(false);

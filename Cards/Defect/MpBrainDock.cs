@@ -8,11 +8,12 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
     /// <summary>外接大脑：每名玩家将一张创造性AI置入手牌（升级后为升级版）。</summary>
-    public sealed class MpBrainDock() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public sealed class MpBrainDock() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpBrainDock, Const.Paths.CardPortraits.MpBrainDock);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<CreativeAi>(IsUpgraded);

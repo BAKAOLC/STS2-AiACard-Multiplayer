@@ -14,10 +14,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>群蛇兄弟：手牌加入蛇咬，且打出蛇咬时全体格挡。</summary>
     public sealed class MpSerpentBrothersCard()
-        : MpOnlyModCardTemplate(0, CardType.Power, CardRarity.Common, TargetType.Self)
+        : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new BlockVar(3m, ValueProp.Unpowered)];
+            [new BlockVar(2m, ValueProp.Unpowered)];
 
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 

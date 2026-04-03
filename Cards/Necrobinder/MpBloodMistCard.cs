@@ -13,7 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpBloodMistCard, Const.Paths.CardPortraits.MpBloodMistCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<SleightOfFlesh>(IsUpgraded);

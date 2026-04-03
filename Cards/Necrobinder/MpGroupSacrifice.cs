@@ -15,7 +15,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpGroupSacrifice, Const.Paths.CardPortraits.MpGroupSacrifice);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             ModelDb.Power<DoomPower>().HoverTips.Concat(ModelDb.Power<DoubleDamagePower>().HoverTips);

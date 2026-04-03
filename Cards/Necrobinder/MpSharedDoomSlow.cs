@@ -19,7 +19,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpSharedDoomSlow, Const.Paths.CardPortraits.MpSharedDoomSlow);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             new[] { HoverTipFactory.FromKeyword(CardKeyword.Ethereal) }

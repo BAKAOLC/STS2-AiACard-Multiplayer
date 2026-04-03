@@ -16,7 +16,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new ForgeVar(5)];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpBrothersChopCard, Const.Paths.CardPortraits.MpBrothersChopCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromForge().Concat(ModelDb.Power<MpBrothersBladePower>().HoverTips);

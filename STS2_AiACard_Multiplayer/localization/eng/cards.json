@@ -1,5 +1,5 @@
 {
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.title": "Drain Others Dry",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.title": "Bleed the Party Dry",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_DRAIN_OTHERS_DRY.description": "Another player loses {Damage:diff()} HP, gains {Energy:energyIcons()}, and draws {Cards:diff()} cards.\nYou heal {Heal:diff()} HP.\nEach time you play this card this combat, its HP loss increases by {DrainRampHp:diff()}, Energy granted increases by {DrainRampEnergy:energyIcons()}, and cards drawn increase by {DrainRampCards:diff()}.\nAdd a copy of this card to that player's [gold]Hand[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.title": "Pass the Flame",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_PASS_THE_FLAME.description": "Another player exhausts their entire [gold]Hand[/gold]. For each card exhausted, gain 1 [gold]Strength[/gold] and draw 1 card.",
