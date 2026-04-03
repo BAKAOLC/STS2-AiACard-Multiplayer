@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Infection>(false);
+            HoverTipFactory.FromCardWithCardHoverTips<Infection>();
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

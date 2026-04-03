@@ -23,7 +23,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<BootSequence>(IsUpgraded)
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<Dazed>(false));
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<Dazed>());
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

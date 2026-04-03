@@ -23,7 +23,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             new(Const.Paths.CardPortraits.MpBiasedPartyCard, Const.Paths.CardPortraits.MpBiasedPartyCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<BiasedCognition>(false)
+            HoverTipFactory.FromCardWithCardHoverTips<BiasedCognition>()
                 .Concat(ModelDb.Power<MpPerEnergySelfChannelPower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

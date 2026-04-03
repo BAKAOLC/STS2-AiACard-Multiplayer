@@ -11,9 +11,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
     public sealed class MpDrainOthersDry()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
-        private decimal _extraHpLossFromPlays;
-        private decimal _extraEnergyFromPlays;
         private decimal _extraCardsFromPlays;
+        private decimal _extraEnergyFromPlays;
+        private decimal _extraHpLossFromPlays;
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [

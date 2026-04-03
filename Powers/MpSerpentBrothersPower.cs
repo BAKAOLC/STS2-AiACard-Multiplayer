@@ -17,7 +17,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override PowerStackType StackType => PowerStackType.Single;
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>(false);
+            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>();
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {

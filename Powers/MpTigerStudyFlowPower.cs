@@ -31,14 +31,17 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new DynamicVar("TigerFlowStepsUntilDraw", 2),
-            new DynamicVar("TigerFlowLastType", (decimal)(int)CardType.None),
+            new("TigerFlowStepsUntilDraw", 2),
+            new("TigerFlowLastType", (int)CardType.None),
         ];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<MpDoubleDamageTakenPower>()];
 
-        protected override object? InitInternalData() => new Data();
+        protected override object? InitInternalData()
+        {
+            return new Data();
+        }
 
         public override Task AfterApplied(Creature? applier, CardModel? cardSource)
         {

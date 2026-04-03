@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>(false)
+            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>()
                 .Concat(ModelDb.Power<MpSerpentBrothersPower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

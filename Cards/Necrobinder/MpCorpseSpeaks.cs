@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             new(Const.Paths.CardPortraits.MpCorpseSpeaks, Const.Paths.CardPortraits.MpCorpseSpeaks);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<MpCorpseCurseToken>(false);
+            HoverTipFactory.FromCardWithCardHoverTips<MpCorpseCurseToken>();
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

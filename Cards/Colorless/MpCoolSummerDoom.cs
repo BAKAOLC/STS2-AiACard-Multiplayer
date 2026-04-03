@@ -1,6 +1,5 @@
-using Godot;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
@@ -8,7 +7,6 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using STS2RitsuLib.Scaffolding.Content;
@@ -35,7 +33,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 var floor = VfxCmd.GetSideCenterFloor(side, CombatState);
                 if (!floor.HasValue) continue;
 
-                var vfx = NLargeMagicMissileVfx.Create(floor.Value, new Color("8c2447"));
+                var vfx = NLargeMagicMissileVfx.Create(floor.Value, new("8c2447"));
                 if (vfx == null) continue;
 
                 NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(vfx);
