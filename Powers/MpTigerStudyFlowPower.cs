@@ -46,6 +46,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override Task AfterApplied(Creature? applier, CardModel? cardSource)
         {
+            var d = GetInternalData<Data>();
+            if (cardSource != null)
+                d.SkipOnceForCard = cardSource;
             SyncProgressToDynamicVars();
             InvokeDisplayAmountChanged();
             return Task.CompletedTask;
@@ -57,6 +60,12 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (cardPlay.Card.Type is not (CardType.Attack or CardType.Skill or CardType.Power)) return;
 
             var d = GetInternalData<Data>();
+            if (d.SkipOnceForCard != null && ReferenceEquals(cardPlay.Card, d.SkipOnceForCard))
+            {
+                d.SkipOnceForCard = null;
+                return;
+            }
+
             if (!d.LastEligibleType.HasValue)
             {
                 d.LastEligibleType = cardPlay.Card.Type;
@@ -91,6 +100,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         private sealed class Data
         {
             public CardType? LastEligibleType;
+            public CardModel? SkipOnceForCard;
         }
     }
 }
