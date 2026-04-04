@@ -32,7 +32,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_SPEAKS.title": "尸体说话",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_SPEAKS.description": "若所选另一名玩家已死亡，将其生命设为{Heal:diff()}；否则回复{Heal:diff()}点生命。其获得{Energy:energyIcons()}并抽{Cards:diff()}张牌。将[gold]尸语诅咒[/gold]置入其[gold]手牌[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.title": "尸语诅咒",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.description": "无法打出。\n[gold]回合结束时[/gold]，受到99点伤害。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.description": "无法打出。\n[gold]回合结束时[/gold]，受到{Damage:diff()}点伤害。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.title": "你们都有认知偏差",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.description": "每名其他存活玩家将一张[gold]偏差认知[/gold]置入[gold]手牌[/gold]，并获得{MpPerEnergySelfChannelPower:diff()}[gold]耗能偏差[/gold]（本阶段每消耗1点[gold]能量[/gold]，生成{MpPerEnergySelfChannelPower:diff()}枚随机[gold]充能球[/gold]）。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHOCK_GIFT.title": "有没有电摸一下",

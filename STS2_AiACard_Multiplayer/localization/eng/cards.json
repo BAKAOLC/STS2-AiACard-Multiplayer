@@ -32,7 +32,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_SPEAKS.title": "Corpse Speaks",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_SPEAKS.description": "If the chosen other player is dead, set their HP to {Heal:diff()}; otherwise heal {Heal:diff()} HP. They gain {Energy:energyIcons()} and draw {Cards:diff()} cards. Add [gold]Corpse Curse[/gold] to their [gold]Hand[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.title": "Corpse Curse",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.description": "Unplayable.\n[gold]At the end of your turn[/gold], take 99 damage.",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.description": "Unplayable.\n[gold]At the end of your turn[/gold], take {Damage:diff()} damage.",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.title": "Biased Party",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.description": "Each other living player adds [gold]Biased Cognition[/gold] to their [gold]Hand[/gold] and gains {MpPerEnergySelfChannelPower:diff()} [gold]Energy Bias[/gold] (1 [gold]Energy[/gold] spent this phase channels {MpPerEnergySelfChannelPower:diff()} random [gold]Orb(s)[/gold]).",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHOCK_GIFT.title": "Shock Gift",
