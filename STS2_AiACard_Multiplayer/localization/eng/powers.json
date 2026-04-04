@@ -6,7 +6,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.smartDescription": "Whenever any player plays a [gold]Snakebite[/gold], gain [blue]{Amount}[/blue] [gold]Block[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.title": "Tiger Flow",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.description": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw.",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.smartDescription": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw [blue]{Amount}[/blue] card(s).\nLast: {TigerFlowLastType:choose(None|Attack|Skill|Power):—|Attack|Skill|Power}. [blue]{TigerFlowStepsUntilDraw}[/blue] step(s) until trigger.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.smartDescription": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw [blue]{Amount}[/blue] card(s).\nLast: {TigerFlowLastType:choose(0|1|2|3):—|Attack|Skill|Power}. [blue]{TigerFlowStepsUntilDraw}[/blue] step(s) until trigger.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.title": "Energy Loss Next Turn",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "Lose additional [gold]Energy[/gold] next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "Lose [blue]{Amount}[/blue] additional {energyPrefix:energyIcons(1)} next turn.",

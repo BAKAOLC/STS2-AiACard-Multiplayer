@@ -59,6 +59,7 @@ namespace STS2_AiACard_Multiplayer
                 public const string MpSharedWealth = C + "028_有福同享.png";
                 public const string MpCoolSummerDoom = C + "029_死是凉爽的夏夜.png";
                 public const string MpChaosEchoParty = C + "030_混沌形态.png";
+                public const string MpCorpseCurseToken = C + "031_尸语诅咒占位.png";
             }
 
             public static class PowerIcons

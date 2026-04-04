@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2_AiACard_Multiplayer.Utils;
@@ -13,6 +14,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     public sealed class MpGroupSacrifice()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new EnergyVar(3)];
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
@@ -24,12 +28,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            foreach (var p in CombatState.Players)
+            foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
             {
-                if (p.Creature.IsDead) continue;
-
                 await PowerCmd.Apply<DoomPower>(p.Creature, 99m, Owner.Creature, this);
-                await PlayerCmd.GainEnergy(3, p);
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, p);
                 foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Discard(choiceContext, c);
 
                 await CardPileCmd.Draw(choiceContext, 10, p);

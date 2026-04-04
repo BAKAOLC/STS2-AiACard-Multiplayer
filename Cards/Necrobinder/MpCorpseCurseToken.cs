@@ -20,7 +20,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
         public override bool HasTurnEndInHandEffect => true;
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpCorpseCurseToken, Const.Paths.CardPortraits.MpCorpseCurseToken);
 
         public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
         {

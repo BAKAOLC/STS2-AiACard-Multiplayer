@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using STS2_AiACard_Multiplayer.Utils;
@@ -13,6 +14,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     /// <summary>混沌形态：每名玩家获得能量；各玩家手牌加入多种带虚无的升级形态牌。</summary>
     public sealed class MpChaosEchoParty() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new EnergyVar(1)];
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
@@ -30,24 +34,23 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var energy = IsUpgraded ? 2 : 1;
-            foreach (var p in CombatState.Players)
-            {
-                if (p.Creature.IsDead) continue;
-
+            var energy = DynamicVars.Energy.IntValue;
+            foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
                 await PlayerCmd.GainEnergy(energy, p);
-            }
 
-            foreach (var p in CombatState.Players)
+            foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
             {
-                if (p.Creature.IsDead) continue;
-
                 await AddForm<DemonForm>(choiceContext, p);
                 await AddForm<SerpentForm>(choiceContext, p);
                 await AddForm<ReaperForm>(choiceContext, p);
                 await AddForm<EchoForm>(choiceContext, p);
                 await AddForm<VoidForm>(choiceContext, p);
             }
+        }
+
+        protected override void OnUpgrade()
+        {
+            DynamicVars.Energy.UpgradeValueBy(1m);
         }
 
         private async Task AddForm<T>(PlayerChoiceContext ctx, Player p) where T : CardModel
