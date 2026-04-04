@@ -19,7 +19,6 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new PowerRegistrationEntry<MpTigerStudyFlowPower>(),
             new PowerRegistrationEntry<MpLoseEnergyNextTurnPower>(),
             new PowerRegistrationEntry<MpCheckDpsPower>(),
-            new PowerRegistrationEntry<MpCorpseDebtPower>(),
             new PowerRegistrationEntry<MpBountyMarkPower>(),
             new PowerRegistrationEntry<MpDoubleDamageTakenPower>(),
             new PowerRegistrationEntry<MpSharedFortunePower>(),
