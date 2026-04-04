@@ -16,6 +16,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpBrothersBladePower, Const.Paths.PowerIcons.MpBrothersBladePower);
+
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<SovereignBlade>();
 

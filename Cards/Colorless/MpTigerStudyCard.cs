@@ -18,7 +18,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             new PowerVar<MpTigerStudyFlowPower>(1),
         ];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpTigerStudyCard, Const.Paths.CardPortraits.MpTigerStudyCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             ModelDb.Power<MpDoubleDamageTakenPower>().HoverTips

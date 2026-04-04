@@ -12,6 +12,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpLoseEnergyNextTurnPower, Const.Paths.PowerIcons.MpLoseEnergyNextTurnPower);
+
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.ForEnergy(this)];
 

@@ -15,7 +15,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpHangoverPower, Const.Paths.PowerIcons.MpHangoverPower);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [

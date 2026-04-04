@@ -14,7 +14,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpPerEnergySelfChannelPower, Const.Paths.PowerIcons.MpPerEnergySelfChannelPower);
 
         public override async Task AfterEnergySpent(CardModel card, int amount)
         {

@@ -13,7 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     public sealed class MpCheckYourDpsCard()
         : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpCheckYourDpsCard, Const.Paths.CardPortraits.MpCheckYourDpsCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips => ModelDb.Power<MpCheckDpsPower>().HoverTips;
 

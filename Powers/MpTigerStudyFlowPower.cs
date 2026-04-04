@@ -18,7 +18,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override bool IsInstanced => true;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpTigerStudyFlowPower, Const.Paths.PowerIcons.MpTigerStudyFlowPower);
 
         public override int DisplayAmount
         {

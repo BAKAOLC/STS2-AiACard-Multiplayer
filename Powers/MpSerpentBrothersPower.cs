@@ -9,12 +9,15 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>群蛇兄弟：任意玩家打出蛇咬时，所有玩家获得格挡。</summary>
+    /// <summary>群蛇兄弟：任意玩家打出蛇咬时，拥有此能力者获得格挡。</summary>
     public sealed class MpSerpentBrothersPower : ModPowerTemplate
     {
         public override PowerType Type => PowerType.Buff;
 
         public override PowerStackType StackType => PowerStackType.Single;
+
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpSerpentBrothersPower, Const.Paths.PowerIcons.MpSerpentBrothersPower);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<Snakebite>();
@@ -23,13 +26,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             if (cardPlay.Card is not Snakebite) return;
 
-            ArgumentNullException.ThrowIfNull(CombatState);
-            foreach (var p in CombatState.Players)
-            {
-                if (p.Creature.IsDead) continue;
-
-                await CreatureCmd.GainBlock(p.Creature, Amount, ValueProp.Unpowered, null);
-            }
+            await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         }
     }
 }

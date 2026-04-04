@@ -27,6 +27,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override bool IsInstanced => true;
 
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpCheckDpsPower, Const.Paths.PowerIcons.MpCheckDpsPower);
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new("DpsTargetEnergyLoss", TargetEnergyLoss),

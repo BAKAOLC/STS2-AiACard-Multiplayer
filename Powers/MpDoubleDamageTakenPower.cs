@@ -19,7 +19,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpDoubleDamageTakenPower, Const.Paths.PowerIcons.MpDoubleDamageTakenPower);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             [HoverTipFactory.FromPower<MpTigerStudyFlowPower>()];

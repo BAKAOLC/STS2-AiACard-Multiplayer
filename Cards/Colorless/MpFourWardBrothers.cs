@@ -19,7 +19,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpFourWardBrothers, Const.Paths.CardPortraits.MpFourWardBrothers);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<Infection>();

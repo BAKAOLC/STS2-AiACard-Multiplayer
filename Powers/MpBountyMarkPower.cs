@@ -24,7 +24,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override int DisplayAmount => GetInternalData<Data>().GoldCap;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpBountyMarkPower, Const.Paths.PowerIcons.MpBountyMarkPower);
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new("BountyGoldCap", 0m)];

@@ -12,14 +12,15 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
-    /// <summary>群蛇兄弟：手牌加入蛇咬，且打出蛇咬时全体格挡。</summary>
+    /// <summary>群蛇兄弟：手牌加入蛇咬，且所有玩家获得“打出蛇咬时自身获得格挡”。</summary>
     public sealed class MpSerpentBrothersCard()
         : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new BlockVar(2m, ValueProp.Unpowered)];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpSerpentBrothersCard, Const.Paths.CardPortraits.MpSerpentBrothersCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             HoverTipFactory.FromCardWithCardHoverTips<Snakebite>()
@@ -37,8 +38,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 await MpHelpers.AddToHand(choiceContext, bite);
             }
 
-            await PowerCmd.Apply<MpSerpentBrothersPower>(Owner.Creature, DynamicVars.Block.BaseValue, Owner.Creature,
-                this);
+            foreach (var p in CombatState.Players)
+            {
+                if (p.Creature.IsDead) continue;
+
+                await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, DynamicVars.Block.BaseValue, Owner.Creature,
+                    this);
+            }
         }
 
         protected override void OnUpgrade()

@@ -17,7 +17,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpAllOnMe, Const.Paths.CardPortraits.MpAllOnMe);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips => ModelDb.Power<MpHangoverPower>().HoverTips;
 

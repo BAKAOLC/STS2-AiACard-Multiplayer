@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
-    /// <summary>有没有电摸一下：随机充能球、内核加速与眩晕。</summary>
+    /// <summary>有没有电摸一下：随机充能球、高速脱离与眩晕。</summary>
     public sealed class MpShockGift() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -22,7 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             new(Const.Paths.CardPortraits.MpShockGift, Const.Paths.CardPortraits.MpShockGift);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<BootSequence>(IsUpgraded)
+            HoverTipFactory.FromCardWithCardHoverTips<BoostAway>(IsUpgraded)
                 .Concat(HoverTipFactory.FromCardWithCardHoverTips<Dazed>());
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -32,8 +32,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             var ctx = new ThrowingPlayerChoiceContext();
             var orb = OrbModel.GetRandomOrb(target.RunState.Rng.CombatOrbGeneration).ToMutable();
             await OrbCmd.Channel(ctx, orb, target);
-            var boot = MpHelpers.CreateCard<BootSequence>(CombatState, target, IsUpgraded);
-            await MpHelpers.AddToHand(choiceContext, boot);
+            var boostAway = MpHelpers.CreateCard<BoostAway>(CombatState, target, IsUpgraded);
+            await MpHelpers.AddToHand(choiceContext, boostAway);
             var dazedCount = DynamicVars.Cards.IntValue;
             for (var i = 0; i < dazedCount; i++)
             {

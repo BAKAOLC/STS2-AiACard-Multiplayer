@@ -49,6 +49,32 @@ namespace STS2_AiACard_Multiplayer
                 public const string MpStatusVacuum = C + "018_不要就给我.png";
                 public const string MpBrainDock = C + "019_外接大脑.png";
                 public const string MpBiasedPartyCard = C + "020_你们都有偏差认知.png";
+                public const string MpCheckYourDpsCard = C + "021_查你DPS.png";
+                public const string MpWriggle = C + "022_蠕动.png";
+                public const string MpAllOnMe = C + "023_全靠我了.png";
+                public const string MpTigerStudyCard = C + "024_俺要学猛虎下山.png";
+                public const string MpSerpentBrothersCard = C + "025_群蛇兄弟.png";
+                public const string MpGamblingCard = C + "026_赌怪.png";
+                public const string MpFourWardBrothers = C + "027_四区兄弟.png";
+                public const string MpSharedWealth = C + "028_有福同享.png";
+                public const string MpCoolSummerDoom = C + "029_死是凉爽的夏夜.png";
+                public const string MpChaosEchoParty = C + "030_混沌形态.png";
+            }
+
+            public static class PowerIcons
+            {
+                private const string P = Root + "/powers/";
+
+                public const string MpBountyMarkPower = P + "001_赏金标记.png";
+                public const string MpBrothersBladePower = P + "002_兄弟借剑.png";
+                public const string MpCheckDpsPower = P + "003_查询DPS.png";
+                public const string MpDoubleDamageTakenPower = P + "004_承伤倍增.png";
+                public const string MpHangoverPower = P + "005_力竭.png";
+                public const string MpLoseEnergyNextTurnPower = P + "006_下回合失能.png";
+                public const string MpPerEnergySelfChannelPower = P + "007_耗能偏差.png";
+                public const string MpSerpentBrothersPower = P + "008_群蛇兄弟.png";
+                public const string MpSharedFortunePower = P + "009_有福同享.png";
+                public const string MpTigerStudyFlowPower = P + "010_猛虎流转.png";
             }
         }
     }

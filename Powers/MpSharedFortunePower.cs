@@ -12,7 +12,8 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override PowerAssetProfile AssetProfile => Const.PlaceholderPowerIcon;
+        public override PowerAssetProfile AssetProfile =>
+            new(Const.Paths.PowerIcons.MpSharedFortunePower, Const.Paths.PowerIcons.MpSharedFortunePower);
 
         public override Task AfterCombatEnd(CombatRoom room)
         {

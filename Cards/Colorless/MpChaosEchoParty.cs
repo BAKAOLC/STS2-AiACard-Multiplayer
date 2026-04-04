@@ -15,7 +15,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        public override CardAssetProfile AssetProfile => Const.PlaceholderCardArt;
+        public override CardAssetProfile AssetProfile =>
+            new(Const.Paths.CardPortraits.MpChaosEchoParty, Const.Paths.CardPortraits.MpChaosEchoParty);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             new[] { HoverTipFactory.FromKeyword(CardKeyword.Ethereal) }
