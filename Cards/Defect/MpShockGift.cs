@@ -35,11 +35,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             var boostAway = MpHelpers.CreateCard<BoostAway>(CombatState, target, IsUpgraded);
             await MpHelpers.AddToHand(choiceContext, boostAway);
             var dazedCount = DynamicVars.Cards.IntValue;
+            var dazedCards = new List<Dazed>(dazedCount);
             for (var i = 0; i < dazedCount; i++)
-            {
-                var dazed = MpHelpers.CreateCard<Dazed>(CombatState, target, false);
-                await CardPileCmd.Add(dazed, PileType.Deck, CardPilePosition.Random);
-            }
+                dazedCards.Add(MpHelpers.CreateCard<Dazed>(CombatState, target, false));
+            await MpHelpers.AddGeneratedCardsToCombatPile(dazedCards, PileType.Draw, CardPilePosition.Random,
+                previewPileAdd: true);
         }
 
         protected override void OnUpgrade()

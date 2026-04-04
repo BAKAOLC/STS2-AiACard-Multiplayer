@@ -1,3 +1,4 @@
+using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -36,9 +37,37 @@ namespace STS2_AiACard_Multiplayer.Utils
             return card;
         }
 
+        /// <summary>
+        /// 将战斗中已创建且尚未入堆的卡牌加入指定战斗牌堆（<see cref="PileType.Draw" /> / <see cref="PileType.Hand" /> / <see cref="PileType.Discard" /> 等）；
+        /// 经 <see cref="CardPileCmd.AddGeneratedCardsToCombat" /> 写入历史，便于多人同步。
+        /// <paramref name="previewPileAdd" />：为 true 时对本地所属玩家播放 <see cref="CardCmd.PreviewCardPileAdd" />（飞入牌堆动画；加入手牌时一般为 false，与 <c>GunkUp</c> / <c>GlimpseBeyond</c> 等一致）。
+        /// </summary>
+        public static async Task<IReadOnlyList<CardPileAddResult>> AddGeneratedCardsToCombatPile(
+            IEnumerable<CardModel> cards,
+            PileType pileType,
+            CardPilePosition position = CardPilePosition.Bottom,
+            bool previewPileAdd = false)
+        {
+            var list = cards.ToList();
+            if (list.Count == 0) return Array.Empty<CardPileAddResult>();
+
+            var results = await CardPileCmd.AddGeneratedCardsToCombat(list, pileType, true, position);
+            if (previewPileAdd) CardCmd.PreviewCardPileAdd(results);
+
+            return results;
+        }
+
+        /// <inheritdoc cref="AddGeneratedCardsToCombatPile" />
+        public static Task<IReadOnlyList<CardPileAddResult>> AddGeneratedCardToCombatPile(
+            CardModel card,
+            PileType pileType,
+            CardPilePosition position = CardPilePosition.Bottom,
+            bool previewPileAdd = false) =>
+            AddGeneratedCardsToCombatPile(new[] { card }, pileType, position, previewPileAdd);
+
         public static async Task AddToHand(PlayerChoiceContext ctx, CardModel card)
         {
-            await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, true);
+            await AddGeneratedCardToCombatPile(card, PileType.Hand, CardPilePosition.Bottom, previewPileAdd: false);
         }
 
         public static async Task DealHpLoss(PlayerChoiceContext ctx, Creature target, decimal amount, CardModel source)
