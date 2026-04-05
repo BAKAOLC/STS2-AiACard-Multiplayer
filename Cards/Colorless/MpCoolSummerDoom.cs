@@ -41,7 +41,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 await Cmd.Wait(vfx.WaitTime);
             }
 
-            var targets = CombatState.Creatures.Where(c => c.IsAlive).ToList();
+            var targets = CombatState.Creatures.Where(c => c.IsAlive && !c.IsPet).ToList();
             var add = DynamicVars.Doom.BaseValue;
             foreach (var c in targets)
                 await PowerCmd.Apply<DoomPower>(c, add, Owner.Creature, this);

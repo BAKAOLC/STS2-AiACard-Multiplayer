@@ -34,7 +34,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.title": "尸语诅咒",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CORPSE_CURSE_TOKEN.description": "在你的回合结束时，如果这张牌在你的[gold]手牌[/gold]中，你受到{Damage:diff()}点伤害。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.title": "你们都有认知偏差",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.description": "在所有玩家的[gold]手牌[/gold]中，放入1张[gold]偏差认知[/gold]。\n所有玩家获得[gold]耗能偏差[/gold]。本回合在其各自行动阶段中，每消耗1点{Energy:energyIcons()}，生成{MpPerEnergySelfChannelPower:diff()}个随机充能球。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_BIASED_PARTY_CARD.description": "在其他玩家的[gold]手牌[/gold]中，放入1张[gold]偏差认知[/gold]。其他玩家本回合内，每消耗1点{Energy:energyIcons()}，为其生成{MpPerEnergySelfChannelPower:diff()}个随机充能球。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHOCK_GIFT.title": "有没有电摸一下",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHOCK_GIFT.description": "另一名玩家生成1个随机充能球。\n在其[gold]手牌[/gold]中，放入1张[gold]{IfUpgraded:show:高速脱离+|高速脱离}[/gold]。\n在其[gold]抽牌堆[/gold]中，放入{Cards:diff()}张[gold]晕眩[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_STATUS_VACUUM.title": "不要就给我",
@@ -50,7 +50,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.title": "混沌形态",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.description": "所有玩家获得{Energy:energyIcons()}。在所有玩家的[gold]手牌[/gold]中，放入[gold]虚无[/gold]的已升级[gold]恶魔形态[/gold]、[gold]群蛇形态[/gold]、[gold]死神形态[/gold]、[gold]回响形态[/gold]、[gold]虚空形态[/gold]各1张。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.title": "俺要学猛虎下山",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "每名存活玩家获得{MpDoubleDamageTakenPower:diff()}层[gold]承伤倍增[/gold]。\n你获得[gold]猛虎流转[/gold]。\n每当你连续打出两张类型不同的[gold]攻击[/gold]、[gold]技能[/gold]或[gold]能力[/gold]牌时，抽{MpTigerStudyFlowPower:diff()}张牌。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "所有玩家获得{MpDoubleDamageTakenPower:diff()}层[gold]承伤倍增[/gold]。\n你获得[gold]猛虎流转[/gold]。\n每当你连续打出两张类型不同的[gold]攻击[/gold]、[gold]技能[/gold]或[gold]能力[/gold]牌时，抽{MpTigerStudyFlowPower:diff()}张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "有福同享",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "战斗结束时，所有玩家获得{MpSharedFortunePower:diff()}[gold]金币[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "查你 DPS",
@@ -60,5 +60,5 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.title": "赌怪！",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.description": "所有敌人获得{StrengthPower:diff()}点[gold]力量[/gold]、{RitualPower:diff()}层[gold]仪式[/gold]。\n对所有敌人施加[gold]赏金标记[/gold]（赏金上限{BountyGoldCap:diff()}）。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.title": "死是凉爽的夏夜",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "对所有单位施加{DoomPower:diff()}层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的单位。"
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_COOL_SUMMER_DOOM.description": "对所有玩家和敌人施加{DoomPower:diff()}层[gold]灾厄[/gold]。\n杀死所有[gold]灾厄[/gold]大于等于当前生命值的玩家和敌人。"
 }

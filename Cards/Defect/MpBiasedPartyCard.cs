@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
-    /// <summary>你们都有认知偏差：每名存活玩家手牌加入偏差认知并获得按耗能自充能球的效果。</summary>
+    /// <summary>你们都有认知偏差：每名其他存活玩家手牌加入偏差认知并获得按耗能自充能球的效果。</summary>
     public sealed class MpBiasedPartyCard() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -33,7 +33,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             var orbsPerEnergy = DynamicVars["MpPerEnergySelfChannelPower"].BaseValue;
-            foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
+            foreach (var p in CombatState.Players.Where(p => p != Owner && p.Creature.IsAlive))
             {
                 var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, false);
                 await MpHelpers.AddToHand(choiceContext, biased);
