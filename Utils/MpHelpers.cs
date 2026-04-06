@@ -1,4 +1,3 @@
-using System.Linq;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -38,9 +37,11 @@ namespace STS2_AiACard_Multiplayer.Utils
         }
 
         /// <summary>
-        /// 将战斗中已创建且尚未入堆的卡牌加入指定战斗牌堆（<see cref="PileType.Draw" /> / <see cref="PileType.Hand" /> / <see cref="PileType.Discard" /> 等）；
-        /// 经 <see cref="CardPileCmd.AddGeneratedCardsToCombat" /> 写入历史，便于多人同步。
-        /// <paramref name="previewPileAdd" />：为 true 时对本地所属玩家播放 <see cref="CardCmd.PreviewCardPileAdd" />（飞入牌堆动画；加入手牌时一般为 false，与 <c>GunkUp</c> / <c>GlimpseBeyond</c> 等一致）。
+        ///     将战斗中已创建且尚未入堆的卡牌加入指定战斗牌堆（<see cref="PileType.Draw" /> / <see cref="PileType.Hand" /> /
+        ///     <see cref="PileType.Discard" /> 等）；
+        ///     经 <see cref="CardPileCmd.AddGeneratedCardsToCombat" /> 写入历史，便于多人同步。
+        ///     <paramref name="previewPileAdd" />：为 true 时对本地所属玩家播放 <see cref="CardCmd.PreviewCardPileAdd" />（飞入牌堆动画；加入手牌时一般为
+        ///     false，与 <c>GunkUp</c> / <c>GlimpseBeyond</c> 等一致）。
         /// </summary>
         public static async Task<IReadOnlyList<CardPileAddResult>> AddGeneratedCardsToCombatPile(
             IEnumerable<CardModel> cards,
@@ -62,12 +63,14 @@ namespace STS2_AiACard_Multiplayer.Utils
             CardModel card,
             PileType pileType,
             CardPilePosition position = CardPilePosition.Bottom,
-            bool previewPileAdd = false) =>
-            AddGeneratedCardsToCombatPile(new[] { card }, pileType, position, previewPileAdd);
+            bool previewPileAdd = false)
+        {
+            return AddGeneratedCardsToCombatPile(new[] { card }, pileType, position, previewPileAdd);
+        }
 
         public static async Task AddToHand(PlayerChoiceContext ctx, CardModel card)
         {
-            await AddGeneratedCardToCombatPile(card, PileType.Hand, CardPilePosition.Bottom, previewPileAdd: false);
+            await AddGeneratedCardToCombatPile(card, PileType.Hand);
         }
 
         public static async Task DealHpLoss(PlayerChoiceContext ctx, Creature target, decimal amount, CardModel source)
@@ -99,6 +102,26 @@ namespace STS2_AiACard_Multiplayer.Utils
         {
             CardCmd.ApplyKeyword(card, CardKeyword.Ethereal);
             card.EnergyCost.SetThisTurnOrUntilPlayed(1, true);
+        }
+
+        /// <summary>战斗牌堆全空时，从 Run 卡组克隆进抽牌堆并洗牌。</summary>
+        public static void RepopulateCombatPilesFromDeckIfEmpty(Player player, CombatState combatState)
+        {
+            ArgumentNullException.ThrowIfNull(player);
+            ArgumentNullException.ThrowIfNull(combatState);
+
+            var pcs = player.PlayerCombatState;
+            if (pcs == null || pcs.AllCards.Any()) return;
+
+            var rng = player.RunState.Rng.Shuffle;
+            foreach (var item in player.Deck.Cards.ToList())
+            {
+                var cardModel = combatState.CloneCard(item);
+                cardModel.DeckVersion = item;
+                pcs.DrawPile.AddInternal(cardModel);
+            }
+
+            pcs.DrawPile.RandomizeOrderInternal(player, rng, combatState);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             for (var i = 0; i < dazedCount; i++)
                 dazedCards.Add(MpHelpers.CreateCard<Dazed>(CombatState, target, false));
             await MpHelpers.AddGeneratedCardsToCombatPile(dazedCards, PileType.Draw, CardPilePosition.Random,
-                previewPileAdd: true);
+                true);
         }
 
         protected override void OnUpgrade()
