@@ -24,11 +24,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             new[] { HoverTipFactory.FromKeyword(CardKeyword.Ethereal) }
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<DemonForm>(true))
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<SerpentForm>(true))
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<ReaperForm>(true))
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<EchoForm>(true))
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<VoidForm>(true));
+                .Concat(UpgradedFormHoverTips<DemonForm>())
+                .Concat(UpgradedFormHoverTips<SerpentForm>())
+                .Concat(UpgradedFormHoverTips<ReaperForm>())
+                .Concat(UpgradedFormHoverTips<EchoForm>())
+                .Concat(UpgradedFormHoverTips<VoidForm>());
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -60,6 +60,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             if (!c.Keywords.Contains(CardKeyword.Ethereal)) CardCmd.ApplyKeyword(c, CardKeyword.Ethereal);
 
             await MpHelpers.AddToHand(ctx, c);
+        }
+
+        private static IEnumerable<IHoverTip> UpgradedFormHoverTips<T>() where T : CardModel
+        {
+            var c = (CardModel)ModelDb.Card<T>().MutableClone();
+            c.UpgradeInternal();
+            c.FinalizeUpgradeInternal();
+            return new IHoverTip[] { new CardHoverTip(c) }.Concat(c.HoverTips);
         }
     }
 }
