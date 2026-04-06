@@ -74,6 +74,7 @@ namespace STS2_AiACard_Multiplayer
                 public const string MpLoseEnergyNextTurnPower = P + "006_下回合失能.png";
                 public const string MpPerEnergySelfChannelPower = P + "007_耗能偏差.png";
                 public const string MpSerpentBrothersPower = P + "008_群蛇兄弟.png";
+                public const string MpSharedFortunePower = P + "009_有福同享.png";
                 public const string MpTigerStudyFlowPower = P + "010_猛虎流转.png";
             }
         }

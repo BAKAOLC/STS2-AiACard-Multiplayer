@@ -1,19 +1,23 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
+using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
     /// <summary>
     ///     赏金标记：<see cref="IsInstanced" /> 为 true，每次施加为独立实例（与轨道、独白等一致）；消灭时按该实例的
-    ///     GoldCap 与当时的生命上限结算一次金币。
+    ///     GoldCap 与当时的生命上限结算一次金币。击杀赏金主要在 <see cref="AfterDamageGiven" /> 结算（致命伤会跳过
+    ///     <see cref="AfterDamageReceived" />，且部分环境下 <see cref="AfterDeath" /> 不可靠）；无伤害来源时在
+    ///     <see cref="AfterDeath" /> 用战史兜底。
     /// </summary>
     public sealed class MpBountyMarkPower : ModPowerTemplate
     {
@@ -49,6 +53,58 @@ namespace STS2_AiACard_Multiplayer.Powers
             return Task.CompletedTask;
         }
 
+        public override Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result,
+            ValueProp props, Creature target, CardModel? cardSource)
+        {
+            if (target != Owner || !target.IsMonster || !result.WasTargetKilled)
+                return Task.CompletedTask;
+
+            var killer = dealer?.Player;
+            if (killer == null)
+                return Task.CompletedTask;
+
+            TryGrantBounty(killer);
+            return Task.CompletedTask;
+        }
+
+        public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
+            bool wasRemovalPrevented, float deathAnimLength)
+        {
+            if (creature != Owner || !creature.IsMonster || wasRemovalPrevented)
+                return Task.CompletedTask;
+
+            var d = GetInternalData<Data>();
+            if (d.PaidOut)
+                return Task.CompletedTask;
+
+            var history = CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()
+                .LastOrDefault(e => e.Receiver == creature && e.Result.WasTargetKilled);
+            var killer = history?.Dealer?.Player;
+            if (killer == null)
+                return Task.CompletedTask;
+
+            TryGrantBounty(killer);
+            return Task.CompletedTask;
+        }
+
+        private void TryGrantBounty(Player killer)
+        {
+            var d = GetInternalData<Data>();
+            if (d.PaidOut)
+                return;
+
+            var pool = Math.Min(Owner.MaxHp, d.GoldCap);
+            if (pool <= 0)
+                return;
+
+            var runState = Owner.CombatState?.RunState;
+            if (runState?.CurrentRoom is not CombatRoom combatRoom)
+                return;
+
+            d.PaidOut = true;
+            combatRoom.AddExtraReward(killer, new GoldReward(pool, killer));
+        }
+
         private static int ReadCapFromCard(CardModel? cardSource)
         {
             if (cardSource == null) return 0;
@@ -64,32 +120,10 @@ namespace STS2_AiACard_Multiplayer.Powers
             InvokeDisplayAmountChanged();
         }
 
-        public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
-            bool wasRemovalPrevented, float deathAnimLength)
-        {
-            if (creature != Owner || !creature.IsMonster) return Task.CompletedTask;
-
-            var d = GetInternalData<Data>();
-            if (d.GoldCap <= 0) return Task.CompletedTask;
-
-            var pool = Math.Min(creature.MaxHp, d.GoldCap);
-            if (pool <= 0) return Task.CompletedTask;
-
-            var history = CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()
-                .LastOrDefault(e => e.Receiver == creature && e.Result.WasTargetKilled);
-            var killer = history?.Dealer?.Player;
-            if (killer == null || killer.Creature.IsDead) return Task.CompletedTask;
-
-            var runState = creature.CombatState?.RunState;
-            if (runState?.CurrentRoom is CombatRoom combatRoom)
-                combatRoom.AddExtraReward(killer, new GoldReward(pool, killer));
-
-            return Task.CompletedTask;
-        }
-
         private sealed class Data
         {
             public int GoldCap;
+            public bool PaidOut;
         }
     }
 }
