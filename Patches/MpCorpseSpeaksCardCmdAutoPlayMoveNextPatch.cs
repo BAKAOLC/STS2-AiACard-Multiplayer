@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard_Multiplayer.Cards.Necrobinder;
+using STS2_AiACard_Multiplayer.Utils;
 
 namespace STS2_AiACard_Multiplayer.Patches
 {
@@ -34,15 +35,19 @@ namespace STS2_AiACard_Multiplayer.Patches
             return fallback;
         }
 
-        /// <summary>AutoPlay 的 AnyAlly 候选生物序列（尸体说话含同侧死亡玩家）。</summary>
-        public static IEnumerable<Creature> BuildAutoPlayAnyAllyPool(CombatState combatState, CardModel card)
+        /// <summary>AutoPlay 的 AnyAlly 候选生物序列（尸体说话含同侧死亡玩家，排除沙虫等强制击杀）。</summary>
+        public static IEnumerable<Creature> BuildAutoPlayAnyAllyPool(CardModel card)
         {
+            var combatState = card.CombatState;
+            if (combatState == null) return [];
+
             if (card is MpCorpseSpeaks)
             {
                 var owner = card.Owner?.Creature;
                 if (owner == null) return [];
                 return combatState.PlayerCreatures.Where(c =>
-                    c.IsPlayer && c != owner && c.Side == owner.Side);
+                    c.IsPlayer && c != owner && c.Side == owner.Side &&
+                    !MpForceKillReviveBlock.IsBlockedCorpse(c));
             }
 
             return combatState.Allies.Where(c =>

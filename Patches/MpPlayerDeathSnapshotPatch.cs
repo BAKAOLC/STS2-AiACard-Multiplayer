@@ -23,6 +23,8 @@ namespace STS2_AiACard_Multiplayer.Patches
             var pcs = player.PlayerCombatState;
             if (pcs == null) return;
 
+            if (MpForceKillReviveBlock.IsBlocked(player.NetId)) return;
+
             MpPlayerDeathCardStash.StoreSnapshot(player.NetId, pcs);
         }
     }

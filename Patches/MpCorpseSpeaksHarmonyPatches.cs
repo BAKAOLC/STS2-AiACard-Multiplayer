@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using STS2_AiACard_Multiplayer.Cards.Necrobinder;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Patching.Models;
 
 namespace STS2_AiACard_Multiplayer.Patches
@@ -72,8 +73,15 @@ namespace STS2_AiACard_Multiplayer.Patches
 
         public static void Postfix(CardModel __instance, Creature? target, ref bool __result)
         {
-            if (__result) return;
             if (__instance is not MpCorpseSpeaks || target == null) return;
+
+            if (MpForceKillReviveBlock.IsBlockedCorpse(target))
+            {
+                __result = false;
+                return;
+            }
+
+            if (__result) return;
             if (target.IsAlive) return;
             if (!target.IsPlayer || __instance.Owner?.Creature == null) return;
             if (target == __instance.Owner.Creature) return;
@@ -97,6 +105,13 @@ namespace STS2_AiACard_Multiplayer.Patches
 
         public static void Postfix(NTargetManager __instance, Creature creature, ref bool __result)
         {
+            if (MpCorpseSpeaksTargetingState.ActiveCard is MpCorpseSpeaks &&
+                MpForceKillReviveBlock.IsBlockedCorpse(creature))
+            {
+                __result = false;
+                return;
+            }
+
             if (__result) return;
             if (MpCorpseSpeaksTargetingState.ActiveCard is not MpCorpseSpeaks card) return;
 
@@ -202,6 +217,13 @@ namespace STS2_AiACard_Multiplayer.Patches
 
         public static void Postfix(Creature __instance, ref bool __result)
         {
+            if (MpCorpseSpeaksTargetingState.ActiveCard is MpCorpseSpeaks &&
+                MpForceKillReviveBlock.IsBlockedCorpse(__instance))
+            {
+                __result = false;
+                return;
+            }
+
             if (__result) return;
             if (MpCorpseSpeaksTargetingState.ActiveCard is not MpCorpseSpeaks card) return;
             if (!__instance.IsPlayer || !__instance.IsDead) return;

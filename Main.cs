@@ -39,6 +39,8 @@ namespace STS2_AiACard_Multiplayer
                 corpsePatcher.RegisterPatch<MpCorpseSpeaksNTargetManagerStartTargetingControlPatch>();
                 corpsePatcher.RegisterPatch<MpCorpseSpeaksNTargetManagerFinishTargetingPatch>();
                 corpsePatcher.RegisterPatch<MpCorpseSpeaksCreatureIsHittablePatch>();
+                corpsePatcher.RegisterPatch<MpCreatureCmdKillMarkForceDeathPatch>();
+                corpsePatcher.RegisterPatch<MpCombatStartClearForceKillReviveBlockPatch>();
                 corpsePatcher.RegisterPatch<MpPlayerDeathSnapshotPatch>();
                 corpsePatcher.RegisterPatch<MpPlayerMidCombatRevivePatch>();
 
