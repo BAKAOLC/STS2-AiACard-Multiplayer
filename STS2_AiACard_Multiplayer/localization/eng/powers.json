@@ -8,8 +8,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.description": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.smartDescription": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw [blue]{Amount}[/blue] card(s).\nLast: {TigerFlowLastType:choose(0|1|2|3):—|Attack|Skill|Power}. [blue]{TigerFlowStepsUntilDraw}[/blue] step(s) until trigger.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.title": "Energy Loss Next Turn",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "Lose additional [gold]Energy[/gold] next turn.",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "Lose [blue]{Amount}[/blue] additional {energyPrefix:energyIcons(1)} next turn.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "Lose additional {energyPrefix:energyIcons(1)} next turn.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "Lose {Amount:energyIcons()} additional next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.title": "Check Your DPS",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.description": "If you play no [gold]Attack[/gold] by the end of this turn, you take a penalty next turn and the caster gains a benefit next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.smartDescription": "If you play no [gold]Attack[/gold] by the end of this turn, at the start of next turn you lose {DpsTargetEnergyLoss:energyIcons()} and draw [blue]{DpsDrawFewerNextHand}[/blue] fewer card(s); the caster gains {DpsCasterEnergyNextTurn:energyIcons()} and draws [blue]{DpsCasterDrawNextTurn}[/blue] extra card(s).",
@@ -20,8 +20,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.description": "Take double damage from [gold]Attacks[/gold] this turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.smartDescription": "This turn, damage you take from [gold]Attacks[/gold] is doubled [blue]{Amount}[/blue] time(s).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.title": "Exhaustion",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "At the start of your next turn, lose all [gold]Energy[/gold], and gain [gold]No Draw[/gold] and [gold]Ringing[/gold] for 1 turn.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "At the start of your next turn, lose all {energyPrefix:energyIcons(1)}, and gain [gold]No Draw[/gold] and [gold]Ringing[/gold] for 1 turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.title": "Energy Bias",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "This turn, whenever you spend [gold]Energy[/gold], channel random [gold]Orb(s)[/gold].",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "This turn, whenever you spend [blue]1[/blue] [gold]Energy[/gold], channel [blue]{Amount}[/blue] random [gold]Orb(s)[/gold]."
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "This turn, whenever you spend {energyPrefix:energyIcons(1)}, channel random [gold]Orb(s)[/gold].",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "This turn, whenever you spend {energyPrefix:energyIcons(1)}, channel [blue]{Amount}[/blue] random [gold]Orb(s)[/gold]."
 }

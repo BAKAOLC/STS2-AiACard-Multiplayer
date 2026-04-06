@@ -8,8 +8,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.description": "每连续打出两张类型不同的攻击、技能或能力牌时，抽牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.smartDescription": "每连续打出两张类型不同的攻击、技能或能力牌时，抽 [blue]{Amount}[/blue] 张牌。\n上一张：{TigerFlowLastType:choose(0|1|2|3):无|攻击|技能|能力}。距触发还差 [blue]{TigerFlowStepsUntilDraw}[/blue] 步。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.title": "下回合失能",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "在下回合额外失去[gold]能量[/gold]。",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "在下回合额外失去[blue]{Amount}[/blue]点{energyPrefix:energyIcons(1)}。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "在下回合额外失去{energyPrefix:energyIcons(1)}。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "在下回合额外失去{Amount:energyIcons()}。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.title": "查你 DPS",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.description": "若[gold]本回合结束[/gold]时，你未打出过[gold]攻击牌[/gold]，你承受下回合惩罚，施法者获得下回合增益。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.smartDescription": "若[gold]本回合结束[/gold]时，你未打出过[gold]攻击牌[/gold]，下回合开始时，你失去{DpsTargetEnergyLoss:energyIcons()}，少抽 [blue]{DpsDrawFewerNextHand}[/blue] 张牌；施法者下回合获得{DpsCasterEnergyNextTurn:energyIcons()}，多抽 [blue]{DpsCasterDrawNextTurn}[/blue] 张牌。",
@@ -20,8 +20,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.description": "本回合，受到的攻击伤害翻倍。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.smartDescription": "本回合，受到的攻击伤害翻倍[blue]{Amount}[/blue]次。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.title": "力竭",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "下回合开始时，失去所有[gold]能量[/gold]，并获得1回合[gold]不可抽牌[/gold]和[gold]昏眩[/gold]的负面效果。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "下回合开始时，失去全部{energyPrefix:energyIcons(1)}，并获得1回合[gold]不可抽牌[/gold]和[gold]昏眩[/gold]的负面效果。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.title": "耗能偏差",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "本回合每消耗1点[gold]能量[/gold]，生成随机充能球。",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "本回合每消耗 [blue]1[/blue] 点[gold]能量[/gold]，生成 [blue]{Amount}[/blue] 个随机充能球。"
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "本回合每消耗{energyPrefix:energyIcons(1)}，生成随机充能球。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "本回合每消耗{energyPrefix:energyIcons(1)}，生成 [blue]{Amount}[/blue] 个随机充能球。"
 }

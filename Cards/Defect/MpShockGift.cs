@@ -14,7 +14,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
     public sealed class MpShockGift() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new CardsVar(2)];
+            [new IntVar("Orbs", 1), new CardsVar(2)];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -30,8 +30,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             var ctx = new ThrowingPlayerChoiceContext();
-            var orb = OrbModel.GetRandomOrb(target.RunState.Rng.CombatOrbGeneration).ToMutable();
-            await OrbCmd.Channel(ctx, orb, target);
+            var orbCount = DynamicVars["Orbs"].IntValue;
+            for (var o = 0; o < orbCount; o++)
+            {
+                var orb = OrbModel.GetRandomOrb(target.RunState.Rng.CombatOrbGeneration).ToMutable();
+                await OrbCmd.Channel(ctx, orb, target);
+            }
             var boostAway = MpHelpers.CreateCard<BoostAway>(CombatState, target, IsUpgraded);
             await MpHelpers.AddToHand(choiceContext, boostAway);
             var dazedCount = DynamicVars.Cards.IntValue;
@@ -44,7 +48,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(-1m);
+            DynamicVars["Orbs"].UpgradeValueBy(1m);
         }
     }
 }
