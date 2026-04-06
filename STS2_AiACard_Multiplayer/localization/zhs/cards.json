@@ -52,7 +52,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.title": "俺要学猛虎下山",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "所有玩家获得{MpDoubleDamageTakenPower:diff()}层[gold]承伤倍增[/gold]。\n你获得[gold]猛虎流转[/gold]。\n每当你连续打出两张类型不同的[gold]攻击[/gold]、[gold]技能[/gold]或[gold]能力[/gold]牌时，抽{MpTigerStudyFlowPower:diff()}张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "有福同享",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "战斗结束时，所有玩家获得{MpSharedFortunePower:diff()}[gold]金币[/gold]。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "战斗结束时，所有玩家获得{Gold:diff()}[gold]金币[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "查你 DPS",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.description": "对另一名玩家施加[gold]{IfUpgraded:show:查你 DPS+|查你 DPS}[/gold]。\n若其本回合结束时，未打出过[gold]攻击牌[/gold]，则下回合开始时，其失去{energyPrefix:energyIcons(2)}、少抽1张牌，你获得{IfUpgraded:show:{energyPrefix:energyIcons(3)}|{energyPrefix:energyIcons(2)}}、{IfUpgraded:show:多抽 2|多抽 1} 张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_WRIGGLE.title": "蠕动",

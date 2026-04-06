@@ -21,7 +21,6 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new PowerRegistrationEntry<MpCheckDpsPower>(),
             new PowerRegistrationEntry<MpBountyMarkPower>(),
             new PowerRegistrationEntry<MpDoubleDamageTakenPower>(),
-            new PowerRegistrationEntry<MpSharedFortunePower>(),
             new PowerRegistrationEntry<MpHangoverPower>(),
             new PowerRegistrationEntry<MpPerEnergySelfChannelPower>(),
             new CardRegistrationEntry<IroncladCardPool, MpDrainOthersDry>(),

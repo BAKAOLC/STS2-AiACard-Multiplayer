@@ -44,11 +44,21 @@ namespace STS2_AiACard_Multiplayer.Powers
             var pcs = player.PlayerCombatState;
             if (pcs == null) return null;
 
-            return pcs.AllCards
-                .OfType<SovereignBlade>()
-                .Where(b => b.Pile != null && b.Pile.Type is not (PileType.Hand or PileType.Play))
-                .OrderBy(b => PileRetrievePriority(b.Pile!.Type))
-                .FirstOrDefault();
+            SovereignBlade? best = null;
+            var bestPriority = int.MaxValue;
+            foreach (var b in pcs.AllCards.OfType<SovereignBlade>())
+            {
+                var pile = b.Pile;
+                if (pile == null || pile.Type is PileType.Hand or PileType.Play) continue;
+
+                var pr = PileRetrievePriority(pile.Type);
+                if (pr >= bestPriority) continue;
+
+                bestPriority = pr;
+                best = b;
+            }
+
+            return best;
         }
 
         private static int PileRetrievePriority(PileType t)

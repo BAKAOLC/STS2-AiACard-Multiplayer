@@ -1,11 +1,12 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
@@ -63,23 +64,27 @@ namespace STS2_AiACard_Multiplayer.Powers
             InvokeDisplayAmountChanged();
         }
 
-        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
+        public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature,
             bool wasRemovalPrevented, float deathAnimLength)
         {
-            if (creature != Owner || !creature.IsMonster) return;
+            if (creature != Owner || !creature.IsMonster) return Task.CompletedTask;
 
             var d = GetInternalData<Data>();
-            if (d.GoldCap <= 0) return;
+            if (d.GoldCap <= 0) return Task.CompletedTask;
 
             var pool = Math.Min(creature.MaxHp, d.GoldCap);
-            if (pool <= 0) return;
+            if (pool <= 0) return Task.CompletedTask;
 
             var history = CombatManager.Instance.History.Entries.OfType<DamageReceivedEntry>()
                 .LastOrDefault(e => e.Receiver == creature && e.Result.WasTargetKilled);
             var killer = history?.Dealer?.Player;
-            if (killer == null || killer.Creature.IsDead) return;
+            if (killer == null || killer.Creature.IsDead) return Task.CompletedTask;
 
-            await PlayerCmd.GainGold(pool, killer);
+            var runState = creature.CombatState?.RunState;
+            if (runState?.CurrentRoom is CombatRoom combatRoom)
+                combatRoom.AddExtraReward(killer, new GoldReward(pool, killer));
+
+            return Task.CompletedTask;
         }
 
         private sealed class Data

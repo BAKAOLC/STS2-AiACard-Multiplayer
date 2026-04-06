@@ -26,7 +26,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
             {
                 if (p.Creature.IsDead) continue;
 
-                var pcs = p.PlayerCombatState!;
+                var pcs = p.PlayerCombatState;
+                if (pcs == null) continue;
+
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
                     var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, IsUpgraded);

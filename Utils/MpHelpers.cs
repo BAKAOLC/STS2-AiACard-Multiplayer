@@ -78,13 +78,21 @@ namespace STS2_AiACard_Multiplayer.Utils
 
         public static IReadOnlyList<CardModel> SnapshotHand(Player player)
         {
-            return player.PlayerCombatState!.Hand.Cards.ToList();
+            var pcs = player.PlayerCombatState;
+            ArgumentNullException.ThrowIfNull(pcs);
+            return pcs.Hand.Cards.ToList();
         }
 
         public static async Task DrawUntilHandFull(PlayerChoiceContext ctx, Player player)
         {
-            var pcs = player.PlayerCombatState!;
-            while (pcs.Hand.Cards.Count < Const.CombatHandMax) await CardPileCmd.Draw(ctx, 1, player);
+            var pcs = player.PlayerCombatState;
+            ArgumentNullException.ThrowIfNull(pcs);
+            while (pcs.Hand.Cards.Count < Const.CombatHandMax)
+            {
+                var before = pcs.Hand.Cards.Count;
+                await CardPileCmd.Draw(ctx, 1, player);
+                if (pcs.Hand.Cards.Count == before) break;
+            }
         }
 
         public static void MakeEtherealEnergyOneThisTurn(CardModel card)

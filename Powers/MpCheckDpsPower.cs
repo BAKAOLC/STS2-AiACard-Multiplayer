@@ -32,9 +32,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new("DpsTargetEnergyLoss", TargetEnergyLoss),
+            new EnergyVar("DpsTargetEnergyLoss", TargetEnergyLoss),
             new("DpsDrawFewerNextHand", DrawFewerNextHand),
-            new("DpsCasterEnergyNextTurn", CasterEnergyBase),
+            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyBase),
             new("DpsCasterDrawNextTurn", CasterDrawBase),
         ];
 

@@ -22,12 +22,17 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             ArgumentNullException.ThrowIfNull(CombatState);
             var n = 0;
             foreach (var p in CombatState.Players)
-            foreach (var c in p.PlayerCombatState!.AllCards.ToList())
             {
-                if (c.Type != CardType.Status) continue;
+                var pcs = p.PlayerCombatState;
+                if (pcs == null) continue;
 
-                await CardCmd.Exhaust(choiceContext, c);
-                n++;
+                foreach (var c in pcs.AllCards.ToList())
+                {
+                    if (c.Type != CardType.Status) continue;
+
+                    await CardCmd.Exhaust(choiceContext, c);
+                    n++;
+                }
             }
 
             if (n == 0)
