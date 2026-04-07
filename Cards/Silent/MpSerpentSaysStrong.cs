@@ -31,8 +31,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
+                    var before = pcs.Hand.Cards.Count;
                     var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, IsUpgraded);
                     await MpHelpers.AddToHand(choiceContext, bite);
+                    if (pcs.Hand.Cards.Count == before)
+                        break;
                 }
             }
         }

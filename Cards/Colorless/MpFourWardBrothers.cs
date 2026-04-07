@@ -59,8 +59,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
                 while (pcs.Hand.Cards.Count < Const.CombatHandMax)
                 {
+                    var before = pcs.Hand.Cards.Count;
                     var inf = MpHelpers.CreateCard<Infection>(CombatState, p, false);
                     await MpHelpers.AddToHand(choiceContext, inf);
+                    if (pcs.Hand.Cards.Count == before)
+                        break;
                 }
             }
         }
