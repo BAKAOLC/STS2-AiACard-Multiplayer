@@ -14,10 +14,10 @@ namespace STS2_AiACard_Multiplayer.Powers
 {
     public sealed class MpCheckDpsPower : ModPowerTemplate
     {
-        private const int TargetEnergyLoss = 2;
+        private const int TargetEnergyLossBase = 2;
+        private const int TargetEnergyLossUpgraded = 1;
         private const int DrawFewerNextHand = 1;
-        private const int CasterEnergyBase = 2;
-        private const int CasterEnergyUpgraded = 3;
+        private const int CasterEnergyGain = 2;
         private const int CasterDrawBase = 1;
         private const int CasterDrawUpgraded = 2;
 
@@ -32,9 +32,9 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new EnergyVar("DpsTargetEnergyLoss", TargetEnergyLoss),
+            new EnergyVar("DpsTargetEnergyLoss", TargetEnergyLossBase),
             new("DpsDrawFewerNextHand", DrawFewerNextHand),
-            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyBase),
+            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyGain),
             new("DpsCasterDrawNextTurn", CasterDrawBase),
         ];
 
@@ -54,7 +54,8 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             var d = GetInternalData<Data>();
             var upgraded = cardSource?.IsUpgraded == true;
-            d.CasterEnergyNextTurn = upgraded ? CasterEnergyUpgraded : CasterEnergyBase;
+            d.TargetEnergyLoss = upgraded ? TargetEnergyLossUpgraded : TargetEnergyLossBase;
+            d.CasterEnergyNextTurn = CasterEnergyGain;
             d.CasterDrawNextTurn = upgraded ? CasterDrawUpgraded : CasterDrawBase;
             return Task.CompletedTask;
         }
@@ -69,6 +70,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         private void SyncLocVarsFromData()
         {
             var d = GetInternalData<Data>();
+            DynamicVars["DpsTargetEnergyLoss"].BaseValue = d.TargetEnergyLoss;
             DynamicVars["DpsCasterEnergyNextTurn"].BaseValue = d.CasterEnergyNextTurn;
             DynamicVars["DpsCasterDrawNextTurn"].BaseValue = d.CasterDrawNextTurn;
         }
@@ -107,12 +109,15 @@ namespace STS2_AiACard_Multiplayer.Powers
             var applierCreature = Applier;
             if (applierCreature?.Player != null)
             {
-                await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(Owner, TargetEnergyLoss, applierCreature, null);
+                await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(Owner, d.TargetEnergyLoss, applierCreature, null);
                 await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, -DrawFewerNextHand, applierCreature, null);
-                await PowerCmd.Apply<EnergyNextTurnPower>(applierCreature, d.CasterEnergyNextTurn, applierCreature,
-                    null);
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(applierCreature, d.CasterDrawNextTurn, applierCreature,
-                    null);
+                foreach (var player in CombatState.Players.Where(p => p != Owner.Player && p.Creature.IsAlive))
+                {
+                    await PowerCmd.Apply<EnergyNextTurnPower>(player.Creature, d.CasterEnergyNextTurn, applierCreature,
+                        null);
+                    await PowerCmd.Apply<DrawCardsNextTurnPower>(player.Creature, d.CasterDrawNextTurn,
+                        applierCreature, null);
+                }
             }
 
             await PowerCmd.Remove(this);
@@ -123,6 +128,7 @@ namespace STS2_AiACard_Multiplayer.Powers
             public int CasterDrawNextTurn;
             public int CasterEnergyNextTurn;
             public bool PendingAfterTurnEnd;
+            public int TargetEnergyLoss;
         }
     }
 }

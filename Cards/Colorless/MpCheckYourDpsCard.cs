@@ -11,7 +11,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>查你DPS：本阶段目标若未打出攻击则受罚，你获得下回合资源。</summary>
     public sealed class MpCheckYourDpsCard()
-        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpCheckYourDpsCard, Const.Paths.CardPortraits.MpCheckYourDpsCard);

@@ -11,16 +11,16 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>赌怪：敌人获得力量与悬赏标记。</summary>
-    public sealed class MpGamblingCard() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpGamblingCard() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new PowerVar<StrengthPower>(2),
             new PowerVar<RitualPower>(2),
-            new("BountyGoldCap", 50m),
+            new("BountyGoldCap", 25m),
         ];
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Ethereal];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpGamblingCard, Const.Paths.CardPortraits.MpGamblingCard);
@@ -46,7 +46,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
         protected override void OnUpgrade()
         {
-            DynamicVars["BountyGoldCap"].UpgradeValueBy(25m);
+            DynamicVars["BountyGoldCap"].UpgradeValueBy(15m);
         }
     }
 }

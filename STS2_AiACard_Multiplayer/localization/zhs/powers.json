@@ -12,7 +12,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "在下回合额外失去{Amount:energyIcons()}。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.title": "查你 DPS",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.description": "若[gold]本回合结束[/gold]时，你未打出过[gold]攻击牌[/gold]，你承受下回合惩罚，施法者获得下回合增益。",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.smartDescription": "若[gold]本回合结束[/gold]时，你未打出过[gold]攻击牌[/gold]，下回合开始时，你失去{DpsTargetEnergyLoss:energyIcons()}，少抽 [blue]{DpsDrawFewerNextHand}[/blue] 张牌；施法者下回合获得{DpsCasterEnergyNextTurn:energyIcons()}，多抽 [blue]{DpsCasterDrawNextTurn}[/blue] 张牌。",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.smartDescription": "若[gold]本回合结束[/gold]时，你未打出过[gold]攻击牌[/gold]，下回合开始时，你失去{DpsTargetEnergyLoss:energyIcons()}，少抽 [blue]{DpsDrawFewerNextHand}[/blue] 张牌；其他玩家下回合获得{DpsCasterEnergyNextTurn:energyIcons()}，多抽 [blue]{DpsCasterDrawNextTurn}[/blue] 张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.title": "赏金标记",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.description": "此敌人被消灭时，击杀者按其生命上限获得[gold]金币[/gold]（受赏金上限限制）。",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.smartDescription": "此敌人被消灭时，造成最后一击的玩家获得相当于此敌人生命上限数量的[gold]金币[/gold]，最多 [blue]{BountyGoldCap}[/blue]。",

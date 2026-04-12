@@ -50,7 +50,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MpSharedFortunePower"].UpgradeValueBy(2m);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

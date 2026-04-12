@@ -15,7 +15,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
         : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new BlockVar(10m, ValueProp.Move)];
+            [new BlockVar(8m, ValueProp.Move)];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -35,7 +35,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(10m);
+            DynamicVars.Block.UpgradeValueBy(6m);
         }
     }
 }

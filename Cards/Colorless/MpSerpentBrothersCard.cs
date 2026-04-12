@@ -17,7 +17,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new BlockVar(2m, ValueProp.Unpowered)];
+            [new BlockVar(3m, ValueProp.Unpowered)];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSerpentBrothersCard, Const.Paths.CardPortraits.MpSerpentBrothersCard);
