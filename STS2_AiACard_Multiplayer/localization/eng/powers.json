@@ -11,7 +11,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.description": "Lose additional {energyPrefix:energyIcons(1)} next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_LOSE_ENERGY_NEXT_TURN_POWER.smartDescription": "Lose {Amount:energyIcons()} additional next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.title": "Check Your DPS",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.description": "If you play no [gold]Attack[/gold] by the end of this turn, you take a penalty next turn and the caster gains a benefit next turn.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.description": "If you play no [gold]Attack[/gold] by the end of this turn, you take a penalty next turn and other players gain a benefit next turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_CHECK_DPS_POWER.smartDescription": "If you play no [gold]Attack[/gold] by the end of this turn, at the start of next turn you lose {DpsTargetEnergyLoss:energyIcons()} and draw [blue]{DpsDrawFewerNextHand}[/blue] fewer card(s); other players gain {DpsCasterEnergyNextTurn:energyIcons()} and draw [blue]{DpsCasterDrawNextTurn}[/blue] extra card(s).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.title": "Bounty Mark",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.description": "When killed, the killing player gains [gold]Gold[/gold] from its Max HP (capped).",
