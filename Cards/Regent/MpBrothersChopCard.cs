@@ -11,7 +11,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
     /// <summary>是兄弟就来砍它：全体铸造，且打出君王之剑时他人获得君王之剑。</summary>
     public sealed class MpBrothersChopCard()
-        : MpOnlyModCardTemplate(2, CardType.Power, CardRarity.Common, TargetType.Self)
+        : MpOnlyModCardTemplate(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new ForgeVar(5)];
