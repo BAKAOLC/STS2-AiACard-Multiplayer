@@ -36,8 +36,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             await MpHelpers.DealHpLoss(choiceContext, target.Creature, DynamicVars.Damage.BaseValue, this);
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
-            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);
+
+            var targetDied = target.Creature.IsDead;
+            if (!targetDied)
+            {
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
+                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);
+            }
             await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
 
             var rh = DynamicVars["DrainRampHp"].BaseValue;
@@ -50,9 +55,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             DynamicVars.Cards.BaseValue += rc;
             _extraCardsFromPlays += rc;
 
-            var copy = MpHelpers.CreateCard<MpDrainOthersDry>(CombatState, target, IsUpgraded);
-            copy.InheritScaledStatsFrom(this);
-            await MpHelpers.AddToHand(choiceContext, copy);
+            if (!targetDied)
+            {
+                var copy = MpHelpers.CreateCard<MpDrainOthersDry>(CombatState, target, IsUpgraded);
+                copy.InheritScaledStatsFrom(this);
+                await MpHelpers.AddToHand(choiceContext, copy);
+            }
         }
 
         private void InheritScaledStatsFrom(MpDrainOthersDry source)
