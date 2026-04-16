@@ -11,12 +11,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     public sealed class MpCorpseCurseToken()
         : MpOnlyModCardTemplate(-1, CardType.Curse, CardRarity.Curse, TargetType.None, false)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new DamageVar(99m, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move),
         ];
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Ethereal];
 
         public override bool HasTurnEndInHandEffect => true;
 

@@ -40,7 +40,7 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new CardRegistrationEntry<NecrobinderCardPool, MpGroupSacrifice>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpBloodMistCard>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpCorpseSpeaks>(),
-            new CardRegistrationEntry<TokenCardPool, MpCorpseCurseToken>(),
+            new CardRegistrationEntry<CurseCardPool, MpCorpseCurseToken>(),
             new CardRegistrationEntry<DefectCardPool, MpBiasedPartyCard>(),
             new CardRegistrationEntry<DefectCardPool, MpShockGift>(),
             new CardRegistrationEntry<DefectCardPool, MpStatusVacuum>(),
