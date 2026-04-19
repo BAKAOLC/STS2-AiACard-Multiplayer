@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Models.CardPools;
 using STS2_AiACard_Multiplayer.Cards.Colorless;
+using STS2_AiACard_Multiplayer.Models.CardPools;
 using STS2_AiACard_Multiplayer.Cards.Defect;
 using STS2_AiACard_Multiplayer.Cards.Ironclad;
 using STS2_AiACard_Multiplayer.Cards.Necrobinder;
@@ -40,7 +41,8 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new CardRegistrationEntry<NecrobinderCardPool, MpGroupSacrifice>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpBloodMistCard>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpCorpseSpeaks>(),
-            new CardRegistrationEntry<CurseCardPool, MpCorpseCurseToken>(),
+            new SharedCardPoolRegistrationEntry<MpCorpseCurseCardPool>(),
+            new CardRegistrationEntry<MpCorpseCurseCardPool, MpCorpseCurseToken>(),
             new CardRegistrationEntry<DefectCardPool, MpBiasedPartyCard>(),
             new CardRegistrationEntry<DefectCardPool, MpShockGift>(),
             new CardRegistrationEntry<DefectCardPool, MpStatusVacuum>(),
