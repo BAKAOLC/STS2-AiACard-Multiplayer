@@ -25,6 +25,7 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new PowerRegistrationEntry<MpDoubleDamageTakenPower>(),
             new PowerRegistrationEntry<MpHangoverPower>(),
             new PowerRegistrationEntry<MpPerEnergySelfChannelPower>(),
+            new PowerRegistrationEntry<MpPassTheFlameTemporaryStrengthPower>(),
             new CardRegistrationEntry<IroncladCardPool, MpDrainOthersDry>(),
             new CardRegistrationEntry<IroncladCardPool, MpPassTheFlame>(),
             new CardRegistrationEntry<IroncladCardPool, MpYourBodySlam>(),

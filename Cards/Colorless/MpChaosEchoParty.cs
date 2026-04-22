@@ -12,12 +12,10 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
     /// <summary>混沌形态：每名玩家获得能量；各玩家手牌加入多张带虚无的形态+。</summary>
-    public sealed class MpChaosEchoParty() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpChaosEchoParty() : MpOnlyModCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new EnergyVar(1)];
-
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpChaosEchoParty, Const.Paths.CardPortraits.MpChaosEchoParty);

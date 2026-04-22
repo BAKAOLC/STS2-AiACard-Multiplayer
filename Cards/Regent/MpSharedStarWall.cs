@@ -8,13 +8,11 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
-    /// <summary>辉星同享：按 X 分配辉星，各玩家获得粒子障壁与星位序列。</summary>
+    /// <summary>辉星同享：按 X 分配辉星，各玩家获得虚无的粒子墙与星位序列。</summary>
     public sealed class MpSharedStarWall()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override bool HasStarCostX => true;
-
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSharedStarWall, Const.Paths.CardPortraits.MpSharedStarWall);
@@ -35,8 +33,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
                 if (half > 0) await PlayerCmd.GainStars(half, p);
 
                 var wall = MpHelpers.CreateCard<ParticleWall>(CombatState, p, IsUpgraded);
+                if (!wall.Keywords.Contains(CardKeyword.Ethereal)) CardCmd.ApplyKeyword(wall, CardKeyword.Ethereal);
                 await MpHelpers.AddToHand(choiceContext, wall);
                 var align = MpHelpers.CreateCard<Alignment>(CombatState, p, IsUpgraded);
+                if (!align.Keywords.Contains(CardKeyword.Ethereal)) CardCmd.ApplyKeyword(align, CardKeyword.Ethereal);
                 await MpHelpers.AddToHand(choiceContext, align);
             }
         }

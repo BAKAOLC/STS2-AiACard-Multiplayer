@@ -10,14 +10,12 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
-    /// <summary>你话太多了：目标获得格挡且本回合无法抽牌；你将手牌抽至上限。</summary>
+    /// <summary>你话太多了：目标获得格挡且本回合无法抽牌；你按目标当前手牌数抽牌。</summary>
     public sealed class MpTooMuchTalk()
         : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new BlockVar(8m, ValueProp.Move)];
-
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpTooMuchTalk, Const.Paths.CardPortraits.MpTooMuchTalk);
@@ -30,7 +28,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             await CreatureCmd.GainBlock(target.Creature, DynamicVars.Block, cardPlay);
             await PowerCmd.Apply<NoDrawPower>(target.Creature, 1, Owner.Creature, this);
-            await MpHelpers.DrawUntilHandFull(choiceContext, Owner);
+
+            var drawN = target.PlayerCombatState?.Hand.Cards.Count ?? 0;
+            if (drawN > 0)
+                await CardPileCmd.Draw(choiceContext, drawN, Owner);
         }
 
         protected override void OnUpgrade()

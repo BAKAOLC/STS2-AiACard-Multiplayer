@@ -15,11 +15,11 @@ namespace STS2_AiACard_Multiplayer.Powers
     public sealed class MpCheckDpsPower : ModPowerTemplate
     {
         private const int TargetEnergyLossBase = 2;
-        private const int TargetEnergyLossUpgraded = 1;
+        private const int TargetEnergyLossUpgraded = 2;
         private const int DrawFewerNextHand = 1;
         private const int CasterEnergyGain = 2;
         private const int CasterDrawBase = 1;
-        private const int CasterDrawUpgraded = 2;
+        private const int CasterDrawUpgraded = 3;
 
         public override PowerType Type => PowerType.Debuff;
 

@@ -9,10 +9,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
 {
     /// <summary>星际矿车：[消耗]。每名玩家将一张（升级后为升级）环绕轨道置入手牌。</summary>
     public sealed class MpOrbitMinecart()
-        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+        : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpOrbitMinecart, Const.Paths.CardPortraits.MpOrbitMinecart);
 
