@@ -76,6 +76,7 @@ namespace STS2_AiACard_Multiplayer
                 public const string MpSerpentBrothersPower = P + "008_群蛇兄弟.png";
                 public const string MpSharedFortunePower = P + "009_有福同享.png";
                 public const string MpTigerStudyFlowPower = P + "010_猛虎流转.png";
+                public const string MpPassTheFlameTemporaryStrengthPower = P + "011_传火.png";
             }
         }
     }

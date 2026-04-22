@@ -12,7 +12,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>一人叠灾厄太慢：获得灾厄；各玩家手牌加入带虚无的死神形态，本回合耗能降为 1。</summary>
-    public sealed class MpSharedDoomSlow() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public sealed class MpSharedDoomSlow() : MpOnlyModCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<DoomPower>(20m)];
