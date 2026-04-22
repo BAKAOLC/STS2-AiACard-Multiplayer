@@ -54,7 +54,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "有福同享",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "战斗结束时，所有玩家获得{MpSharedFortunePower:diff()}[gold]金币[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "查你 DPS",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.description": "对另一名玩家施加[gold]{IfUpgraded:show:查你 DPS+|查你 DPS}[/gold]。\n若其本回合结束时，未打出过[gold]攻击牌[/gold]，则下回合开始时，其失去{energyPrefix:energyIcons(2)}、少抽1张牌，其他玩家获得{energyPrefix:energyIcons(2)}并额外抽取{IfUpgraded:show:3|1}张牌。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.description": "若另一名玩家回合结束时，未打出过[gold]攻击牌[/gold]，则下回合开始时，其失去{energyPrefix:energyIcons(2)}、少抽1张牌，其他玩家获得{energyPrefix:energyIcons(2)}并额外抽取{IfUpgraded:show:3|1}张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_WRIGGLE.title": "蠕动",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_WRIGGLE.description": "所有玩家获得数量等同于当前战斗回合数除以3（向下取整）的[gold]能量[/gold]，并抽取等量张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.title": "赌怪！",

@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.HoverTips;
 using STS2_AiACard_Multiplayer.Cards.Ironclad;
 
 namespace STS2_AiACard_Multiplayer.Powers
@@ -8,6 +9,9 @@ namespace STS2_AiACard_Multiplayer.Powers
     public sealed class MpPassTheFlameTemporaryStrengthPower : TemporaryStrengthPower
     {
         public override AbstractModel OriginModel => ModelDb.Card<MpPassTheFlame>();
+
+        protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+            [HoverTipFactory.FromPower<StrengthPower>()];
     }
 }
 

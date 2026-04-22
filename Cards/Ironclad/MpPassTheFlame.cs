@@ -21,7 +21,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             new(Const.Paths.CardPortraits.MpPassTheFlame, Const.Paths.CardPortraits.MpPassTheFlame);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            ModelDb.Power<MpPassTheFlameTemporaryStrengthPower>().HoverTips.Concat(ModelDb.Card<Burn>().HoverTips);
+            ModelDb.Power<MpPassTheFlameTemporaryStrengthPower>().HoverTips
+                .Concat(HoverTipFactory.FromCardWithCardHoverTips<Burn>());
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

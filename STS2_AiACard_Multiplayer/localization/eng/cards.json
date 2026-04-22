@@ -54,7 +54,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "Shared Wealth",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "At the end of combat, ALL players gain {MpSharedFortunePower:diff()} [gold]Gold[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "Check Your DPS",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.description": "Apply [gold]{IfUpgraded:show:Check Your DPS+|Check Your DPS}[/gold] to another player.\nIf they play no [gold]Attack[/gold] by the end of their turn, at the start of the next turn they lose {energyPrefix:energyIcons(2)} and draw 1 fewer card; other players gain {energyPrefix:energyIcons(2)} and draw {IfUpgraded:show:3|1} extra card(s).",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.description": "If another player has played no [gold]Attack[/gold] by the end of their turn, at the start of the next turn they lose {energyPrefix:energyIcons(2)} and draw 1 fewer card; other players gain {energyPrefix:energyIcons(2)} and draw {IfUpgraded:show:3|1} extra card(s).",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_WRIGGLE.title": "Wriggle",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_WRIGGLE.description": "ALL players gain [gold]Energy[/gold] and draw cards equal to the current combat turn count divided by 3 (rounded down).",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GAMBLING_CARD.title": "Gambler!",
