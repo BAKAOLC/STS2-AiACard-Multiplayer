@@ -50,7 +50,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.title": "混沌形态",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.description": "所有玩家获得{Energy:energyIcons()}。在所有玩家的[gold]手牌[/gold]中，放入带[gold]虚无[/gold]的[gold]恶魔形态+[/gold]、[gold]群蛇形态+[/gold]、[gold]死神形态+[/gold]、[gold]回响形态+[/gold]、[gold]虚空形态+[/gold]各1张。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.title": "俺要学猛虎下山",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "所有玩家获得{MpDoubleDamageTakenPower:diff()}层[gold]承伤倍增[/gold]。\n你获得[gold]猛虎流转[/gold]。\n每当你连续打出两张类型不同的[gold]攻击[/gold]、[gold]技能[/gold]或[gold]能力[/gold]牌时，抽{MpTigerStudyFlowPower:diff()}张牌。",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "所有玩家获得{MpDoubleDamageTakenPower:diff()}层[gold]承伤倍增[/gold]。\n每当你连续打出两张类型不同的[gold]攻击[/gold]、[gold]技能[/gold]或[gold]能力[/gold]牌时，抽{MpTigerStudyFlowPower:diff()}张牌。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "有福同享",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "战斗结束时，所有玩家获得{MpSharedFortunePower:diff()}[gold]金币[/gold]。",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "查你 DPS",

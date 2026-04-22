@@ -50,7 +50,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.title": "Chaos Form",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHAOS_ECHO_PARTY.description": "ALL players gain {Energy:energyIcons()}. Add one [gold]Ethereal[/gold] [gold]Demon Form+[/gold], [gold]Serpent Form+[/gold], [gold]Reaper Form+[/gold], [gold]Echo Form+[/gold], and [gold]Void Form+[/gold] to each player's [gold]Hand[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.title": "Tiger Study",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "ALL players gain {MpDoubleDamageTakenPower:diff()} stacks of [gold]Double Damage Taken[/gold]. You gain [gold]Tiger Study Flow[/gold].\nWhenever you play two consecutive cards of different types among [gold]Attack[/gold], [gold]Skill[/gold], and [gold]Power[/gold], draw {MpTigerStudyFlowPower:diff()} cards.",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_TIGER_STUDY_CARD.description": "ALL players gain {MpDoubleDamageTakenPower:diff()} stacks of [gold]Double Damage Taken[/gold].\nWhenever you play two consecutive cards of different types among [gold]Attack[/gold], [gold]Skill[/gold], and [gold]Power[/gold], draw {MpTigerStudyFlowPower:diff()} cards.",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.title": "Shared Wealth",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_WEALTH.description": "At the end of combat, ALL players gain {MpSharedFortunePower:diff()} [gold]Gold[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_CHECK_YOUR_DPS_CARD.title": "Check Your DPS",

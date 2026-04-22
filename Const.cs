@@ -11,7 +11,7 @@ namespace STS2_AiACard_Multiplayer
 
         public const string ModId = "STS2-AiACard-Multiplayer";
         public const string Name = "AiACard-Multiplayer";
-        public const string Version = "0.1.1";
+        public const string Version = "0.1.2";
 
         public static readonly CardAssetProfile PlaceholderCardArt =
             new(Paths.PlaceholderPortrait, Paths.PlaceholderPortrait);
