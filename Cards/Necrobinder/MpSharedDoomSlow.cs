@@ -17,8 +17,6 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new PowerVar<DoomPower>(20m)];
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSharedDoomSlow, Const.Paths.CardPortraits.MpSharedDoomSlow);
 

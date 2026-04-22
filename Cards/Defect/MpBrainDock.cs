@@ -10,8 +10,6 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
     /// <summary>外接大脑：每名玩家将一张创造性AI置入手牌（升级后为升级版）。</summary>
     public sealed class MpBrainDock() : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpBrainDock, Const.Paths.CardPortraits.MpBrainDock);
 
