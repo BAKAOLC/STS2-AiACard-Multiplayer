@@ -27,7 +27,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
         {
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             await CreatureCmd.GainBlock(target.Creature, DynamicVars.Block, cardPlay);
-            await PowerCmd.Apply<NoDrawPower>(target.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<NoDrawPower>(choiceContext, target.Creature, 1, Owner.Creature, this);
 
             var drawN = target.PlayerCombatState?.Hand.Cards.Count ?? 0;
             if (drawN > 0)

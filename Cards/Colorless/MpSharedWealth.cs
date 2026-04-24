@@ -40,7 +40,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             {
                 MpSharedWealthFortuneApplyContext.AllowFortunePowerOnDeadPlayers = true;
                 foreach (var p in CombatState.Players)
-                    await PowerCmd.Apply<MpSharedFortunePower>(p.Creature, amount, Owner.Creature, this);
+                    await PowerCmd.Apply<MpSharedFortunePower>(choiceContext, p.Creature, amount, Owner.Creature, this);
             }
             finally
             {

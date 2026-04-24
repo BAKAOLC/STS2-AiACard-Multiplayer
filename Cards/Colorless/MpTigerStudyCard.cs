@@ -34,10 +34,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             {
                 if (p.Creature.IsDead) continue;
 
-                await PowerCmd.Apply<MpDoubleDamageTakenPower>(p.Creature, dmgMul, Owner.Creature, this);
+                await PowerCmd.Apply<MpDoubleDamageTakenPower>(choiceContext, p.Creature, dmgMul, Owner.Creature, this);
             }
 
-            await PowerCmd.Apply<MpTigerStudyFlowPower>(Owner.Creature,
+            await PowerCmd.Apply<MpTigerStudyFlowPower>(choiceContext, Owner.Creature,
                 DynamicVars["MpTigerStudyFlowPower"].BaseValue, Owner.Creature, this);
         }
 

@@ -30,12 +30,12 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             ArgumentNullException.ThrowIfNull(CombatState);
             foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
             {
-                await PowerCmd.Apply<DoomPower>(p.Creature, 99m, Owner.Creature, this);
+                await PowerCmd.Apply<DoomPower>(choiceContext, p.Creature, 99m, Owner.Creature, this);
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, p);
                 foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Discard(choiceContext, c);
 
                 await CardPileCmd.Draw(choiceContext, 10, p);
-                await PowerCmd.Apply<DoubleDamagePower>(p.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<DoubleDamagePower>(choiceContext, p.Creature, 1, Owner.Creature, this);
             }
         }
 

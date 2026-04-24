@@ -28,7 +28,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            await PowerCmd.Apply<DoomPower>(Owner.Creature, DynamicVars.Doom.BaseValue, Owner.Creature, this);
+            await PowerCmd.Apply<DoomPower>(choiceContext, Owner.Creature, DynamicVars.Doom.BaseValue, Owner.Creature,
+                this);
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead) continue;

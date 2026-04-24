@@ -44,7 +44,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
                     .ToList();
                 await MpHelpers.AddGeneratedCardsToCombatPile(burns, PileType.Discard, previewPileAdd: true);
 
-                await PowerCmd.Apply<MpPassTheFlameTemporaryStrengthPower>(Owner.Creature, n, Owner.Creature, this);
+                await PowerCmd.Apply<MpPassTheFlameTemporaryStrengthPower>(choiceContext, Owner.Creature, n,
+                    Owner.Creature, this);
                 await CardPileCmd.Draw(choiceContext, n, Owner);
             }
         }

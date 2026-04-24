@@ -31,7 +31,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
                 if (p.Creature.IsDead) continue;
 
                 await ForgeCmd.Forge(DynamicVars.Forge.BaseValue, p, this);
-                await PowerCmd.Apply<MpBrothersBladePower>(p.Creature, 1, Owner.Creature, this);
+                await PowerCmd.Apply<MpBrothersBladePower>(choiceContext, p.Creature, 1, Owner.Creature, this);
             }
         }
 

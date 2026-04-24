@@ -21,7 +21,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             var t = MpHelpers.RequireTargetPlayer(cardPlay);
-            await PowerCmd.Apply<MpCheckDpsPower>(t.Creature, 1, Owner.Creature, this);
+            await PowerCmd.Apply<MpCheckDpsPower>(choiceContext, t.Creature, 1, Owner.Creature, this);
         }
     }
 }

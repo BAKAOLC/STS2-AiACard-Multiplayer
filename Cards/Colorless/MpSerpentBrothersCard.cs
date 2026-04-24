@@ -42,8 +42,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             {
                 if (p.Creature.IsDead) continue;
 
-                await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, DynamicVars.Block.BaseValue, Owner.Creature,
-                    this);
+                await PowerCmd.Apply<MpSerpentBrothersPower>(choiceContext, p.Creature, DynamicVars.Block.BaseValue,
+                    Owner.Creature, this);
             }
         }
 

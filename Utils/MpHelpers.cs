@@ -18,7 +18,7 @@ namespace STS2_AiACard_Multiplayer.Utils
         }
 
         /// <summary>按类型生成卡牌；<paramref name="upgraded" /> 为 true 时升级为 + 版。</summary>
-        public static T CreateCard<T>(CombatState combatState, Player owner, bool upgraded) where T : CardModel
+        public static T CreateCard<T>(ICombatState combatState, Player owner, bool upgraded) where T : CardModel
         {
             var card = combatState.CreateCard<T>(owner);
             if (upgraded) CardCmd.Upgrade(card);
@@ -27,7 +27,7 @@ namespace STS2_AiACard_Multiplayer.Utils
         }
 
         /// <summary>按模板（如卡池随机到的 canonical）生成卡牌；<paramref name="upgraded" /> 为 true 时升级。</summary>
-        public static CardModel CreateCard(CombatState combatState, Player owner, CardModel canonical, bool upgraded)
+        public static CardModel CreateCard(ICombatState combatState, Player owner, CardModel canonical, bool upgraded)
         {
             ArgumentNullException.ThrowIfNull(canonical);
             var card = combatState.CreateCard(canonical, owner);
@@ -52,7 +52,7 @@ namespace STS2_AiACard_Multiplayer.Utils
             var list = cards.ToList();
             if (list.Count == 0) return Array.Empty<CardPileAddResult>();
 
-            var results = await CardPileCmd.AddGeneratedCardsToCombat(list, pileType, true, position);
+            var results = await CardPileCmd.AddGeneratedCardsToCombat(list, pileType, list[0].Owner, position);
             if (previewPileAdd) CardCmd.PreviewCardPileAdd(results);
 
             return results;
@@ -105,7 +105,7 @@ namespace STS2_AiACard_Multiplayer.Utils
         }
 
         /// <summary>战斗牌堆全空时，从 Run 卡组克隆进抽牌堆并洗牌。</summary>
-        public static void RepopulateCombatPilesFromDeckIfEmpty(Player player, CombatState combatState)
+        public static void RepopulateCombatPilesFromDeckIfEmpty(Player player, ICombatState combatState)
         {
             ArgumentNullException.ThrowIfNull(player);
             ArgumentNullException.ThrowIfNull(combatState);
@@ -121,7 +121,8 @@ namespace STS2_AiACard_Multiplayer.Utils
                 pcs.DrawPile.AddInternal(cardModel);
             }
 
-            pcs.DrawPile.RandomizeOrderInternal(player, rng, combatState);
+            if (combatState is CombatState concrete)
+                pcs.DrawPile.RandomizeOrderInternal(player, rng, concrete);
         }
     }
 }

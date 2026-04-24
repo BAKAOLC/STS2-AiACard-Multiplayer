@@ -38,9 +38,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             var rit = DynamicVars["RitualPower"].BaseValue;
             foreach (var e in CombatState.HittableEnemies)
             {
-                await PowerCmd.Apply<StrengthPower>(e, str, Owner.Creature, this);
-                await PowerCmd.Apply<RitualPower>(e, rit, Owner.Creature, this);
-                await PowerCmd.Apply<MpBountyMarkPower>(e, 1, Owner.Creature, this);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, e, str, Owner.Creature, this);
+                await PowerCmd.Apply<RitualPower>(choiceContext, e, rit, Owner.Creature, this);
+                await PowerCmd.Apply<MpBountyMarkPower>(choiceContext, e, 1, Owner.Creature, this);
             }
         }
 

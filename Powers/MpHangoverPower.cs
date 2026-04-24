@@ -29,8 +29,8 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (player.Creature != Owner) return;
 
             await PlayerCmd.SetEnergy(0, player);
-            await PowerCmd.Apply<NoDrawPower>(Owner, 1, Owner, null);
-            await PowerCmd.Apply<RingingPower>(Owner, 1, Owner, null);
+            await PowerCmd.Apply<NoDrawPower>(choiceContext, Owner, 1, Owner, null);
+            await PowerCmd.Apply<RingingPower>(choiceContext, Owner, 1, Owner, null);
             await PowerCmd.Remove(this);
         }
     }
