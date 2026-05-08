@@ -11,7 +11,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
 
         /// <summary>多次打出时各次施加保留为独立实例，层数不在同一图标上合并。</summary>
-        public override bool IsInstanced => true;
+        public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
         public override bool ShouldPowerBeRemovedAfterOwnerDeath() => false;
 
