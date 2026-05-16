@@ -25,7 +25,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Single;
 
-        public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
+        public override bool IsInstanced => true;
 
         public override PowerAssetProfile AssetProfile =>
             new(Const.Paths.PowerIcons.MpCheckDpsPower, Const.Paths.PowerIcons.MpCheckDpsPower);
@@ -109,15 +109,15 @@ namespace STS2_AiACard_Multiplayer.Powers
             var applierCreature = Applier;
             if (applierCreature?.Player != null)
             {
-                await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(choiceContext, Owner, d.TargetEnergyLoss,
+                await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(Owner, d.TargetEnergyLoss,
                     applierCreature, null);
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner, -DrawFewerNextHand, applierCreature,
+                await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, -DrawFewerNextHand, applierCreature,
                     null);
                 foreach (var player in CombatState.Players.Where(p => p != Owner.Player && p.Creature.IsAlive))
                 {
-                    await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, player.Creature, d.CasterEnergyNextTurn,
+                    await PowerCmd.Apply<EnergyNextTurnPower>(player.Creature, d.CasterEnergyNextTurn,
                         applierCreature, null);
-                    await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, player.Creature, d.CasterDrawNextTurn,
+                    await PowerCmd.Apply<DrawCardsNextTurnPower>(player.Creature, d.CasterDrawNextTurn,
                         applierCreature, null);
                 }
             }

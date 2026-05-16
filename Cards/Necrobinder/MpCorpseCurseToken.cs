@@ -25,7 +25,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpCorpseCurseToken, Const.Paths.CardPortraits.MpCorpseCurseToken);
 
-        protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
+        public override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
         {
             await CreatureCmd.Damage(choiceContext, Owner.Creature, DynamicVars.Damage.BaseValue,
                 ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, null, this);

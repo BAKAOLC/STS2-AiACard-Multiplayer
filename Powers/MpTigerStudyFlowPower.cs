@@ -16,7 +16,7 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
+        public override bool IsInstanced => true;
 
         public override PowerAssetProfile AssetProfile =>
             new(Const.Paths.PowerIcons.MpTigerStudyFlowPower, Const.Paths.PowerIcons.MpTigerStudyFlowPower);

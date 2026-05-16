@@ -36,7 +36,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
                 var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, false);
                 await MpHelpers.AddToHand(choiceContext, biased);
 
-                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(choiceContext, p.Creature, orbsPerEnergy,
+                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(p.Creature, orbsPerEnergy,
                     Owner.Creature, this);
             }
         }

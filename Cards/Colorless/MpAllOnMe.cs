@@ -37,7 +37,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
 
             if (total > 0) await PlayerCmd.GainEnergy(total, Owner);
 
-            await PowerCmd.Apply<MpHangoverPower>(choiceContext, Owner.Creature,
+            await PowerCmd.Apply<MpHangoverPower>(Owner.Creature,
                 DynamicVars["MpHangoverPower"].BaseValue, Owner.Creature, this);
         }
 
