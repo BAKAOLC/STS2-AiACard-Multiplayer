@@ -12,7 +12,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>你话太多了：目标获得格挡且本回合无法抽牌；你按目标当前手牌数抽牌。</summary>
     public sealed class MpTooMuchTalk()
-        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
             [new BlockVar(8m, ValueProp.Move)];

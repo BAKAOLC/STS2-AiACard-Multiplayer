@@ -17,8 +17,9 @@ namespace STS2_AiACard_Multiplayer.Powers
         private const int TargetEnergyLossBase = 2;
         private const int TargetEnergyLossUpgraded = 2;
         private const int DrawFewerNextHand = 1;
-        private const int CasterEnergyGain = 2;
-        private const int CasterDrawBase = 1;
+        private const int CasterEnergyGainBase = 1;
+        private const int CasterEnergyGainUpgraded = 2;
+        private const int CasterDrawBase = 2;
         private const int CasterDrawUpgraded = 3;
 
         public override PowerType Type => PowerType.Debuff;
@@ -34,7 +35,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         [
             new EnergyVar("DpsTargetEnergyLoss", TargetEnergyLossBase),
             new("DpsDrawFewerNextHand", DrawFewerNextHand),
-            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyGain),
+            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyGainBase),
             new("DpsCasterDrawNextTurn", CasterDrawBase),
         ];
 
@@ -55,7 +56,7 @@ namespace STS2_AiACard_Multiplayer.Powers
             var d = GetInternalData<Data>();
             var upgraded = cardSource?.IsUpgraded == true;
             d.TargetEnergyLoss = upgraded ? TargetEnergyLossUpgraded : TargetEnergyLossBase;
-            d.CasterEnergyNextTurn = CasterEnergyGain;
+            d.CasterEnergyNextTurn = upgraded ? CasterEnergyGainUpgraded : CasterEnergyGainBase;
             d.CasterDrawNextTurn = upgraded ? CasterDrawUpgraded : CasterDrawBase;
             return Task.CompletedTask;
         }

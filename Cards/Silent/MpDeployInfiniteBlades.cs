@@ -9,7 +9,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Silent
 {
     /// <summary>开把刀出来：每名玩家将无尽刀刃与幻影之刃置入手牌（升级后为升级版本）。</summary>
     public sealed class MpDeployInfiniteBlades()
-        : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+        : MpOnlyModCardTemplate(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpDeployInfiniteBlades, Const.Paths.CardPortraits.MpDeployInfiniteBlades);

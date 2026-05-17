@@ -2,8 +2,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.title": "Brothers Borrow Blade",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BROTHERS_BLADE_POWER.description": "Whenever another player plays a [gold]Sovereign Blade[/gold], put your [gold]Sovereign Blade[/gold] into your [gold]Hand[/gold] from wherever it is.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.title": "Serpent Brotherhood",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.description": "Whenever any player plays a [gold]Snakebite[/gold], gain [gold]Block[/gold].",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.smartDescription": "Whenever any player plays a [gold]Snakebite[/gold], gain [blue]{Amount}[/blue] [gold]Block[/gold].",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.description": "Whenever any player plays a [gold]Snakebite[/gold], gain stacks and equal [gold]Block[/gold].",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SERPENT_BROTHERS_POWER.smartDescription": "Whenever any player plays a [gold]Snakebite[/gold], gain [blue]{Amount}[/blue] [gold]Serpent Brotherhood[/gold] (each stack grants 1 [gold]Block[/gold] that trigger).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.title": "Tiger Study Flow",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.description": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_TIGER_STUDY_FLOW_POWER.smartDescription": "Whenever you play two consecutive [gold]Attack[/gold], [gold]Skill[/gold], or [gold]Power[/gold] cards of different types, draw [blue]{Amount}[/blue] card(s).\nLast: {TigerFlowLastType:choose(0|1|2|3):—|Attack|Skill|Power}. [blue]{TigerFlowStepsUntilDraw}[/blue] step(s) until trigger.",
@@ -20,11 +20,11 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.description": "Take double damage from [gold]Attacks[/gold] this turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_DAMAGE_TAKEN_POWER.smartDescription": "This turn, damage you take from [gold]Attacks[/gold] is doubled [blue]{Amount}[/blue] time(s).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.title": "Shared Fortune",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.description": "Gain [gold]Gold[/gold] at the end of combat.",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Gold[/gold] at the end of combat.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.description": "At the end of combat, randomly split this combat's [gold]Shared Wealth[/gold] gold pool (at least 1 each).",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.smartDescription": "At the end of combat, randomly split this combat's [gold]Shared Wealth[/gold] gold pool (at least 1 each).",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.title": "Exhaustion",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "At the start of your next turn, lose all {energyPrefix:energyIcons(1)}, and gain [gold]No Draw[/gold] and [gold]Ringing[/gold] for 1 turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.title": "Energy Bias",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "This turn, whenever you spend {energyPrefix:energyIcons(1)}, channel random [gold]Orb(s)[/gold].",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "This turn, whenever you spend {energyPrefix:energyIcons(1)}, channel [blue]{Amount}[/blue] random [gold]Orb(s)[/gold]."
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.description": "For 1 turn, whenever you spend {energyPrefix:energyIcons(1)}, channel 1 random [gold]Orb[/gold].",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.smartDescription": "[blue]{Amount}[/blue] turn(s) remaining: whenever you spend {energyPrefix:energyIcons(1)}, channel 1 random [gold]Orb[/gold]."
 }

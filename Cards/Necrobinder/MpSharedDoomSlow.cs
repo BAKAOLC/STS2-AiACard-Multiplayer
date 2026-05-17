@@ -15,14 +15,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     public sealed class MpSharedDoomSlow() : MpOnlyModCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new PowerVar<DoomPower>(20m)];
+            [new PowerVar<DoomPower>(15m)];
 
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSharedDoomSlow, Const.Paths.CardPortraits.MpSharedDoomSlow);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            new[] { HoverTipFactory.FromKeyword(CardKeyword.Ethereal) }
-                .Concat(ModelDb.Power<DoomPower>().HoverTips)
+            ModelDb.Power<DoomPower>().HoverTips
                 .Concat(HoverTipFactory.FromCardWithCardHoverTips<ReaperForm>(IsUpgraded));
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -32,10 +31,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
                 this);
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead) continue;
+                if (p.Creature.IsDead)
+                    continue;
 
                 var wf = MpHelpers.CreateCard<ReaperForm>(CombatState, p, IsUpgraded);
-                MpHelpers.MakeEtherealEnergyOneThisTurn(wf);
+                if (IsUpgraded)
+                    wf.EnergyCost.SetThisTurnOrUntilPlayed(1, reduceOnly: true);
+                else
+                    wf.EnergyCost.SetThisTurn(1);
                 await MpHelpers.AddToHand(choiceContext, wf);
             }
         }

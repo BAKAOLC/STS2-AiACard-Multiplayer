@@ -9,7 +9,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
     /// <summary>血雾弥漫：你与另一名玩家各将一张血肉戏法置入手牌。</summary>
     public sealed class MpBloodMistCard()
-        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
+        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

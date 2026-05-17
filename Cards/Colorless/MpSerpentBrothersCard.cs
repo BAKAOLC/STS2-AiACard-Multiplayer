@@ -30,26 +30,31 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            var stacksPerTrigger = DynamicVars.Block.BaseValue;
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead) continue;
+                if (p.Creature.IsDead)
+                    continue;
 
-                var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, false);
+                var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, bite);
             }
 
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead) continue;
+                if (p.Creature.IsDead)
+                    continue;
 
-                await PowerCmd.Apply<MpSerpentBrothersPower>(choiceContext, p.Creature, DynamicVars.Block.BaseValue,
+                var power = await PowerCmd.Apply<MpSerpentBrothersPower>(choiceContext, p.Creature, 0,
                     Owner.Creature, this);
+                if (power != null)
+                    power.StacksPerSnakebiteTrigger = stacksPerTrigger;
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(2m);
+            DynamicVars.Block.UpgradeValueBy(1m);
         }
     }
 }

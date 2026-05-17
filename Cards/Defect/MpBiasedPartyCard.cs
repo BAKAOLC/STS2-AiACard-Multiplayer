@@ -30,20 +30,18 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
-            var orbsPerEnergy = DynamicVars["MpPerEnergySelfChannelPower"].BaseValue;
             foreach (var p in CombatState.Players.Where(p => p != Owner && p.Creature.IsAlive))
             {
-                var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, false);
+                var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, biased);
 
-                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(choiceContext, p.Creature, orbsPerEnergy,
+                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(choiceContext, p.Creature, 1,
                     Owner.Creature, this);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["MpPerEnergySelfChannelPower"].UpgradeValueBy(1m);
         }
     }
 }
