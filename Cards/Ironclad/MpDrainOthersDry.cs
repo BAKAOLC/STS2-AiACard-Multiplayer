@@ -26,8 +26,6 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             new CardsVar("DrainRampCards", 1),
         ];
 
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpDrainOthersDry, Const.Paths.CardPortraits.MpDrainOthersDry);
 
@@ -72,6 +70,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             _extraEnergyFromPlays = source._extraEnergyFromPlays;
             _extraCardsFromPlays = source._extraCardsFromPlays;
         }
+
+        protected override PileType GetResultPileType() => PileType.None;
 
         protected override void OnUpgrade()
         {

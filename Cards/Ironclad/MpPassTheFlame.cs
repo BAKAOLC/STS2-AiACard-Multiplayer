@@ -5,15 +5,15 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.Powers;
-using STS2_AiACard_Multiplayer.Utils;
 using STS2_AiACard_Multiplayer.Powers;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
-    /// <summary>传火：消耗目标手牌；每消耗一张，在目标弃牌堆加入 1 张带虚无的灼伤；你获得 1 临时力量并抽 1 张牌。</summary>
+    /// <summary>传火：消耗目标全部手牌；每消耗 2 张，目标获得 1 力量、你获得 2（3）临时力量并抽 1 张，双方各将 1 张虚无灼伤放入弃牌堆。</summary>
     public sealed class MpPassTheFlame()
-        : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
+        : MpOnlyModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -22,6 +22,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             ModelDb.Power<MpPassTheFlameTemporaryStrengthPower>().HoverTips
+                .Concat([HoverTipFactory.FromPower<StrengthPower>()])
                 .Concat(HoverTipFactory.FromCardWithCardHoverTips<Burn>());
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -29,29 +30,34 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
             var hand = MpHelpers.SnapshotHand(target);
-            foreach (var c in hand) await CardCmd.Exhaust(choiceContext, c);
+            foreach (var c in hand)
+                await CardCmd.Exhaust(choiceContext, c);
 
-            var n = hand.Count;
-            if (n > 0)
+            var bundles = hand.Count / 2;
+            if (bundles <= 0)
+                return;
+
+            var selfStrength = IsUpgraded ? 3 : 2;
+            await PowerCmd.Apply<StrengthPower>(target.Creature, bundles, Owner.Creature, this);
+            await PowerCmd.Apply<MpPassTheFlameTemporaryStrengthPower>(Owner.Creature,
+                bundles * selfStrength, Owner.Creature, this);
+            await CardPileCmd.Draw(choiceContext, bundles, Owner);
+
+            for (var i = 0; i < bundles; i++)
             {
-                var burns = Enumerable.Range(0, n)
-                    .Select(_ =>
-                    {
-                        var burn = MpHelpers.CreateCard(CombatState, target, ModelDb.Card<Burn>(), false);
-                        CardCmd.ApplyKeyword(burn, CardKeyword.Ethereal);
-                        return burn;
-                    })
-                    .ToList();
-                await MpHelpers.AddGeneratedCardsToCombatPile(burns, PileType.Discard, previewPileAdd: true);
+                var targetBurn = MpHelpers.CreateCard(CombatState, target, ModelDb.Card<Burn>(), false);
+                CardCmd.ApplyKeyword(targetBurn, CardKeyword.Ethereal);
+                await MpHelpers.AddGeneratedCardsToCombatPile([targetBurn], PileType.Discard, previewPileAdd: true);
 
-                await PowerCmd.Apply<MpPassTheFlameTemporaryStrengthPower>(Owner.Creature, n,
-                    Owner.Creature, this);
-                await CardPileCmd.Draw(choiceContext, n, Owner);
+                var ownerBurn = MpHelpers.CreateCard(CombatState, Owner, ModelDb.Card<Burn>(), false);
+                CardCmd.ApplyKeyword(ownerBurn, CardKeyword.Ethereal);
+                await MpHelpers.AddGeneratedCardsToCombatPile([ownerBurn], PileType.Discard, previewPileAdd: true);
             }
         }
 
         protected override void OnUpgrade()
         {
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

@@ -35,13 +35,11 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
                 foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Discard(choiceContext, c);
 
                 await CardPileCmd.Draw(choiceContext, 10, p);
-                await PowerCmd.Apply<DoubleDamagePower>(p.Creature, 1, Owner.Creature, this);
             }
         }
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
         }
     }
 }

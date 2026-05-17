@@ -23,33 +23,38 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             new(Const.Paths.CardPortraits.MpSerpentBrothersCard, Const.Paths.CardPortraits.MpSerpentBrothersCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>()
+            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>(IsUpgraded)
                 .Concat(ModelDb.Power<MpSerpentBrothersPower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            var stacksPerTrigger = DynamicVars.Block.BaseValue;
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead) continue;
+                if (p.Creature.IsDead)
+                    continue;
 
-                var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, false);
+                var bite = MpHelpers.CreateCard<Snakebite>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, bite);
             }
 
             foreach (var p in CombatState.Players)
             {
-                if (p.Creature.IsDead) continue;
+                if (p.Creature.IsDead)
+                    continue;
 
-                await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, DynamicVars.Block.BaseValue,
+                var power = await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, 0,
                     Owner.Creature, this);
+                if (power != null)
+                    power.StacksPerSnakebiteTrigger = stacksPerTrigger;
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(2m);
+            DynamicVars.Block.UpgradeValueBy(1m);
         }
     }
 }

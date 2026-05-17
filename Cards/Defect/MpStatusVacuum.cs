@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 namespace STS2_AiACard_Multiplayer.Cards.Defect
 {
     /// <summary>不要就给我：消耗所有玩家的状态牌，在你手牌中生成等量随机状态牌。</summary>
-    public sealed class MpStatusVacuum() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public sealed class MpStatusVacuum() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
