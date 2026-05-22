@@ -30,7 +30,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var stacksPerTrigger = DynamicVars.Block.BaseValue;
+            var stacks = DynamicVars.Block.BaseValue;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead)
@@ -45,10 +45,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 if (p.Creature.IsDead)
                     continue;
 
-                var power = await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, 0,
+                await PowerCmd.Apply<MpSerpentBrothersPower>(p.Creature, stacks,
                     Owner.Creature, this);
-                if (power != null)
-                    power.StacksPerSnakebiteTrigger = stacksPerTrigger;
             }
         }
 
