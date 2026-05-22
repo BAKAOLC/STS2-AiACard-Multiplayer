@@ -54,10 +54,17 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
         {
             var d = GetInternalData<Data>();
-            var upgraded = cardSource?.IsUpgraded == true;
-            d.TargetEnergyLoss = upgraded ? TargetEnergyLossUpgraded : TargetEnergyLossBase;
-            d.CasterEnergyNextTurn = upgraded ? CasterEnergyGainUpgraded : CasterEnergyGainBase;
-            d.CasterDrawNextTurn = upgraded ? CasterDrawUpgraded : CasterDrawBase;
+            d.TargetEnergyLoss = cardSource?.DynamicVars.TryGetValue("DpsTargetEnergyLoss", out var targetLoss) == true
+                ? targetLoss.IntValue
+                : TargetEnergyLossBase;
+            d.CasterEnergyNextTurn =
+                cardSource?.DynamicVars.TryGetValue("DpsCasterEnergyNextTurn", out var casterEnergy) == true
+                    ? casterEnergy.IntValue
+                    : cardSource?.IsUpgraded == true ? CasterEnergyGainUpgraded : CasterEnergyGainBase;
+            d.CasterDrawNextTurn =
+                cardSource?.DynamicVars.TryGetValue("DpsCasterDrawNextTurn", out var casterDraw) == true
+                    ? casterDraw.IntValue
+                    : cardSource?.IsUpgraded == true ? CasterDrawUpgraded : CasterDrawBase;
             return Task.CompletedTask;
         }
 
@@ -76,9 +83,10 @@ namespace STS2_AiACard_Multiplayer.Powers
             DynamicVars["DpsCasterDrawNextTurn"].BaseValue = d.CasterDrawNextTurn;
         }
 
-        public override async Task BeforeTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
+            IEnumerable<Creature> participants)
         {
-            if (side != CombatSide.Player || Owner.IsMonster) return;
+            if (side != CombatSide.Player || Owner.IsMonster || !participants.Contains(Owner)) return;
 
             var attacks = CombatManager.Instance.History.CardPlaysFinished.Count(e =>
                 e.HappenedThisTurn(CombatState) &&
@@ -100,9 +108,10 @@ namespace STS2_AiACard_Multiplayer.Powers
             GetInternalData<Data>().PendingAfterTurnEnd = true;
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
+            IEnumerable<Creature> participants)
         {
-            if (side != CombatSide.Player || Owner.IsMonster) return;
+            if (side != CombatSide.Player || Owner.IsMonster || !participants.Contains(Owner)) return;
 
             var d = GetInternalData<Data>();
             if (!d.PendingAfterTurnEnd) return;

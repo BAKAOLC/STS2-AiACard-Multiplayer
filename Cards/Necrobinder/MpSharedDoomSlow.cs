@@ -35,6 +35,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
                     continue;
 
                 var wf = MpHelpers.CreateCard<ReaperForm>(CombatState, p, IsUpgraded);
+                MpRequiredFirstPlayCards.Mark(wf);
                 if (IsUpgraded)
                     wf.EnergyCost.SetThisTurnOrUntilPlayed(1, reduceOnly: true);
                 else

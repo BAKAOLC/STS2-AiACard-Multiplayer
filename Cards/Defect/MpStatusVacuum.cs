@@ -26,10 +26,15 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
                 var pcs = p.PlayerCombatState;
                 if (pcs == null) continue;
 
-                foreach (var c in pcs.AllCards.ToList())
-                {
-                    if (c.Type != CardType.Status) continue;
+                var cards = pcs.Hand.Cards
+                    .Concat(pcs.DrawPile.Cards)
+                    .Concat(pcs.DiscardPile.Cards)
+                    .Concat(pcs.PlayPile.Cards)
+                    .Where(c => c.Type == CardType.Status)
+                    .ToList();
 
+                foreach (var c in cards)
+                {
                     await CardCmd.Exhaust(choiceContext, c);
                     n++;
                 }
@@ -60,7 +65,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
         /// </summary>
         private static List<CardModel> StatusTemplatesEligibleForCombatRandom(Player owner)
         {
-            var fromDb = ModelDb.AllCards.Where(c => c.Type == CardType.Status);
+            var fromDb = ModelDb.AllCards.Where(c => c.Type == CardType.Status && c.GetType().Name != "DeprecatedCard");
             var filtered = CardFactory.FilterForCombat(fromDb).ToList();
             var run = owner.RunState;
             if (run.Players.Count > 1)

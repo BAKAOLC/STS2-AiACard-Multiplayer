@@ -24,7 +24,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
             new(Const.Paths.CardPortraits.MpBiasedPartyCard, Const.Paths.CardPortraits.MpBiasedPartyCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<BiasedCognition>()
+            HoverTipFactory.FromCardWithCardHoverTips<BiasedCognition>(IsUpgraded)
                 .Concat(ModelDb.Power<MpPerEnergySelfChannelPower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -35,7 +35,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
                 var biased = MpHelpers.CreateCard<BiasedCognition>(CombatState, p, IsUpgraded);
                 await MpHelpers.AddToHand(choiceContext, biased);
 
-                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(choiceContext, p.Creature, 1,
+                await PowerCmd.Apply<MpPerEnergySelfChannelPower>(choiceContext, p.Creature,
+                    DynamicVars["MpPerEnergySelfChannelPower"].BaseValue,
                     Owner.Creature, this);
             }
         }

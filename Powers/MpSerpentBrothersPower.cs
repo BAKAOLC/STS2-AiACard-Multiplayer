@@ -2,7 +2,6 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
@@ -16,36 +15,18 @@ namespace STS2_AiACard_Multiplayer.Powers
 
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public decimal StacksPerSnakebiteTrigger { get; set; } = 3m;
-
         public override PowerAssetProfile AssetProfile =>
             new(Const.Paths.PowerIcons.MpSerpentBrothersPower, Const.Paths.PowerIcons.MpSerpentBrothersPower);
-
-        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>();
 
         public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay cardPlay)
         {
             if (cardPlay.Card is not Snakebite)
                 return;
 
-            var combat = Owner.CombatState;
-            if (combat == null)
+            if (Owner.IsDead || Amount <= 0)
                 return;
 
-            var stacks = StacksPerSnakebiteTrigger;
-            foreach (var player in combat.Players)
-            {
-                if (player.Creature.IsDead)
-                    continue;
-
-                var power = player.Creature.GetPower<MpSerpentBrothersPower>();
-                if (power == null)
-                    continue;
-
-                await PowerCmd.ModifyAmount(context, power, stacks, null, null);
-                await CreatureCmd.GainBlock(player.Creature, stacks, ValueProp.Unpowered, null);
-            }
+            await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
         }
     }
 }

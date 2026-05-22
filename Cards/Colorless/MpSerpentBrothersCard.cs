@@ -23,14 +23,14 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             new(Const.Paths.CardPortraits.MpSerpentBrothersCard, Const.Paths.CardPortraits.MpSerpentBrothersCard);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>()
+            HoverTipFactory.FromCardWithCardHoverTips<Snakebite>(IsUpgraded)
                 .Concat(ModelDb.Power<MpSerpentBrothersPower>().HoverTips);
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            var stacksPerTrigger = DynamicVars.Block.BaseValue;
+            var stacks = DynamicVars.Block.BaseValue;
             foreach (var p in CombatState.Players)
             {
                 if (p.Creature.IsDead)
@@ -45,10 +45,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
                 if (p.Creature.IsDead)
                     continue;
 
-                var power = await PowerCmd.Apply<MpSerpentBrothersPower>(choiceContext, p.Creature, 0,
+                await PowerCmd.Apply<MpSerpentBrothersPower>(choiceContext, p.Creature, stacks,
                     Owner.Creature, this);
-                if (power != null)
-                    power.StacksPerSnakebiteTrigger = stacksPerTrigger;
             }
         }
 

@@ -35,7 +35,8 @@ namespace STS2_AiACard_Multiplayer.Powers
             return (decimal)Math.Pow(2.0, Amount);
         }
 
-        public override async Task AfterTurnEnd(PlayerChoiceContext choiceContext, CombatSide side)
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side,
+            IEnumerable<Creature> participants)
         {
             if (side == CombatSide.Enemy) await PowerCmd.Remove(this);
         }

@@ -10,7 +10,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
-    /// <summary>群体献祭：全体灾厄、能量与弃抽，本回合攻击伤害翻倍。</summary>
+    /// <summary>自刎归天：全体灾厄、能量与弃抽；升级后本回合攻击伤害翻倍。</summary>
     public sealed class MpGroupSacrifice()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
@@ -23,7 +23,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             new(Const.Paths.CardPortraits.MpGroupSacrifice, Const.Paths.CardPortraits.MpGroupSacrifice);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            ModelDb.Power<DoomPower>().HoverTips.Concat(ModelDb.Power<DoubleDamagePower>().HoverTips);
+            IsUpgraded
+                ? ModelDb.Power<DoomPower>().HoverTips.Concat(ModelDb.Power<DoubleDamagePower>().HoverTips)
+                : ModelDb.Power<DoomPower>().HoverTips;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -31,6 +33,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             foreach (var p in CombatState.Players.Where(p => p.Creature.IsAlive))
             {
                 await PowerCmd.Apply<DoomPower>(choiceContext, p.Creature, 99m, Owner.Creature, this);
+                if (IsUpgraded)
+                    await PowerCmd.Apply<DoubleDamagePower>(choiceContext, p.Creature, 1m, Owner.Creature, this);
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, p);
                 foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Discard(choiceContext, c);
 
