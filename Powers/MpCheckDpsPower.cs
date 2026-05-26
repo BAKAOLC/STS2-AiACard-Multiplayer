@@ -42,6 +42,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
             HoverTipFactory.FromPower<MpLoseEnergyNextTurnPower>(),
+            HoverTipFactory.FromPower<MpDrawFewerCardsNextTurnPower>(),
             HoverTipFactory.FromPower<DrawCardsNextTurnPower>(),
             HoverTipFactory.FromPower<EnergyNextTurnPower>(),
         ];
@@ -57,6 +58,10 @@ namespace STS2_AiACard_Multiplayer.Powers
             d.TargetEnergyLoss = cardSource?.DynamicVars.TryGetValue("DpsTargetEnergyLoss", out var targetLoss) == true
                 ? targetLoss.IntValue
                 : TargetEnergyLossBase;
+            d.DrawFewerNextHand =
+                cardSource?.DynamicVars.TryGetValue("DpsDrawFewerNextHand", out var drawFewer) == true
+                    ? drawFewer.IntValue
+                    : DrawFewerNextHand;
             d.CasterEnergyNextTurn =
                 cardSource?.DynamicVars.TryGetValue("DpsCasterEnergyNextTurn", out var casterEnergy) == true
                     ? casterEnergy.IntValue
@@ -79,6 +84,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             var d = GetInternalData<Data>();
             DynamicVars["DpsTargetEnergyLoss"].BaseValue = d.TargetEnergyLoss;
+            DynamicVars["DpsDrawFewerNextHand"].BaseValue = d.DrawFewerNextHand;
             DynamicVars["DpsCasterEnergyNextTurn"].BaseValue = d.CasterEnergyNextTurn;
             DynamicVars["DpsCasterDrawNextTurn"].BaseValue = d.CasterDrawNextTurn;
         }
@@ -121,8 +127,8 @@ namespace STS2_AiACard_Multiplayer.Powers
             {
                 await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(choiceContext, Owner, d.TargetEnergyLoss,
                     applierCreature, null);
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(choiceContext, Owner, -DrawFewerNextHand, applierCreature,
-                    null);
+                await PowerCmd.Apply<MpDrawFewerCardsNextTurnPower>(choiceContext, Owner, d.DrawFewerNextHand,
+                    applierCreature, null);
                 foreach (var player in CombatState.Players.Where(p => p != Owner.Player && p.Creature.IsAlive))
                 {
                     await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, player.Creature, d.CasterEnergyNextTurn,
@@ -139,6 +145,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             public int CasterDrawNextTurn;
             public int CasterEnergyNextTurn;
+            public int DrawFewerNextHand;
             public bool PendingAfterTurnEnd;
             public int TargetEnergyLoss;
         }

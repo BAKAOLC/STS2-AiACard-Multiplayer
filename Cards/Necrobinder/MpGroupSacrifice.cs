@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using STS2_AiACard_Multiplayer.Powers;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
@@ -24,7 +25,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
             IsUpgraded
-                ? ModelDb.Power<DoomPower>().HoverTips.Concat(ModelDb.Power<DoubleDamagePower>().HoverTips)
+                ? ModelDb.Power<DoomPower>().HoverTips.Concat(ModelDb.Power<MpDoubleAttackDamageThisTurnPower>().HoverTips)
                 : ModelDb.Power<DoomPower>().HoverTips;
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -34,7 +35,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
             {
                 await PowerCmd.Apply<DoomPower>(choiceContext, p.Creature, 99m, Owner.Creature, this);
                 if (IsUpgraded)
-                    await PowerCmd.Apply<DoubleDamagePower>(choiceContext, p.Creature, 1m, Owner.Creature, this);
+                    await PowerCmd.Apply<MpDoubleAttackDamageThisTurnPower>(choiceContext, p.Creature, 1m,
+                        Owner.Creature, this);
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, p);
                 foreach (var c in MpHelpers.SnapshotHand(p).ToList()) await CardCmd.Discard(choiceContext, c);
 

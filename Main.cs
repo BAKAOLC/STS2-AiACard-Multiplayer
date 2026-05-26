@@ -45,6 +45,7 @@ namespace STS2_AiACard_Multiplayer
                 corpsePatcher.RegisterPatch<MpPlayerMidCombatRevivePatch>();
                 corpsePatcher.RegisterPatch<MpSharedWealthFortuneCanReceivePowersPatch>();
                 corpsePatcher.RegisterPatch<MpRequiredFirstPlayCardCanPlayPatch>();
+                corpsePatcher.RegisterPatch<MpRequiredFirstPlayCardDescriptionPatch>();
 
                 if (!corpsePatcher.PatchAll())
                 {
