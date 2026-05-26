@@ -26,8 +26,8 @@
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_ATTACK_DAMAGE_THIS_TURN_POWER.description": "This turn, your [gold]Attack[/gold] damage is doubled.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_DOUBLE_ATTACK_DAMAGE_THIS_TURN_POWER.smartDescription": "This turn, your [gold]Attack[/gold] damage is doubled.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.title": "Shared Fortune",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.description": "At the end of combat, gain this split of [gold]Gold[/gold].",
-  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.smartDescription": "At the end of combat, gain [blue]{Amount}[/blue] [gold]Gold[/gold] from this split.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.description": "At the end of combat, split [gold]Gold[/gold] with your teammates.",
+  "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.smartDescription": "At the end of combat, split [blue]{SharedFortuneTotalGold}[/blue] [gold]Gold[/gold] with your teammates."
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.title": "Exhaustion",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_HANGOVER_POWER.description": "At the start of your next turn, lose all {energyPrefix:energyIcons(1)}, and gain [gold]No Draw[/gold] and [gold]Ringing[/gold] for 1 turn.",
   "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_PER_ENERGY_SELF_CHANNEL_POWER.title": "Energy Bias",

@@ -4,5 +4,7 @@ namespace STS2_AiACard_Multiplayer.Utils
     internal static class MpSharedWealthFortuneApplyContext
     {
         public static bool AllowFortunePowerOnDeadPlayers { get; set; }
+
+        public static int? SharedFortuneTotalGold { get; set; }
     }
 }
