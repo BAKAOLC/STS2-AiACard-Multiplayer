@@ -17,8 +17,9 @@ namespace STS2_AiACard_Multiplayer.Powers
         private const int TargetEnergyLossBase = 2;
         private const int TargetEnergyLossUpgraded = 2;
         private const int DrawFewerNextHand = 1;
-        private const int CasterEnergyGain = 2;
-        private const int CasterDrawBase = 1;
+        private const int CasterEnergyGainBase = 1;
+        private const int CasterEnergyGainUpgraded = 2;
+        private const int CasterDrawBase = 2;
         private const int CasterDrawUpgraded = 3;
 
         public override PowerType Type => PowerType.Debuff;
@@ -34,13 +35,14 @@ namespace STS2_AiACard_Multiplayer.Powers
         [
             new EnergyVar("DpsTargetEnergyLoss", TargetEnergyLossBase),
             new("DpsDrawFewerNextHand", DrawFewerNextHand),
-            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyGain),
+            new EnergyVar("DpsCasterEnergyNextTurn", CasterEnergyGainBase),
             new("DpsCasterDrawNextTurn", CasterDrawBase),
         ];
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
             HoverTipFactory.FromPower<MpLoseEnergyNextTurnPower>(),
+            HoverTipFactory.FromPower<MpDrawFewerCardsNextTurnPower>(),
             HoverTipFactory.FromPower<DrawCardsNextTurnPower>(),
             HoverTipFactory.FromPower<EnergyNextTurnPower>(),
         ];
@@ -53,10 +55,21 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override Task BeforeApplied(Creature target, decimal amount, Creature? applier, CardModel? cardSource)
         {
             var d = GetInternalData<Data>();
-            var upgraded = cardSource?.IsUpgraded == true;
-            d.TargetEnergyLoss = upgraded ? TargetEnergyLossUpgraded : TargetEnergyLossBase;
-            d.CasterEnergyNextTurn = CasterEnergyGain;
-            d.CasterDrawNextTurn = upgraded ? CasterDrawUpgraded : CasterDrawBase;
+            d.TargetEnergyLoss = cardSource?.DynamicVars.TryGetValue("DpsTargetEnergyLoss", out var targetLoss) == true
+                ? targetLoss.IntValue
+                : TargetEnergyLossBase;
+            d.DrawFewerNextHand =
+                cardSource?.DynamicVars.TryGetValue("DpsDrawFewerNextHand", out var drawFewer) == true
+                    ? drawFewer.IntValue
+                    : DrawFewerNextHand;
+            d.CasterEnergyNextTurn =
+                cardSource?.DynamicVars.TryGetValue("DpsCasterEnergyNextTurn", out var casterEnergy) == true
+                    ? casterEnergy.IntValue
+                    : cardSource?.IsUpgraded == true ? CasterEnergyGainUpgraded : CasterEnergyGainBase;
+            d.CasterDrawNextTurn =
+                cardSource?.DynamicVars.TryGetValue("DpsCasterDrawNextTurn", out var casterDraw) == true
+                    ? casterDraw.IntValue
+                    : cardSource?.IsUpgraded == true ? CasterDrawUpgraded : CasterDrawBase;
             return Task.CompletedTask;
         }
 
@@ -71,6 +84,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             var d = GetInternalData<Data>();
             DynamicVars["DpsTargetEnergyLoss"].BaseValue = d.TargetEnergyLoss;
+            DynamicVars["DpsDrawFewerNextHand"].BaseValue = d.DrawFewerNextHand;
             DynamicVars["DpsCasterEnergyNextTurn"].BaseValue = d.CasterEnergyNextTurn;
             DynamicVars["DpsCasterDrawNextTurn"].BaseValue = d.CasterDrawNextTurn;
         }
@@ -111,7 +125,7 @@ namespace STS2_AiACard_Multiplayer.Powers
             {
                 await PowerCmd.Apply<MpLoseEnergyNextTurnPower>(Owner, d.TargetEnergyLoss,
                     applierCreature, null);
-                await PowerCmd.Apply<DrawCardsNextTurnPower>(Owner, -DrawFewerNextHand, applierCreature,
+                await PowerCmd.Apply<MpDrawFewerCardsNextTurnPower>(Owner, d.DrawFewerNextHand, applierCreature,
                     null);
                 foreach (var player in CombatState.Players.Where(p => p != Owner.Player && p.Creature.IsAlive))
                 {
@@ -129,6 +143,7 @@ namespace STS2_AiACard_Multiplayer.Powers
         {
             public int CasterDrawNextTurn;
             public int CasterEnergyNextTurn;
+            public int DrawFewerNextHand;
             public bool PendingAfterTurnEnd;
             public int TargetEnergyLoss;
         }

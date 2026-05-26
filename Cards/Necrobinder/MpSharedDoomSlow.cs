@@ -11,7 +11,7 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 {
-    /// <summary>一人叠灾厄太慢：获得灾厄；各玩家手牌加入死神形态，本回合或打出前耗能降为 1。</summary>
+    /// <summary>一人叠灾厄太慢：获得灾厄；各玩家手牌加入必须优先打出的死神形态，并调整费用。</summary>
     public sealed class MpSharedDoomSlow() : MpOnlyModCardTemplate(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -35,8 +35,9 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
                     continue;
 
                 var wf = MpHelpers.CreateCard<ReaperForm>(CombatState, p, IsUpgraded);
+                MpRequiredFirstPlayCards.Mark(wf);
                 if (IsUpgraded)
-                    wf.EnergyCost.SetThisTurnOrUntilPlayed(1, reduceOnly: true);
+                    wf.EnergyCost.SetUntilPlayed(1, reduceOnly: true);
                 else
                     wf.EnergyCost.SetThisTurn(1);
                 await MpHelpers.AddToHand(choiceContext, wf);

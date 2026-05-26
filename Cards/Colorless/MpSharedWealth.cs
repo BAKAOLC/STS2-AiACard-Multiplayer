@@ -25,15 +25,15 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
         {
             ArgumentNullException.ThrowIfNull(CombatState);
 
-            var playerCount = CombatState.Players.Count;
-            MpSharedWealthCombatPool.GetOrCreate(CombatState).PendingTotalGold +=
-                GoldPerPlayerFactor * playerCount;
+            var players = CombatState.Players.ToList();
+            var shares = MpSharedWealthGoldDistribution.Distribute(
+                GoldPerPlayerFactor * players.Count, players.Count, 1, Owner.RunState.Rng.Shuffle);
 
             try
             {
                 MpSharedWealthFortuneApplyContext.AllowFortunePowerOnDeadPlayers = true;
-                foreach (var p in CombatState.Players)
-                    await PowerCmd.Apply<MpSharedFortunePower>(p.Creature, 1, Owner.Creature, this);
+                for (var i = 0; i < players.Count; i++)
+                    await PowerCmd.Apply<MpSharedFortunePower>(players[i].Creature, shares[i], Owner.Creature, this);
             }
             finally
             {
