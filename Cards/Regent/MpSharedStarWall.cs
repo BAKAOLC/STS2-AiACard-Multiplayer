@@ -14,6 +14,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Regent
     {
         public override bool HasStarCostX => true;
 
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSharedStarWall, Const.Paths.CardPortraits.MpSharedStarWall);
 
