@@ -18,7 +18,8 @@ namespace STS2_AiACard_Multiplayer.Powers
         public override PowerInstanceType InstanceType => PowerInstanceType.Instanced;
 
         public override PowerAssetProfile AssetProfile =>
-            new(Const.Paths.PowerIcons.MpDoubleDamageTakenPower, Const.Paths.PowerIcons.MpDoubleDamageTakenPower);
+            new(Const.Paths.PowerIcons.MpDoubleAttackDamageThisTurnPower,
+                Const.Paths.PowerIcons.MpDoubleAttackDamageThisTurnPower);
 
         public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props,
             Creature? dealer, CardModel? cardSource)
