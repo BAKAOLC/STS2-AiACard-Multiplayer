@@ -70,6 +70,7 @@ namespace STS2_AiACard_Multiplayer
                 public const string MpBrothersBladePower = P + "002_兄弟借剑.png";
                 public const string MpCheckDpsPower = P + "003_查询DPS.png";
                 public const string MpDoubleDamageTakenPower = P + "004_承伤倍增.png";
+                public const string MpDoubleAttackDamageThisTurnPower = P + "023_伤害翻倍.png";
                 public const string MpHangoverPower = P + "005_力竭.png";
                 public const string MpLoseEnergyNextTurnPower = P + "006_下回合失能.png";
                 public const string MpPerEnergySelfChannelPower = P + "007_耗能偏差.png";
