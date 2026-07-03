@@ -33,7 +33,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
         {
             ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
-            await MpHelpers.DealHpLoss(choiceContext, target.Creature, DynamicVars.Damage.BaseValue, this);
+            await MpHelpers.DealHpLoss(choiceContext, target.Creature, DynamicVars.Damage.BaseValue, this, cardPlay);
 
             var targetDied = target.Creature.IsDead;
             if (!targetDied)
@@ -71,7 +71,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             _extraCardsFromPlays = source._extraCardsFromPlays;
         }
 
-        protected override PileType GetResultPileTypeForCardPlay() => PileType.None;
+        protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay() =>
+            (PileType.None, CardPilePosition.Bottom);
 
         protected override void OnUpgrade()
         {

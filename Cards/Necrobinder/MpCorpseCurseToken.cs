@@ -28,7 +28,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         protected override async Task OnTurnEndInHand(PlayerChoiceContext choiceContext)
         {
             await CreatureCmd.Damage(choiceContext, Owner.Creature, DynamicVars.Damage.BaseValue,
-                ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, null, this);
+                ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this, null);
             await CardCmd.Exhaust(choiceContext, this);
         }
     }

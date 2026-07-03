@@ -73,10 +73,11 @@ namespace STS2_AiACard_Multiplayer.Utils
             await AddGeneratedCardToCombatPile(card, PileType.Hand);
         }
 
-        public static async Task DealHpLoss(PlayerChoiceContext ctx, Creature target, decimal amount, CardModel source)
+        public static async Task DealHpLoss(PlayerChoiceContext ctx, Creature target, decimal amount, CardModel source,
+            CardPlay? cardPlay = null)
         {
             await CreatureCmd.Damage(ctx, target, amount, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move,
-                source);
+                source, cardPlay);
         }
 
         public static IReadOnlyList<CardModel> SnapshotHand(Player player)
