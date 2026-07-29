@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using STS2_AiACard_Multiplayer.Content;
 using STS2_AiACard_Multiplayer.Patches;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib;
 using STS2RitsuLib.Patching.Core;
 
@@ -12,6 +13,8 @@ namespace STS2_AiACard_Multiplayer
     public static class Main
     {
         public static readonly Logger Logger = RitsuLibFramework.CreateLogger(Const.ModId);
+
+        private static IDisposable? _initialOrbSlotSubscription;
 
         public static bool IsModActive { get; private set; }
 
@@ -69,6 +72,11 @@ namespace STS2_AiACard_Multiplayer
                     ]);
                 else
                     Logger.Warn("未找到 CardCmd.AutoPlay MoveNext，尸体说话自动选尸未启用。");
+
+                _initialOrbSlotSubscription ??=
+                    RitsuLibFramework.SubscribeLifecycle<SideTurnStartedEvent>(
+                        MpPlayerDeathCardStash.CaptureInitialOrbSlotCounts,
+                        false);
 
                 AiACardMultiplayerContentRegistrar.RegisterAll();
 

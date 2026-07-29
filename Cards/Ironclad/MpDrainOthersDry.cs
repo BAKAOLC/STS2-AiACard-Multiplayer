@@ -11,9 +11,17 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
     public sealed class MpDrainOthersDry()
         : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
-        private decimal _extraCardsFromPlays;
-        private decimal _extraEnergyFromPlays;
-        private decimal _extraHpLossFromPlays;
+        private int _timesPlayed;
+
+        private int TimesPlayed
+        {
+            get => _timesPlayed;
+            set
+            {
+                AssertMutable();
+                _timesPlayed = value;
+            }
+        }
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
@@ -41,38 +49,21 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
                 await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);
             }
-            await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
 
-            var rh = DynamicVars["DrainRampHp"].BaseValue;
-            var re = DynamicVars["DrainRampEnergy"].BaseValue;
-            var rc = DynamicVars["DrainRampCards"].BaseValue;
-            DynamicVars.Damage.BaseValue += rh;
-            _extraHpLossFromPlays += rh;
-            DynamicVars.Energy.BaseValue += re;
-            _extraEnergyFromPlays += re;
-            DynamicVars.Cards.BaseValue += rc;
-            _extraCardsFromPlays += rc;
+            await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
 
             if (!targetDied)
             {
-                var copy = MpHelpers.CreateCard<MpDrainOthersDry>(CombatState, target, IsUpgraded);
-                copy.InheritScaledStatsFrom(this);
-                await MpHelpers.AddToHand(choiceContext, copy);
+                var transferredCard = MpHelpers.CreateCard<MpDrainOthersDry>(CombatState, target, IsUpgraded);
+                transferredCard.SetTimesPlayed(TimesPlayed + 1);
+                await MpHelpers.AddToHand(choiceContext, transferredCard);
             }
         }
 
-        private void InheritScaledStatsFrom(MpDrainOthersDry source)
+        protected override CardLocation GetResultLocationForCardPlay()
         {
-            DynamicVars.Damage.BaseValue = source.DynamicVars.Damage.BaseValue;
-            DynamicVars.Energy.BaseValue = source.DynamicVars.Energy.BaseValue;
-            DynamicVars.Cards.BaseValue = source.DynamicVars.Cards.BaseValue;
-            _extraHpLossFromPlays = source._extraHpLossFromPlays;
-            _extraEnergyFromPlays = source._extraEnergyFromPlays;
-            _extraCardsFromPlays = source._extraCardsFromPlays;
+            return new(Owner, PileType.None, CardPilePosition.Bottom);
         }
-
-        protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay() =>
-            (PileType.None, CardPilePosition.Bottom);
 
         protected override void OnUpgrade()
         {
@@ -83,9 +74,20 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
         protected override void AfterDowngraded()
         {
             base.AfterDowngraded();
-            DynamicVars.Damage.BaseValue += _extraHpLossFromPlays;
-            DynamicVars.Energy.BaseValue += _extraEnergyFromPlays;
-            DynamicVars.Cards.BaseValue += _extraCardsFromPlays;
+            ApplyPlayScaling();
+        }
+
+        private void SetTimesPlayed(int timesPlayed)
+        {
+            TimesPlayed = timesPlayed;
+            ApplyPlayScaling();
+        }
+
+        private void ApplyPlayScaling()
+        {
+            DynamicVars.Damage.BaseValue += DynamicVars["DrainRampHp"].BaseValue * TimesPlayed;
+            DynamicVars.Energy.BaseValue += DynamicVars["DrainRampEnergy"].BaseValue * TimesPlayed;
+            DynamicVars.Cards.BaseValue += DynamicVars["DrainRampCards"].BaseValue * TimesPlayed;
         }
     }
 }

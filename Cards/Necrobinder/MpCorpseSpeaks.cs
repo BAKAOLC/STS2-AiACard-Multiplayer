@@ -11,6 +11,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
     /// <summary>尸体说话：复活或治疗队友，为其供能与抽牌，并在其手牌置入回合末爆发伤害。</summary>
     public sealed class MpCorpseSpeaks() : MpOnlyModCardTemplate(3, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new HealVar(7m),
@@ -39,6 +41,13 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
 
             if (!revived)
                 return;
+
+            var targetCombatState = target.PlayerCombatState;
+            ArgumentNullException.ThrowIfNull(targetCombatState);
+            var initialOrbSlots = MpPlayerDeathCardStash.GetInitialOrbSlotCount(targetCombatState);
+            var missingOrbSlots = initialOrbSlots - targetCombatState.OrbQueue.Capacity;
+            if (missingOrbSlots > 0)
+                await OrbCmd.AddSlots(target, missingOrbSlots);
 
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, target);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, target);

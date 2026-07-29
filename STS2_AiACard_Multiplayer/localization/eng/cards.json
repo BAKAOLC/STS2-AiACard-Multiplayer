@@ -22,7 +22,7 @@
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_MINION_RUSH.title": "Minion Rush",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_MINION_RUSH.description": "Transform every card in another player's [gold]Hand[/gold] into a [gold]Minion Strike[/gold].{IfUpgraded:show:\nAdd that many [gold]Minion Strike[/gold] to your [gold]Hand[/gold].|}",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_STAR_WALL.title": "Shared Star Wall",
-  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_STAR_WALL.description": "Costs X {singleStarIcon}. ALL players gain X/2 {singleStarIcon} (rounded down) and add one [gold]Ethereal[/gold] [gold]{IfUpgraded:show:Particle Wall+|Particle Wall}[/gold] and one [gold]{IfUpgraded:show:Alignment+|Alignment}[/gold] to their [gold]Hand[/gold].",
+  "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_STAR_WALL.description": "ALL players gain X/2 {singleStarIcon} (rounded down) and add one [gold]Ethereal[/gold] [gold]{IfUpgraded:show:Particle Wall+|Particle Wall}[/gold] and one [gold]{IfUpgraded:show:Alignment+|Alignment}[/gold] to their [gold]Hand[/gold].",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_DOOM_SLOW.title": "Shared Doom",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_SHARED_DOOM_SLOW.description": "Gain {DoomPower:diff()} [gold]Doom[/gold].\nAdd a [gold]{IfUpgraded:show:Reaper Form+|Reaper Form}[/gold] that must be played first to each player's [gold]Hand[/gold]; {IfUpgraded:show:it costs {energyPrefix:energyIcons(1)} until played|it costs {energyPrefix:energyIcons(1)} this turn}.",
   "STS2_AI_A_CARD_MULTIPLAYER_CARD_MP_GROUP_SACRIFICE.title": "Group Sacrifice",

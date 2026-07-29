@@ -13,6 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     {
         public const int GoldPerPlayerFactor = 25;
 
+        public override bool CanBeGeneratedInCombat => false;
+
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override CardAssetProfile AssetProfile =>

@@ -1,7 +1,10 @@
 using System.Collections.Concurrent;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
+using STS2RitsuLib;
+using STS2RitsuLib.Utils;
 
 namespace STS2_AiACard_Multiplayer.Utils
 {
@@ -9,10 +12,31 @@ namespace STS2_AiACard_Multiplayer.Utils
     internal static class MpPlayerDeathCardStash
     {
         private static readonly ConcurrentDictionary<ulong, Snapshot> Stash = new();
+        private static readonly AttachedState<PlayerCombatState, int> InitialOrbSlotCounts = new();
+
+        internal static void CaptureInitialOrbSlotCounts(SideTurnStartedEvent evt)
+        {
+            if (evt.Side != CombatSide.Player) return;
+
+            foreach (var player in evt.CombatState.Players)
+            {
+                var playerCombatState = player.PlayerCombatState;
+                if (playerCombatState != null)
+                    InitialOrbSlotCounts.TryAdd(playerCombatState, playerCombatState.OrbQueue.Capacity);
+            }
+        }
+
+        internal static int GetInitialOrbSlotCount(PlayerCombatState playerCombatState)
+        {
+            return InitialOrbSlotCounts.GetOrAdd(
+                playerCombatState,
+                playerCombatState.OrbQueue.Capacity);
+        }
 
         /// <summary>不改动牌堆；快照里弃牌=原弃牌+原手牌顺序，复活时手牌空、牌回弃牌堆。</summary>
         internal static void StoreSnapshot(ulong netId, PlayerCombatState pcs)
         {
+            GetInitialOrbSlotCount(pcs);
             var hand = pcs.Hand.Cards.ToList();
             var discard = pcs.DiscardPile.Cards.ToList();
             var mergedDiscard = new List<CardModel>(discard.Count + hand.Count);

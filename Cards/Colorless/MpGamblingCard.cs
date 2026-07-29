@@ -13,6 +13,8 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     /// <summary>赌怪：敌人获得力量与悬赏标记。</summary>
     public sealed class MpGamblingCard() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
+        public override bool CanBeGeneratedInCombat => false;
+
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
             new PowerVar<StrengthPower>(2),
