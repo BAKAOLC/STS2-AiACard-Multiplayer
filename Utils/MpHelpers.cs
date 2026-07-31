@@ -76,8 +76,13 @@ namespace STS2_AiACard_Multiplayer.Utils
         public static async Task DealHpLoss(PlayerChoiceContext ctx, Creature target, decimal amount, CardModel source,
             CardPlay? cardPlay = null)
         {
+#if STS2_AT_LEAST_0_110_0
             await CreatureCmd.Damage(ctx, target, amount, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move,
                 source, cardPlay);
+#else
+            await CreatureCmd.Damage(ctx, target, amount, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move,
+                source);
+#endif
         }
 
         public static IReadOnlyList<CardModel> SnapshotHand(Player player)

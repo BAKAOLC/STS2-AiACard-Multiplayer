@@ -22,8 +22,16 @@ namespace STS2_AiACard_Multiplayer.Powers
             new(Const.Paths.PowerIcons.MpDoubleAttackDamageThisTurnPower,
                 Const.Paths.PowerIcons.MpDoubleAttackDamageThisTurnPower);
 
-        public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props,
-            Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
+        public override decimal ModifyDamageMultiplicative(
+            Creature? target,
+            decimal amount,
+            ValueProp props,
+            Creature? dealer,
+            CardModel? cardSource
+#if STS2_AT_LEAST_0_110_0
+            , CardPlay? cardPlay
+#endif
+        )
         {
             if (dealer == null || dealer != Owner && !Owner.Pets.Contains<Creature>(dealer))
                 return 1m;

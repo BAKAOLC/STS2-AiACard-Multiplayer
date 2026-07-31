@@ -60,10 +60,17 @@ namespace STS2_AiACard_Multiplayer.Cards.Ironclad
             }
         }
 
+#if STS2_AT_LEAST_0_110_0
         protected override CardLocation GetResultLocationForCardPlay()
         {
             return new(Owner, PileType.None, CardPilePosition.Bottom);
         }
+#else
+        protected override PileType GetResultPileTypeForCardPlay()
+        {
+            return PileType.None;
+        }
+#endif
 
         protected override void OnUpgrade()
         {
