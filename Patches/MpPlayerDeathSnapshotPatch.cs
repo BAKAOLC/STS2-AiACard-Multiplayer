@@ -14,7 +14,17 @@ namespace STS2_AiACard_Multiplayer.Patches
 
         public static ModPatchTarget[] GetTargets()
         {
+#if STS2_AT_LEAST_0_110_0
+            return
+            [
+                new(
+                    typeof(CombatManager),
+                    nameof(CombatManager.HandlePlayerDeath),
+                    [typeof(CombatId?), typeof(Player)])
+            ];
+#else
             return [new(typeof(CombatManager), nameof(CombatManager.HandlePlayerDeath), [typeof(Player)])];
+#endif
         }
 
         public static void Prefix(Player player)
