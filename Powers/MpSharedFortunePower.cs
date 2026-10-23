@@ -50,7 +50,8 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (player == null || Amount <= 0)
                 return Task.CompletedTask;
 
-            room.AddExtraReward(player, new GoldReward(Amount, player));
+            room.AddExtraReward(player, new MpNamedGoldReward(Amount, player,
+                "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_SHARED_FORTUNE_POWER.reward"));
 
             return Task.CompletedTask;
         }

@@ -26,8 +26,11 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new PowerRegistrationEntry<MpDoubleDamageTakenPower>(),
             new PowerRegistrationEntry<MpDoubleAttackDamageThisTurnPower>(),
             new PowerRegistrationEntry<MpHangoverPower>(),
+            new PowerRegistrationEntry<MpDizzyPower>(),
+            new PowerRegistrationEntry<MpEmptyEnergyPower>(),
             new PowerRegistrationEntry<MpPerEnergySelfChannelPower>(),
             new PowerRegistrationEntry<MpPassTheFlameTemporaryStrengthPower>(),
+            new PowerRegistrationEntry<MpPassExhaustedCardsPower>(),
             new CardRegistrationEntry<IroncladCardPool, MpDrainOthersDry>(),
             new CardRegistrationEntry<IroncladCardPool, MpPassTheFlame>(),
             new CardRegistrationEntry<IroncladCardPool, MpYourBodySlam>(),
@@ -43,7 +46,7 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new CardRegistrationEntry<NecrobinderCardPool, MpSharedDoomSlow>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpGroupSacrifice>(),
             new CardRegistrationEntry<NecrobinderCardPool, MpBloodMistCard>(),
-            new CardRegistrationEntry<NecrobinderCardPool, MpCorpseSpeaks>(),
+            new CardRegistrationEntry<ColorlessCardPool, MpCorpseSpeaks>(),
             new SharedCardPoolRegistrationEntry<MpCorpseCurseCardPool>(),
             new CardRegistrationEntry<MpCorpseCurseCardPool, MpCorpseCurseToken>(),
             new CardRegistrationEntry<DefectCardPool, MpBiasedPartyCard>(),
@@ -59,7 +62,7 @@ namespace STS2_AiACard_Multiplayer.Content.Descriptors
             new CardRegistrationEntry<ColorlessCardPool, MpCheckYourDpsCard>(),
             new CardRegistrationEntry<ColorlessCardPool, MpWriggle>(),
             new CardRegistrationEntry<ColorlessCardPool, MpGamblingCard>(),
-            new CardRegistrationEntry<ColorlessCardPool, MpCoolSummerDoom>(),
+            new CardRegistrationEntry<NecrobinderCardPool, MpCoolSummerDoom>(),
         ];
     }
 }

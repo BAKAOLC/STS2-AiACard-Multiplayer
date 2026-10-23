@@ -17,9 +17,8 @@ namespace STS2_AiACard_Multiplayer.Patches
         {
             return
             [
-                new(typeof(CardModel), nameof(CardModel.GetDescriptionForPile),
-                    [typeof(PileType), typeof(Creature)]),
-                new(typeof(CardModel), nameof(CardModel.GetDescriptionForUpgradePreview), Type.EmptyTypes),
+                new(typeof(CardModel), "GetDescriptionForPile",
+                    [typeof(PileType), typeof(CardModel.DescriptionPreviewType), typeof(Creature)]),
             ];
         }
 

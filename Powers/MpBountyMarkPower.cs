@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.Rewards;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 using STS2RitsuLib.Scaffolding.Content;
+using STS2_AiACard_Multiplayer.Utils;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
@@ -93,7 +94,9 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (d.PaidOut)
                 return;
 
-            var pool = Math.Min(Owner.MaxHp, d.GoldCap);
+            var playerCount = Math.Max(1, Owner.CombatState?.Players.Count ?? 1);
+            var maxGold = Math.Max(d.GoldCap, (int)(Owner.MaxHp / playerCount));
+            var pool = killer.RunState.Rng.CombatCardGeneration.NextInt(d.GoldCap, maxGold + 1);
             if (pool <= 0)
                 return;
 
@@ -102,7 +105,8 @@ namespace STS2_AiACard_Multiplayer.Powers
                 return;
 
             d.PaidOut = true;
-            combatRoom.AddExtraReward(killer, new GoldReward(pool, killer));
+            combatRoom.AddExtraReward(killer, new MpNamedGoldReward(pool, killer,
+                "STS2_AI_A_CARD_MULTIPLAYER_POWER_MP_BOUNTY_MARK_POWER.reward"));
         }
 
         private static int ReadCapFromCard(CardModel? cardSource)
@@ -110,7 +114,7 @@ namespace STS2_AiACard_Multiplayer.Powers
             if (cardSource == null) return 0;
             if (!cardSource.DynamicVars.TryGetValue("BountyGoldCap", out var v)) return 0;
 
-            return (int)v.BaseValue;
+            return v.IntValue;
         }
 
         private void SyncCapToDynamicVars()

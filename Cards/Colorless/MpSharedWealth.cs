@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Models;
 using STS2_AiACard_Multiplayer.Powers;
 using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
 {
@@ -13,7 +14,10 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     {
         public const int GoldPerPlayerFactor = 25;
 
-        public override bool CanBeGeneratedInCombat => false;
+        protected override IEnumerable<DynamicVar> CanonicalVars =>
+            [new DynamicVar("GoldPerPlayer", GoldPerPlayerFactor)];
+
+        public override bool CanBeGeneratedInCombat => GenerationPolicy.AllowsPotionGeneration();
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -28,7 +32,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
             ArgumentNullException.ThrowIfNull(CombatState);
 
             var players = CombatState.Players.ToList();
-            var totalGold = GoldPerPlayerFactor * players.Count;
+            var totalGold = DynamicVars["GoldPerPlayer"].IntValue * players.Count;
             var shares = MpSharedWealthGoldDistribution.Distribute(
                 totalGold, players.Count, 1, Owner.RunState.Rng.Shuffle);
 

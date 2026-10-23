@@ -20,9 +20,22 @@ namespace STS2_AiACard_Multiplayer.Cards.Necrobinder
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpSharedDoomSlow, Const.Paths.CardPortraits.MpSharedDoomSlow);
 
-        protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            ModelDb.Power<DoomPower>().HoverTips
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<ReaperForm>(IsUpgraded));
+        protected override IEnumerable<IHoverTip> AdditionalHoverTips
+        {
+            get
+            {
+                var card = ModelDb.Card<ReaperForm>().ToMutable();
+                if (IsUpgraded)
+                    CardCmd.Upgrade(card);
+                MpRequiredFirstPlayCards.Mark(card);
+                if (IsUpgraded)
+                    card.EnergyCost.SetUntilPlayed(1, reduceOnly: true);
+                else
+                    card.EnergyCost.SetThisTurn(1);
+                return ModelDb.Power<DoomPower>().HoverTips
+                    .Concat([new CardHoverTip(card)]).Concat(card.HoverTips);
+            }
+        }
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

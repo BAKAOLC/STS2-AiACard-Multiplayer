@@ -8,10 +8,10 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Powers
 {
-    /// <summary>全靠我了后续：下回合开始时能量归零、不可抽牌，并获得原版 <see cref="RingingPower" />（昏眩）。</summary>
+    /// <summary>全靠我了后续：下回合分别施加三个可被抵挡的负面效果。</summary>
     public sealed class MpHangoverPower : ModPowerTemplate
     {
-        public override PowerType Type => PowerType.Debuff;
+        public override PowerType Type => PowerType.Buff;
 
         public override PowerStackType StackType => PowerStackType.Single;
 
@@ -21,16 +21,16 @@ namespace STS2_AiACard_Multiplayer.Powers
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
         [
             HoverTipFactory.FromPower<NoDrawPower>(),
-            HoverTipFactory.FromPower<RingingPower>(),
+            HoverTipFactory.FromPower<MpDizzyPower>(),
         ];
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
             if (player.Creature != Owner) return;
 
-            await PlayerCmd.SetEnergy(0, player);
+            await PowerCmd.Apply<MpEmptyEnergyPower>(choiceContext, Owner, 1, Owner, null);
             await PowerCmd.Apply<NoDrawPower>(choiceContext, Owner, 1, Owner, null);
-            await PowerCmd.Apply<RingingPower>(choiceContext, Owner, 1, Owner, null);
+            await PowerCmd.Apply<MpDizzyPower>(choiceContext, Owner, 1, Owner, null);
             await PowerCmd.Remove(this);
         }
     }

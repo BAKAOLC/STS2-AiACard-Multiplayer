@@ -11,53 +11,25 @@ using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Ironclad
 {
-    /// <summary>传火：消耗目标全部手牌；每消耗 2 张，目标获得 1 力量、你获得 2（3）临时力量并抽 1 张，双方各将 1 张虚无灼伤放入弃牌堆。</summary>
+    /// <summary>传火：本回合将你消耗的牌的复制品交给目标，目标下回合获得能量。</summary>
     public sealed class MpPassTheFlame()
-        : MpOnlyModCardTemplate(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
+        : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
         public override CardAssetProfile AssetProfile =>
             new(Const.Paths.CardPortraits.MpPassTheFlame, Const.Paths.CardPortraits.MpPassTheFlame);
 
         protected override IEnumerable<IHoverTip> AdditionalHoverTips =>
-            ModelDb.Power<MpPassTheFlameTemporaryStrengthPower>().HoverTips
-                .Concat([HoverTipFactory.FromPower<StrengthPower>()])
-                .Concat(HoverTipFactory.FromCardWithCardHoverTips<Burn>());
+            [HoverTipFactory.FromPower<MpPassExhaustedCardsPower>(), HoverTipFactory.FromPower<EnergyNextTurnPower>()];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(CombatState);
             var target = MpHelpers.RequireTargetPlayer(cardPlay);
-            var hand = MpHelpers.SnapshotHand(target);
-            foreach (var c in hand)
-                await CardCmd.Exhaust(choiceContext, c);
-
-            var bundles = hand.Count / 2;
-            if (bundles <= 0)
-                return;
-
-            var selfStrength = IsUpgraded ? 3 : 2;
-            await PowerCmd.Apply<StrengthPower>(choiceContext, target.Creature, bundles, Owner.Creature, this);
-            await PowerCmd.Apply<MpPassTheFlameTemporaryStrengthPower>(choiceContext, Owner.Creature,
-                bundles * selfStrength, Owner.Creature, this);
-            await CardPileCmd.Draw(choiceContext, bundles, Owner);
-
-            for (var i = 0; i < bundles; i++)
-            {
-                var targetBurn = MpHelpers.CreateCard(CombatState, target, ModelDb.Card<Burn>(), false);
-                CardCmd.ApplyKeyword(targetBurn, CardKeyword.Ethereal);
-                await MpHelpers.AddGeneratedCardsToCombatPile([targetBurn], PileType.Discard, previewPileAdd: true);
-
-                var ownerBurn = MpHelpers.CreateCard(CombatState, Owner, ModelDb.Card<Burn>(), false);
-                CardCmd.ApplyKeyword(ownerBurn, CardKeyword.Ethereal);
-                await MpHelpers.AddGeneratedCardsToCombatPile([ownerBurn], PileType.Discard, previewPileAdd: true);
-            }
-        }
-
-        protected override void OnUpgrade()
-        {
-            EnergyCost.UpgradeBy(-1);
+            var power = await PowerCmd.Apply<MpPassExhaustedCardsPower>(choiceContext, Owner.Creature, 1,
+                Owner.Creature, this);
+            if (power != null)
+                power.Recipient = target;
+            await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, target.Creature, IsUpgraded ? 2 : 1,
+                Owner.Creature, this);
         }
     }
 }

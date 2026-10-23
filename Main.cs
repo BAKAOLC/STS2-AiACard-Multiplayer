@@ -49,6 +49,7 @@ namespace STS2_AiACard_Multiplayer
                 corpsePatcher.RegisterPatch<MpSharedWealthFortuneCanReceivePowersPatch>();
                 corpsePatcher.RegisterPatch<MpRequiredFirstPlayCardCanPlayPatch>();
                 corpsePatcher.RegisterPatch<MpRequiredFirstPlayCardDescriptionPatch>();
+                corpsePatcher.RegisterPatch<MpEnthralledPriorityPatch>();
 
                 if (!corpsePatcher.PatchAll())
                 {
@@ -79,6 +80,16 @@ namespace STS2_AiACard_Multiplayer
                         false);
 
                 AiACardMultiplayerContentRegistrar.RegisterAll();
+                ContentOptions.Initialize();
+                var contentPatcher = RitsuLibFramework.CreatePatcher(Const.ModId, "content_options", "Content options");
+                contentPatcher.RegisterPatch<ContentOptionsCardPoolPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsGenerationPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsRelicPoolPatch>();
+                contentPatcher.RegisterPatch<ContentOptionsPotionPoolPatch>();
+                contentPatcher.RegisterPatch<CardLibraryVisibilityPatch>();
+                contentPatcher.RegisterPatch<RegentColorlessGenerationPatch>();
+                if (!contentPatcher.PatchAll())
+                    return;
 
                 IsModActive = true;
                 Logger.Info("Mod initialization complete - Mod is now ACTIVE");

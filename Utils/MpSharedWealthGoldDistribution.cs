@@ -25,8 +25,14 @@ namespace STS2_AiACard_Multiplayer.Utils
                 return shares;
             }
 
-            for (var i = 0; i < remaining; i++)
-                shares[rng.NextInt(playerCount)]++;
+            var first = rng.NextInt(playerCount);
+            for (var i = 0; i < playerCount - 1; i++)
+            {
+                var extra = rng.NextInt(remaining + 1);
+                shares[(first + i) % playerCount] += extra;
+                remaining -= extra;
+            }
+            shares[(first + playerCount - 1) % playerCount] += remaining;
 
             return shares;
         }

@@ -14,7 +14,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Defect
     public sealed class MpShockGift() : MpOnlyModCardTemplate(0, CardType.Skill, CardRarity.Common, TargetType.AnyAlly)
     {
         protected override IEnumerable<DynamicVar> CanonicalVars =>
-            [new IntVar("Orbs", 1), new CardsVar(2)];
+            [new IntVar("Orbs", 1), new CardsVar(1)];
 
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

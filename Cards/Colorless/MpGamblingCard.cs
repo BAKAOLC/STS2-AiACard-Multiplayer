@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using STS2_AiACard_Multiplayer.Powers;
+using STS2_AiACard_Multiplayer.Utils;
 using STS2RitsuLib.Scaffolding.Content;
 
 namespace STS2_AiACard_Multiplayer.Cards.Colorless
@@ -13,7 +14,7 @@ namespace STS2_AiACard_Multiplayer.Cards.Colorless
     /// <summary>赌怪：敌人获得力量与悬赏标记。</summary>
     public sealed class MpGamblingCard() : MpOnlyModCardTemplate(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        public override bool CanBeGeneratedInCombat => false;
+        public override bool CanBeGeneratedInCombat => GenerationPolicy.AllowsPotionGeneration();
 
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
